@@ -55,10 +55,14 @@ Humano não sorteia: teoria de aberturas concentra massa.
 
 ### 29. Simulador xadrez
 
-Mostre lado a lado 20ⁿ vs Perft, depois o **relógio**:
+Mostre lado a lado 20ⁿ vs Perft, depois o **relógio**.
 
-- contar Perft(n) a 10⁹ posições/s ainda cabe  
-- contar todas as partidas (~10¹²⁰, Shannon) são **idades do universo**
+**Como ler os `e+`:** `3.20e+6` = 3,20 × 10⁶ = 3,2 milhões. O `e` é “vezes dez elevado a”. `e-3` = milésimos.
+
+**Idade do universo:** ≈ 13,8 bilhões de anos. É a régua do segundo cartão.
+
+- contar Perft(n) a 10⁹ posições/s ainda cabe (n=6: fração de segundo; n=8: ~1 min)  
+- contar todas as partidas (~10¹²⁰, Shannon) ≈ **10⁹³ idades do universo** (no slide: algo como `2.3e+93`)
 
 Fala curta:
 

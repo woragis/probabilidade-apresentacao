@@ -30,3 +30,19 @@ Sem isso, o número no slide parece “mágico demais” e a turma desconfia —
 - **Poisson:** eventos raros no tempo; λ = quantos, em média, nesta janela. (Siméon Denis Poisson.)
 - **Monte Carlo:** aproximar uma chance sorteando muitas vezes. p̂ = acertos / tentativas. (Nome do cassino.)
 - **Perft:** PERformance Test — conta sequências legais de n plies no xadrez. Não é Shannon.
+
+## Como ler `e+` no slide
+
+`3.20e+6` = 3,20 × 10⁶ = 3,2 milhões. O número depois do `e` é **quantas casas** a vírgula anda: `e+6` seis para a direita, `e-4` quatro para a esquerda (`1.5e-4` = 0,00015).
+
+Exemplos para falar em voz alta:
+
+- `4.87e+6` → “cerca de 5 milhões”
+- `8.50e+10` → “85 bilhões”
+- `1.20e-3` → “um milésimo e pouco”
+- `2.3e+93` → “2 vezes 10 elevado a 93” — não tente falar o inteiro
+
+## Idade do universo (base do relógio no xadrez)
+
+≈ **13,8 bilhões de anos** (13,8 × 10⁹).  
+O simulador (slide 29) assume 10⁹ posições/s. Contar Perft nesta profundidade ainda cabe no relógio. Contar todas as partidas (~10¹²⁰) dá da ordem de **10⁹³ idades do universo** — por isso o computador busca, não enumera.
