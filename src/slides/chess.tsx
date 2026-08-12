@@ -254,9 +254,9 @@ export function ChessMarkovSlide() {
   return (
     <SlideShell eyebrow="Markov" title="No xadrez, o estado é a posição">
       <p className="mb-6 max-w-2xl text-text-subtle">
-        Aplica o slide anterior: S_t = tabuleiro (peças + roque + en passant). Os lances legais
-        saem só daqui. O jogador pode ter memória; as <span className="text-cream">regras</span>{" "}
-        não.
+        O próximo lance legal só depende da <span className="text-cream">posição agora</span>{" "}
+        (peças + roque + en passant). O jogador pode ter memória; as{" "}
+        <span className="text-cream">regras</span> não.
       </p>
       <div className="flex flex-wrap items-center gap-3 text-cream/80">
         {["S₀ abertura", "S₁", "S₂ meio", "…"].map((s, i) => (

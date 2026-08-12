@@ -1,4 +1,4 @@
-# Xadrez, War, Markov e síntese (slides 24–43)
+# Xadrez, War, Markov e síntese (slides 24–42)
 
 ## Xadrez
 
@@ -128,27 +128,13 @@ O computador **já prevê**: p exato da cadeia (A, D).
 Enumerar um 3v3 são microssegundos — no xadrez a árvore inteira não cabe.  
 Monte Carlo confere (p̂ + IC).
 
-**Gancho:** agora o mesmo motor nos dois mundos — Markov.
+**Gancho:** agora o estado no xadrez e no War — só o agora conta.
 
 ---
 
 ## Markov
 
-### 35. O que é Markov (visual)
-
-Fala (≈ 35 s):
-
-“Não precisa da lista da semana. Onde você está **hoje** já diz as chances de amanhã.  
-Clique Amanhã. Só as setas que saem do círculo âmbar importam.  
-A trilha é memória para nós; a máquina ignora.
-
-Depois: xadrez = a posição agora. War = as tropas agora. Mesma máquina.”
-
-**Gancho:** no tabuleiro, o estado é a posição.
-
----
-
-### 36. Markov no xadrez
+### 35. Markov no xadrez
 
 S_t = posição (peças + roque + en passant).  
 Lances legais saem só daqui. Jogador pode ter memória; as **regras** não.
@@ -157,7 +143,7 @@ Lances legais saem só daqui. Jogador pode ter memória; as **regras** não.
 
 ---
 
-### 37. Markov War — a grade
+### 36. Markov War — a grade
 
 Cada célula é um estado (A, D).  
 Verde: D = 0 (conquistou). Âmbar: A = 1 (esgotou).  
@@ -170,17 +156,17 @@ Conquistar = probabilidade de absorção no verde.
 
 ## Síntese
 
-### 38. Escada
+### 37. Escada
 
 Subimos de fração → processo → simulação.  
 Cada degrau teve um mundo: dado, orla, cães, xadrez.
 
-### 39. Improvável ≠ impossível
+### 38. Improvável ≠ impossível
 
 10⁻⁶ não é zero.  
 E[X] = N p: orla, Perft, 10×5 — com N grande o esperado deixa de ser desprezível.
 
-### 40. Limites — falar com honestidade
+### 39. Limites — falar com honestidade
 
 Três (agora quatro) limites que impedem conclusão errada:
 
@@ -191,16 +177,16 @@ Três (agora quatro) limites que impedem conclusão errada:
 
 Se sobrar 15 segundos, repita o item 2 — é o que salvou o bloco de encontros de parecer milagre.
 
-### 41. Demo livre
+### 40. Demo livre
 
 Podemos voltar para qualquer simulador e testar hipótese da turma.  
 Sugestão se perguntarem de encontros: “e se o N for metade?” — mexe no slider ao vivo.
 
-### 42. Créditos
+### 41. Créditos
 
 Fontes, parâmetros de modelo e stack — sem fingir que todo número é censo.
 
-### 43. Obrigado
+### 42. Obrigado
 
 Obrigado.  
 A pergunta permanece: quando algo parece impossível, **qual foi a cadeia de probabilidades** — e **qual era o denominador** — por trás?

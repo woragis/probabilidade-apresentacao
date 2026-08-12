@@ -77,7 +77,7 @@ const JUMPS: { id: string; label: string }[] = [
   { id: "dogs-ethics", label: SECTION_LABELS.caes },
   { id: "chess-hook", label: SECTION_LABELS.xadrez },
   { id: "war-hook", label: SECTION_LABELS.war },
-  { id: "markov-what", label: SECTION_LABELS.markov },
+  { id: "chess-markov", label: SECTION_LABELS.markov },
 ];
 
 export function DemoQaSlide() {

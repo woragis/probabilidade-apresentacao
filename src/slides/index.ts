@@ -25,10 +25,7 @@ import {
   EncounterSimulatorSlide,
   PoissonSlide,
 } from "./encounters";
-import {
-  MarkovExplainerSlide,
-  MonteCarloExplainerSlide,
-} from "./methods";
+import { MonteCarloExplainerSlide } from "./methods";
 import {
   BridgeSlide,
   ConditionalSlide,
@@ -179,13 +176,6 @@ export const SLIDES: SlideEntry[] = [
     section: "war",
     title: "Simulator War",
     Component: WarSimulatorSlide,
-    captureSpace: true,
-  },
-  {
-    id: "markov-what",
-    section: "markov",
-    title: "O que é Markov",
-    Component: MarkovExplainerSlide,
     captureSpace: true,
   },
   { id: "chess-markov", section: "markov", title: "Markov", Component: ChessMarkovSlide },

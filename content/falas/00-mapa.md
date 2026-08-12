@@ -1,7 +1,7 @@
 # Mapa da apresentação
 
 **Título:** Quão improvável é o acaso?  
-**Formato:** deck fullscreen (← → / Space) · 43 slides
+**Formato:** deck fullscreen (← → / Space) · 42 slides
 
 ## Blocos e tempo sugerido
 
@@ -11,9 +11,10 @@
 | Fundamentos | 4–9 | 5 min | Fração, dado, Venn, condicional |
 | **Encontros** | **10–17** | **10 min** | **N efetivo + binomial/Poisson/Monte Carlo visuais** |
 | Cães & Bayes | 18–23 | 8 min | Não inverter condicionais |
-| Xadrez | 24–31 | 8 min | 20ⁿ vs Perft + **o que é Markov** |
-| War | 32–37 | 6 min | Combate + grade de estados |
-| Síntese | 38–43 | 4 min | Limites do modelo + Q&A |
+| Xadrez | 24–29 | 8 min | 20ⁿ vs Perft + relógio |
+| War | 30–34 | 6 min | Combate + simulação |
+| Markov | 35–36 | 3 min | Estado no tabuleiro e nas tropas |
+| Síntese | 37–42 | 4 min | Limites do modelo + Q&A |
 
 ## Momento crítico (não pular)
 
