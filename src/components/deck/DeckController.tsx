@@ -2,12 +2,31 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AmbientParticles } from "@/components/deck/AmbientParticles";
 import { ProgressBar } from "@/components/deck/ProgressBar";
 import { useDeckStore } from "@/lib/deck-store";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { SLIDES } from "@/slides";
+
+const PREV_ZONE = 0.22;
+const NEXT_ZONE = 0.78;
+
+function isInteractive(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return false;
+  return Boolean(
+    target.closest(
+      "button, a, input, textarea, select, label, [role='button'], [role='slider']",
+    ),
+  );
+}
+
+function zoneAt(clientX: number): "prev" | "next" | null {
+  const x = clientX / window.innerWidth;
+  if (x <= PREV_ZONE) return "prev";
+  if (x >= NEXT_ZONE) return "next";
+  return null;
+}
 
 export function DeckController() {
   const searchParams = useSearchParams();
@@ -21,6 +40,7 @@ export function DeckController() {
   const goEnd = useDeckStore((s) => s.goEnd);
   const reduced = usePrefersReducedMotion();
   const synced = useRef(false);
+  const [edge, setEdge] = useState<"prev" | "next" | null>(null);
 
   useEffect(() => {
     setTotal(SLIDES.length);
@@ -96,7 +116,24 @@ export function DeckController() {
   }, [next, prev, goHome, goEnd, slide.captureSpace]);
 
   return (
-    <div className="relative h-dvh w-dvw overflow-hidden bg-ink text-cream">
+    <div
+      className="relative h-dvh w-dvw overflow-hidden bg-ink text-cream"
+      style={{
+        cursor: edge === "prev" ? "w-resize" : edge === "next" ? "e-resize" : undefined,
+      }}
+      onMouseMove={(e) => {
+        const z = isInteractive(e.target) ? null : zoneAt(e.clientX);
+        setEdge((cur) => (cur === z ? cur : z));
+      }}
+      onMouseLeave={() => setEdge(null)}
+      onClick={(e) => {
+        if (e.button !== 0) return;
+        if (isInteractive(e.target)) return;
+        const z = zoneAt(e.clientX);
+        if (z === "prev") prev();
+        if (z === "next") next();
+      }}
+    >
       <div
         className="pointer-events-none absolute inset-0 opacity-90"
         style={{
@@ -129,6 +166,23 @@ export function DeckController() {
           <Slide />
         </motion.div>
       </AnimatePresence>
+
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 left-0 z-40 flex w-[22%] items-center justify-start pl-3 text-4xl text-cream/25 transition-opacity duration-200 ${
+          edge === "prev" ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        ‹
+      </div>
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 right-0 z-40 flex w-[22%] items-center justify-end pr-3 text-4xl text-cream/25 transition-opacity duration-200 ${
+          edge === "next" ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        ›
+      </div>
     </div>
   );
 }

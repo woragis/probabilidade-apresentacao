@@ -23,11 +23,13 @@ Falas no celular: [`/roteiro`](https://probabilidade.woragis.me/roteiro).
 |-------|------|
 | → / Espaço / PageDown | Próximo slide |
 | ← / PageUp | Slide anterior |
+| Clique na faixa **direita** (~22%) | Próximo slide |
+| Clique na faixa **esquerda** (~22%) | Slide anterior |
 | Home | Primeiro slide |
 | End | Último slide |
 | `?s=12` na URL | Ir direto ao slide 12 (ensaio) |
 
-Cliques ficam reservados a simulators e toggles.
+Botões, sliders e links no meio do slide continuam clicáveis.
 
 **43 slides** · seções: Abertura → Fundamentos → Encontros → Cães & Bayes → Xadrez → War → Markov → Síntese.
 
