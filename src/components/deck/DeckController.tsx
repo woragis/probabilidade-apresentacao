@@ -95,8 +95,8 @@ export function DeckController() {
         className="pointer-events-none absolute inset-0 opacity-90"
         style={{
           backgroundImage:
-            "radial-gradient(ellipse at 20% 0%, rgba(45,212,191,0.08), transparent 45%), radial-gradient(ellipse at 90% 80%, rgba(245,158,11,0.07), transparent 40%), linear-gradient(160deg, #0b0e13 0%, #121820 50%, #0d1118 100%)",
-          transform: reduced ? undefined : `translateY(${(index % 5) * -2}px)`,
+            "radial-gradient(ellipse at 20% 4%, rgba(95,168,211,0.1), transparent 45%), radial-gradient(ellipse at 88% 80%, rgba(217,164,65,0.08), transparent 40%), linear-gradient(160deg, #05070b 0%, #0a0f17 54%, #070b11 100%)",
+          transform: reduced ? undefined : `translateY(${(index % 4) * -1.5}px)`,
           transition: reduced ? undefined : "transform 600ms ease",
         }}
       />
@@ -115,9 +115,9 @@ export function DeckController() {
         <motion.div
           key={slide.id}
           className="absolute inset-0"
-          initial={reduced ? false : { opacity: 0, y: 16 }}
+          initial={reduced ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={reduced ? undefined : { opacity: 0, y: -12 }}
+          exit={reduced ? undefined : { opacity: 0, y: -8 }}
           transition={{ duration: reduced ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           <Slide />

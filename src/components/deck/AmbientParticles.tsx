@@ -18,11 +18,11 @@ export function AmbientParticles({ count = 18, className = "" }: Props) {
         const left = (i * 37) % 100;
         const top = (i * 53) % 100;
         const size = 2 + (i % 3);
-        const duration = 22 + (i % 7) * 4;
+        const duration = 26 + (i % 7) * 5;
         return (
           <motion.span
             key={i}
-            className="absolute rounded-full bg-amber/30"
+            className="absolute rounded-full bg-amber/25"
             style={{
               left: `${left}%`,
               top: `${top}%`,
@@ -30,8 +30,8 @@ export function AmbientParticles({ count = 18, className = "" }: Props) {
               height: size,
             }}
             animate={{
-              y: [0, -24, 0],
-              opacity: [0.15, 0.45, 0.15],
+              y: [0, -14, 0],
+              opacity: [0.08, 0.25, 0.08],
             }}
             transition={{
               duration,

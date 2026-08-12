@@ -8,22 +8,15 @@ import { twoDiceSumPmf } from "@/lib/math";
 
 export function WhatIsProbabilitySlide() {
   return (
-    <SlideShell eyebrow="Fundamentos" title="O que é probabilidade?">
-      <div className="space-y-6">
+    <SlideShell eyebrow="Fundamentos" title="Quanto do universo é favorável?">
+      <div className="space-y-8">
         <Formula display tex={String.raw`P(A)=\dfrac{|A|}{|\Omega|}`} />
-        <p className="max-w-2xl text-lg text-cream/65">
-          Em um espaço amostral finito com resultados igualmente prováveis, a
-          probabilidade de um evento é a fração dos resultados favoráveis.
-        </p>
-        <div className="flex flex-wrap gap-6 text-sm text-cream/50">
-          <span>
-            Complemento: <Formula tex={String.raw`P(A^c)=1-P(A)`} />
+        <div className="grid max-w-3xl gap-4 md:grid-cols-2">
+          <span className="rounded border border-white/15 bg-white/5 px-4 py-3 text-sm text-text-subtle">
+            Complemento · <Formula tex={String.raw`P(A^c)=1-P(A)`} />
           </span>
-          <span>
-            União:{" "}
-            <Formula
-              tex={String.raw`P(A\cup B)=P(A)+P(B)-P(A\cap B)`}
-            />
+          <span className="rounded border border-white/15 bg-white/5 px-4 py-3 text-sm text-text-subtle">
+            União · <Formula tex={String.raw`P(A\cup B)=P(A)+P(B)-P(A\cap B)`} />
           </span>
         </div>
       </div>
@@ -49,7 +42,7 @@ export function SingleDieSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Fundamentos" title="Um dado justo">
+    <SlideShell eyebrow="Fundamentos" title="A pergunta é visual: 1 em 6">
       <div className="flex flex-col items-start gap-10 md:flex-row md:items-center">
         <button
           type="button"
@@ -59,12 +52,9 @@ export function SingleDieSlide() {
         >
           {face}
         </button>
-        <div className="space-y-4">
+        <div className="space-y-6">
           <Formula display tex={String.raw`P(6)=\dfrac{1}{6}\approx 0{,}1667`} />
-          <p className="text-cream/60">
-            Cada face é um ponto de <Formula tex={String.raw`\Omega`} />. Clique
-            no dado para sortear.
-          </p>
+          <p className="text-sm text-text-subtle">Clique: a intuição vira frequência.</p>
           <PrimaryButton onClick={roll}>Rolar</PrimaryButton>
         </div>
       </div>
@@ -83,14 +73,11 @@ export function TwoDiceSlide() {
   const p7 = twoDiceSumPmf().get(7)!;
 
   return (
-    <SlideShell eyebrow="Fundamentos" title="Dois dados — a soma 7" wide>
+    <SlideShell eyebrow="Fundamentos" title="Por que 7 aparece tanto?" wide>
       <div className="grid gap-10 lg:grid-cols-[1fr_auto]">
-        <div>
+        <div className="space-y-4">
           <Formula display tex={String.raw`P(\text{soma}=7)=\dfrac{6}{36}`} />
-          <p className="mt-4 text-cream/60">
-            Seis pares: (1,6) (2,5) (3,4) (4,3) (5,2) (6,1). Em decimal:{" "}
-            {(p7 * 100).toFixed(2)}%.
-          </p>
+          <p className="font-mono text-3xl text-amber">{(p7 * 100).toFixed(2)}%</p>
         </div>
         <div className="grid grid-cols-6 gap-1">
           {cells.map((c) => (
@@ -117,7 +104,7 @@ export function VennSlide() {
   const [showB, setShowB] = useState(true);
 
   return (
-    <SlideShell eyebrow="Fundamentos" title="Independência, união, interseção">
+    <SlideShell eyebrow="Fundamentos" title="Interseção: onde os dois acontecem">
       <div className="flex flex-col gap-8 md:flex-row md:items-center">
         <svg viewBox="0 0 320 200" className="h-48 w-full max-w-sm">
           <rect width="320" height="200" fill="transparent" />
@@ -142,7 +129,7 @@ export function VennSlide() {
             B
           </text>
         </svg>
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div className="flex gap-3">
             <button
               type="button"
@@ -161,12 +148,8 @@ export function VennSlide() {
               Destacar B
             </button>
           </div>
-          <p className="text-cream/60">
-            Se A e B são independentes:{" "}
+          <p className="text-lg text-cream/80">
             <Formula tex={String.raw`P(A\cap B)=P(A)P(B)`} />
-          </p>
-          <p className="text-cream/60">
-            Interseção ≠ “quase a mesma coisa” — é o evento em que ambos ocorrem.
           </p>
         </div>
       </div>
@@ -180,15 +163,15 @@ export function ConditionalSlide() {
   const pAgivenB = pAandB / pB;
 
   return (
-    <SlideShell eyebrow="Fundamentos" title="Probabilidade condicional">
+    <SlideShell eyebrow="Fundamentos" title="Quando B acontece, o universo muda">
       <Formula
         display
         tex={String.raw`P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}`}
       />
-      <div className="mt-8 max-w-md space-y-4">
+      <div className="mt-8 max-w-md space-y-5">
         <label className="block text-sm text-cream/70">
           P(B) = {pB.toFixed(2)}{" "}
-          <span className="text-cream/40">(parâmetro)</span>
+          <span className="text-text-subtle/70">(parâmetro)</span>
           <input
             type="range"
             min={0.16}
@@ -200,12 +183,9 @@ export function ConditionalSlide() {
             className="mt-2 h-1.5 w-full appearance-none rounded-full bg-white/10 accent-teal"
           />
         </label>
-        <p className="text-lg text-cream/80">
-          Com <Formula tex={String.raw`P(A\cap B)=0{,}15`} /> (fixado):{" "}
-          <span className="font-mono text-amber">{pAgivenB.toFixed(3)}</span>
-        </p>
-        <p className="text-sm text-cream/50">
-          Condicionar em B restringe o universo — a pergunta muda.
+        <p className="font-mono text-4xl text-amber">{pAgivenB.toFixed(3)}</p>
+        <p className="text-sm text-text-subtle">
+          Com P(A∩B) fixo, variar P(B) altera a resposta.
         </p>
       </div>
     </SlideShell>
@@ -214,13 +194,11 @@ export function ConditionalSlide() {
 
 export function BridgeSlide() {
   return (
-    <SlideShell eyebrow="Ponte" title="Agora empilhamos condições">
-      <p className="max-w-2xl text-xl leading-relaxed text-cream/70 md:text-2xl">
-        Um dado é simples. Encontrar a mesma pessoa, sob horário, lugar e
-        fluxo — ou uma sequência de lances de xadrez — é o produto de muitas
-        probabilidades condicionais.
+    <SlideShell eyebrow="Ponte" title="Do simples ao improvável">
+      <p className="max-w-2xl text-2xl leading-relaxed text-cream/80 md:text-3xl">
+        Evento raro = multiplicar condicionais.
       </p>
-      <p className="mt-8 text-teal-muted">Entramos no mundo real →</p>
+      <p className="mt-8 text-text-subtle">Entramos no mundo real →</p>
     </SlideShell>
   );
 }

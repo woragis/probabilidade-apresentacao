@@ -37,13 +37,9 @@ export function LadderSlide() {
 export function ImprobableSlide() {
   return (
     <SlideShell eyebrow="Síntese" title="Improvável ≠ impossível">
-      <p className="max-w-2xl text-2xl leading-relaxed text-cream/75">
-        Eventos com probabilidade minúscula ocorrem o tempo todo — porque o
-        número de tentativas (pessoas, partidas, dias) é enorme.
-      </p>
-      <p className="mt-8 text-cream/50">
-        Lei dos grandes números · paradoxo do aniversário · coincidências
-        seletivas.
+      <p className="font-mono text-5xl text-amber md:text-7xl">10⁻⁶</p>
+      <p className="mt-6 max-w-2xl text-2xl text-cream/80">
+        Em milhões de tentativas, o raro aparece.
       </p>
     </SlideShell>
   );
@@ -52,15 +48,13 @@ export function ImprobableSlide() {
 export function LimitsSlide() {
   return (
     <SlideShell eyebrow="Limites" title="O que o modelo não é">
-      <ul className="max-w-2xl space-y-4 text-lg text-cream/70">
+      <ul className="max-w-2xl space-y-4 text-lg text-cream/80">
         <li>Parâmetro editável ≠ medição empírica.</li>
         <li>População da cidade ≠ denominador do encontro no calçadão.</li>
         <li>
           <span className="text-amber">P(raça | fatal)</span> ≠{" "}
           <span className="text-teal">P(fatal | raça)</span>.
         </li>
-        <li>20ⁿ no xadrez é pedagogia do erro, não do tabuleiro.</li>
-        <li>Monte Carlo estima — não substitui o modelo quando ele é exato.</li>
       </ul>
     </SlideShell>
   );
@@ -78,9 +72,7 @@ export function DemoQaSlide() {
 
   return (
     <SlideShell eyebrow="Q&A" title="Demo livre">
-      <p className="mb-6 text-cream/60">
-        Volte a um simulator. Setas navegam; estes atalhos saltam de seção.
-      </p>
+      <p className="mb-6 text-text-subtle">Atalhos de seção.</p>
       <div className="flex flex-wrap gap-3">
         {JUMPS.map((j) => (
           <button
@@ -100,8 +92,8 @@ export function DemoQaSlide() {
 
 export function CreditsSlide() {
   return (
-    <SlideShell eyebrow="Fontes" title="Créditos e referências">
-      <ul className="max-w-2xl space-y-3 text-sm text-cream/65">
+    <SlideShell eyebrow="Fontes" title="Referências">
+      <ul className="max-w-2xl space-y-3 text-sm text-text-subtle">
         <li>Perft (xadrez): valores canônicos da posição inicial.</li>
         <li>
           Populações urbanas: figuras censitárias de referência (contexto; não
@@ -122,7 +114,7 @@ export function CreditsSlide() {
 export function ThanksSlide() {
   return (
     <SlideShell>
-      <p className="text-sm tracking-[0.25em] text-teal-muted uppercase">
+      <p className="text-sm tracking-[0.25em] text-text-subtle uppercase">
         Fim
       </p>
       <h2 className="font-display mt-4 text-5xl text-cream md:text-6xl">
@@ -130,7 +122,7 @@ export function ThanksSlide() {
         <br />
         <span className="text-amber">é o acaso?</span>
       </h2>
-      <p className="mt-8 text-cream/50">Perguntas · discussão · replay dos simulators</p>
+      <p className="mt-8 text-text-subtle">Perguntas · replay dos simulators</p>
     </SlideShell>
   );
 }

@@ -36,11 +36,7 @@ export function WarHookSlide() {
   return (
     <div className="relative h-full w-full">
       <MediaBackdrop src="/media/war/map.png" opacity={0.28} />
-      <SlideShell eyebrow="War" title="Dados, territórios, conquistas">
-        <p className="max-w-2xl text-xl text-cream/70">
-          No War (Risk), cada combate é um experimento aleatório encadeado — e o
-          mapa inteiro é um processo estocástico de estados.
-        </p>
+      <SlideShell eyebrow="War" title="Com 10 x 5, eu conquisto?">
         <div className="mt-10 flex gap-3">
           {faces.map((f, i) => (
             <div
@@ -61,30 +57,23 @@ export function WarCombatSlide() {
   const c32 = enumerateCombat(3, 2);
 
   return (
-    <SlideShell eyebrow="Combate" title="Tabelas de dados" wide>
+    <SlideShell eyebrow="Combate" title="Três números que importam" wide>
       <div className="grid gap-8 md:grid-cols-2">
-        <div>
-          <p className="text-sm text-cream/45">1 vs 1 — atacante vence se A &gt; D</p>
-          <Formula display tex={String.raw`P(A>D)=\dfrac{15}{36}\approx 0{,}4167`} />
-          <p className="font-mono text-teal">{(one * 100).toFixed(2)}%</p>
+        <div className="rounded border border-white/10 bg-white/[0.03] p-5">
+          <p className="text-xs tracking-[0.14em] text-text-subtle uppercase">1 vs 1</p>
+          <p className="font-mono text-5xl text-teal">{(one * 100).toFixed(2)}%</p>
         </div>
-        <div>
-          <p className="text-sm text-cream/45">3 vs 2 — médias (enumeração exata)</p>
-          <ul className="mt-3 space-y-2 text-cream/70">
+        <div className="rounded border border-white/10 bg-white/[0.03] p-5">
+          <p className="text-xs tracking-[0.14em] text-text-subtle uppercase">3 vs 2 (médias)</p>
+          <ul className="mt-3 space-y-2 text-cream/80">
             <li>
-              E[perdas atacante] ={" "}
-              <span className="font-mono text-amber">
-                {c32.meanAttackerLosses.toFixed(3)}
-              </span>
+              A perde <span className="font-mono text-amber">{c32.meanAttackerLosses.toFixed(3)}</span>
             </li>
             <li>
-              E[perdas defensor] ={" "}
-              <span className="font-mono text-amber">
-                {c32.meanDefenderLosses.toFixed(3)}
-              </span>
+              D perde <span className="font-mono text-amber">{c32.meanDefenderLosses.toFixed(3)}</span>
             </li>
-            <li className="text-xs text-cream/40">
-              Universo: {c32.total.toLocaleString("pt-BR")} resultados
+            <li className="text-xs text-text-subtle">
+              universo: {c32.total.toLocaleString("pt-BR")}
             </li>
           </ul>
         </div>
@@ -113,7 +102,7 @@ export function WarChainSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Cadeia" title="Batalha lance a lance">
+    <SlideShell eyebrow="Cadeia" title="Uma decisão por rolagem">
       <div className="flex gap-10 text-center">
         <div>
           <p className="text-xs text-cream/40">Atacante</p>
@@ -136,7 +125,7 @@ export function WarChainSlide() {
           Reset
         </PrimaryButton>
       </div>
-      <ul className="mt-6 space-y-1 font-mono text-xs text-cream/45">
+      <ul className="mt-6 space-y-1 font-mono text-xs text-text-subtle">
         {log.map((entry) => (
           <li key={entry.id}>{entry.line}</li>
         ))}
@@ -156,19 +145,12 @@ export function WarPartitionsSlide() {
   const approx = Number(count);
 
   return (
-    <SlideShell eyebrow="Combinatória" title="42 territórios · 6 jogadores">
-      <Formula
-        display
-        tex={String.raw`\dfrac{42!}{(7!)^{6}}\approx 1{,}03\times 10^{31}`}
-      />
+    <SlideShell eyebrow="Combinatória" title="Escala do setup inicial">
+      <Formula display tex={String.raw`\dfrac{42!}{(7!)^{6}}\approx 1{,}03\times 10^{31}`} />
       <p className="mt-6 font-mono text-xl text-amber">
         {approx.toExponential(3)}
       </p>
-      <p className="mt-4 max-w-xl text-cream/55">
-        Partições iguais de 7 territórios — escala astronômica só no setup
-        inicial, antes mesmo das batalhas.
-      </p>
-      <p className="mt-2 text-xs text-cream/35">
+      <p className="mt-2 text-xs text-text-subtle">
         Valor exato (BigInt): {count.toString().slice(0, 12)}…
       </p>
     </SlideShell>
@@ -196,7 +178,7 @@ export function WarSimulatorSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Monte Carlo" title="Probabilidade de conquista" wide>
+    <SlideShell eyebrow="Monte Carlo" title="Responder com simulação" wide>
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-4" onKeyDown={(e) => e.stopPropagation()}>
           <SliderControl label="Tropas atacante" value={att} min={2} max={30} onChange={setAtt} />
@@ -214,20 +196,20 @@ export function WarSimulatorSlide() {
             {running ? "Simulando…" : "Simular conquistas"}
           </PrimaryButton>
         </div>
-        <div>
+        <div className="grid place-items-center rounded border border-white/10 bg-white/[0.03] p-6">
           {result ? (
             <>
-              <p className="text-xs text-cream/40">p̂ conquista</p>
-              <p className="font-mono text-4xl text-amber">
+              <p className="text-xs text-text-subtle">p̂ conquista</p>
+              <p className="font-mono text-6xl text-amber">
                 <NumberTicker value={result.pHat * 100} digits={2} suffix="%" />
               </p>
-              <p className="mt-4 text-sm text-cream/55">
+              <p className="mt-4 text-sm text-text-subtle">
                 IC 95%: [{(result.ci95.low * 100).toFixed(2)}%,{" "}
                 {(result.ci95.high * 100).toFixed(2)}%]
               </p>
             </>
           ) : (
-            <p className="text-cream/40">Rode a simulação para estimar p̂.</p>
+            <p className="text-text-subtle">Rode a simulação.</p>
           )}
         </div>
       </div>
@@ -237,7 +219,7 @@ export function WarSimulatorSlide() {
 
 export function WarMarkovSlide() {
   return (
-    <SlideShell eyebrow="Markov" title="Estado do tabuleiro War">
+    <SlideShell eyebrow="Markov" title="War também é estado">
       <Formula
         display
         tex={String.raw`S_t=(\text{territórios},\text{tropas},\text{jogador},\ldots)`}
@@ -247,11 +229,7 @@ export function WarMarkovSlide() {
         className="mt-4 block"
         tex={String.raw`P(S_{t+1}\mid S_t)`}
       />
-      <p className="mt-6 max-w-2xl text-cream/60">
-        Cada combate atualiza o estado. Perguntas naturais: probabilidade de
-        controlar um continente após k rodadas; probabilidade de uma
-        configuração voltar a aparecer.
-      </p>
+      <p className="mt-6 max-w-2xl text-text-subtle">Cada combate muda Sₜ e o próximo turno provável.</p>
     </SlideShell>
   );
 }

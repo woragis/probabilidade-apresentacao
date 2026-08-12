@@ -32,25 +32,19 @@ export function DogsEthicsSlide() {
   return (
     <div className="relative h-full w-full">
       <MediaBackdrop src="/media/dogs/silhouette.png" opacity={0.22} />
-      <SlideShell eyebrow="Cães & Bayes" title="Framing: cenário, não estigma">
-        <ul className="max-w-2xl space-y-4 text-lg text-cream/70">
+      <SlideShell eyebrow="Cães & Bayes" title="Dados, não estigma">
+        <ul className="max-w-2xl space-y-4 text-lg text-cream/80">
           <li>
-            Trabalhamos com{" "}
-            <strong className="font-medium text-cream">
-              probabilidade de encontro/incidente sob condições
-            </strong>
-            — não com a tese de “raça assassina”.
+            Probabilidade de cenário, não essência de raça.
           </li>
           <li>
-            Todo número na tela leva rótulo:{" "}
+            Todo número é rotulado:{" "}
             <DataLabel kind="observado" label="dado" />{" "}
             <DataLabel kind="derivado" label="calculado" />{" "}
             <DataLabel kind="parâmetro do modelo" label="hipótese" />
           </li>
           <li>
-            Tabelas de fatalidade por raça medem{" "}
-            <Formula tex={String.raw`P(\text{raça}\mid\text{fatal})`} /> — o
-            inverso de{" "}
+            <Formula tex={String.raw`P(\text{raça}\mid\text{fatal})`} /> ≠{" "}
             <Formula tex={String.raw`P(\text{fatal}\mid\text{raça})`} />.
           </li>
         </ul>
@@ -69,7 +63,7 @@ export function DogsChainSlide() {
   const product = chainProduct(factors.map((f) => f.p));
 
   return (
-    <SlideShell eyebrow="Cadeia" title="Produto de condicionais">
+    <SlideShell eyebrow="Cadeia" title="Uma chance nasce de várias chances">
       <Formula
         display
         tex={String.raw`P(I)=P(S)\,P(C\mid S)\,P(R\mid C,S)\,P(I\mid R,C,S)`}
@@ -89,38 +83,25 @@ export function DogsChainSlide() {
         <span className="text-cream/30">=</span>
         <p className="font-mono text-2xl text-teal">{product.toExponential(3)}</p>
       </div>
-      <p className="mt-6 text-sm text-cream/45">
-        Valores ilustrativos (parâmetros do modelo) — ajuste no simulator.
-      </p>
+      <p className="mt-6 text-sm text-text-subtle">Ajuste cada fator no simulador.</p>
     </SlideShell>
   );
 }
 
 export function DogsBayesSlide() {
   return (
-    <SlideShell eyebrow="Assinatura" title="Bayes inverte a pergunta">
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-4">
-          <p className="text-cream/55">O que a tabela de fatalidades dá:</p>
-          <Formula display tex={String.raw`P(\text{raça}\mid\text{ataque fatal})`} />
-          <p className="text-sm text-cream/45">
-            “Dado que houve morte, qual a fração atribuída a cada raça?”
-          </p>
+    <SlideShell eyebrow="Assinatura" title="Mesmas palavras. Perguntas opostas.">
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded border border-amber/40 bg-amber/10 p-6">
+          <p className="mb-3 text-xs tracking-[0.14em] text-text-subtle uppercase">o dado traz</p>
+          <Formula display tex={String.raw`P(\text{raça}\mid\text{fatal})`} />
         </div>
-        <div className="space-y-4">
-          <p className="text-cream/55">O que a intuição pede (e exige base):</p>
-          <Formula display tex={String.raw`P(\text{ataque fatal}\mid\text{raça})`} />
-          <Formula
-            display
-            tex={String.raw`P(A\mid B)=\dfrac{P(B\mid A)P(A)}{P(B)}`}
-          />
+        <div className="rounded border border-teal/40 bg-teal/10 p-6">
+          <p className="mb-3 text-xs tracking-[0.14em] text-text-subtle uppercase">o público entende</p>
+          <Formula display tex={String.raw`P(\text{fatal}\mid\text{raça})`} />
         </div>
       </div>
-      <p className="mt-8 max-w-2xl text-cream/60">
-        Sem a prevalência da raça na população canina e a taxa base de
-        incidentes,{" "}
-        <span className="text-amber">não dá para ler a tabela como risco por raça</span>.
-      </p>
+      <Formula className="mt-6 block" display tex={String.raw`P(A\mid B)=\dfrac{P(B\mid A)P(A)}{P(B)}`} />
     </SlideShell>
   );
 }
@@ -132,12 +113,7 @@ export function DogsSimulatorSlide() {
   const posterior = bayesBinary(sens, pA, falsePos);
 
   return (
-    <SlideShell eyebrow="Simulator" title="Bayes numérico (cenário)">
-      <p className="mb-4 text-sm text-cream/50">
-        Hipótese A = “fator de risco presente”. Evidência B = “incidente
-        classificado”. Todos os inputs são{" "}
-        <DataLabel kind="parâmetro do modelo" label="editáveis" />.
-      </p>
+    <SlideShell eyebrow="Simulator" title="Qual posterior sai desse cenário?">
       <div className="max-w-md space-y-4" onKeyDown={(e) => e.stopPropagation()}>
         <SliderControl
           label="P(A) prior"
@@ -167,7 +143,7 @@ export function DogsSimulatorSlide() {
           format={(v) => v.toFixed(2)}
         />
       </div>
-      <p className="mt-8 font-display text-3xl text-amber">
+      <p className="mt-8 font-display text-5xl text-amber">
         P(A|B) ≈ {(posterior * 100).toFixed(1)}%
       </p>
       <PrimaryButton
@@ -190,8 +166,8 @@ export function DogsChartSlide() {
   );
 
   return (
-    <SlideShell eyebrow="Dados" title="Fatalidades por raça (EUA, 15 anos)" wide>
-      <p className="mb-4 text-sm text-cream/50">
+    <SlideShell eyebrow="Dados" title="Distribuição observada" wide>
+      <p className="mb-4 text-sm text-text-subtle">
         <DataLabel kind="observado" label="DogsBite.org / CDC compilado" /> —{" "}
         <Formula tex={String.raw`P(\text{raça}\mid\text{fatal})`} />, não risco
         individual.
@@ -215,15 +191,13 @@ export function DogsChartSlide() {
 
 export function DogsTakeawaySlide() {
   return (
-    <SlideShell eyebrow="Takeaway" title="Condicional inverte a pergunta">
+    <SlideShell eyebrow="Takeaway" title="A condicional define o sentido">
       <blockquote className="font-display max-w-3xl text-3xl leading-snug text-cream md:text-4xl">
         “66% das fatalidades envolvem pitbulls”{" "}
         <span className="text-amber">não</span> é a mesma frase que “66% dos
         pitbulls são fatais”.
       </blockquote>
-      <p className="mt-8 text-cream/55">
-        Bayes existe exatamente para não confundir essas duas sentenças.
-      </p>
+      <p className="mt-8 text-text-subtle">Bayes evita esse erro de leitura.</p>
     </SlideShell>
   );
 }

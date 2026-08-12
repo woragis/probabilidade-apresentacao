@@ -2,13 +2,15 @@
 @import "katex/dist/katex.min.css";
 
 :root {
-  --ink: #0b0e13;
-  --ink-elevated: #151a22;
-  --cream: #e8e4d9;
-  --teal: #2dd4bf;
-  --teal-bright: #5eead4;
-  --teal-muted: #5eead4aa;
-  --amber: #f59e0b;
+  --ink: #05070b;
+  --ink-elevated: #0e131c;
+  --cream: #f4f1e8;
+  --text-subtle: #b7c0cf;
+  --teal: #5fa8d3;
+  --teal-bright: #8bc5e6;
+  --teal-muted: #8bc5e699;
+  --amber: #d9a441;
+  --danger-context: #b35a5a;
   --background: var(--ink);
   --foreground: var(--cream);
 }
@@ -19,10 +21,12 @@
   --color-ink: var(--ink);
   --color-ink-elevated: var(--ink-elevated);
   --color-cream: var(--cream);
+  --color-text-subtle: var(--text-subtle);
   --color-teal: var(--teal);
   --color-teal-bright: var(--teal-bright);
   --color-teal-muted: var(--teal-muted);
   --color-amber: var(--amber);
+  --color-danger-context: var(--danger-context);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
@@ -37,12 +41,12 @@ body {
 }
 
 body {
-  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-family: var(--font-body), "Inter", "Segoe UI", sans-serif;
 }
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
 }
 
 .katex-wrap .katex {
@@ -50,7 +54,7 @@ body {
 }
 
 ::selection {
-  background: rgba(45, 212, 191, 0.35);
+  background: rgba(95, 168, 211, 0.35);
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -59,6 +63,16 @@ input[type="range"]::-webkit-slider-thumb {
   height: 14px;
   border-radius: 999px;
   background: var(--amber);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--amber);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
 

@@ -11,8 +11,8 @@ export function TitleSlide() {
   return (
     <div className="relative h-full w-full overflow-hidden">
       <MediaBackdrop src="/media/atmosphere/skyline.png" opacity={0.35} />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(45,212,191,0.12),transparent_50%),radial-gradient(ellipse_at_80%_70%,rgba(245,158,11,0.1),transparent_45%)]" />
-      <AmbientParticles count={24} />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(95,168,211,0.1),transparent_50%),radial-gradient(ellipse_at_80%_70%,rgba(217,164,65,0.08),transparent_45%)]" />
+      <AmbientParticles count={16} />
       <SlideShell>
         <motion.p
           className="mb-4 text-sm tracking-[0.3em] text-teal-muted uppercase"
@@ -27,10 +27,7 @@ export function TitleSlide() {
           <br />
           <span className="text-amber">é o acaso?</span>
         </h1>
-        <p className="mt-8 max-w-xl text-lg text-cream/65 md:text-xl">
-          Uma exploração interativa de probabilidades do cotidiano, jogos e
-          inferência — do dado ao teorema de Bayes.
-        </p>
+        <p className="mt-8 max-w-xl text-lg text-text-subtle md:text-xl">Do cotidiano ao improvável.</p>
         <p className="mt-10 text-xs tracking-wide text-cream/35">
           → ou Espaço para avançar
         </p>
@@ -41,10 +38,10 @@ export function TitleSlide() {
 
 export function PromiseSlide() {
   const worlds = [
-    { title: "Dados", desc: "Espaço amostral clássico" },
-    { title: "Encontros", desc: "Fluxo, binomial, Poisson" },
-    { title: "Xadrez", desc: "Estado, Perft, Markov" },
-    { title: "War", desc: "Cadeias e Monte Carlo" },
+    { title: "Dados", desc: "base visual" },
+    { title: "Encontros", desc: "fluxo e repetição" },
+    { title: "Xadrez", desc: "estado e escala" },
+    { title: "War", desc: "decisão e simulação" },
   ];
   return (
     <SlideShell eyebrow="Promessa" title="Quatro mundos, uma pergunta">
@@ -62,10 +59,7 @@ export function PromiseSlide() {
           </motion.div>
         ))}
       </div>
-      <p className="mt-10 text-cream/55">
-        Empilhar condições transforma o “banal” em astronomicamente raro — e
-        ainda assim, com população e tempo grandes, o raro acontece.
-      </p>
+      <p className="mt-10 text-text-subtle">Uma pergunta em quatro cenários.</p>
     </SlideShell>
   );
 }
