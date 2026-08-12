@@ -72,35 +72,35 @@ Formato por slide:
 - **Gancho:** "Com esse p, vemos a distribuição de repetições."
 
 ### 13. binomial
-- **Objetivo:** Mostrar binomial como processo, não só gráfico.
-- **Fala sugerida:** "n visitas, mesma p. Clique numa realização: cada quadradinho é uma visita. A barra é a lei; os quadradinhos são uma história."
-- **Gancho:** "Para eventos raros por unidade de tempo, Poisson simplifica."
+- **Objetivo:** História primeiro: n idas iguais, contar “sim”. Fórmula só no rodapé.
+- **Fala sugerida:** "Você volta à orla n vezes. Cada ida é sim ou não, mesma chance. Clique: cada tile é uma visita. A barra é a lei; os tiles são uma história."
+- **Gancho:** "Para eventos raros no tempo, paramos de contar visitas."
 
 ### 14. poisson
-- **Objetivo:** Poisson como pontos no tempo.
-- **Fala sugerida:** "λ é a taxa na janela. Sorteie uma janela: os pontinhos são onde o raro caiu. Na orla com N certo, λ é pequenininho."
-- **Gancho:** "Quando contar tudo é caro, a gente simula."
+- **Objetivo:** Raro demais para contar visitas — taxa λ na janela.
+- **Fala sugerida:** "Binomial = n tentativas. Poisson = taxa no tempo: quantos, em média, nesta janela. Sorteie: os pontos são onde o raro caiu. Na orla com N certo, λ é pequenininho."
+- **Gancho:** "Quando contar tudo é caro, a gente sorteia."
 
 ### 15. mc-what
-- **Objetivo:** Explicar Monte Carlo visualmente.
-- **Fala sugerida:** "Cada célula é um sorteio. Âmbar acertou, teal não. p̂ é a fração. Isso é Monte Carlo: repetir o acaso até a frequência se aproximar de p."
+- **Objetivo:** Monte Carlo = sortear quando não dá para enumerar.
+- **Fala sugerida:** "Não dá para contar tudo? Sorteia. Cada célula é um sorteio. p̂ = acertos / tentativas. O próximo slide é isto, com N enorme."
 - **Gancho:** "Agora com N grande, números."
 
 ### 16. enc-mc
-- **Objetivo:** Validar com Monte Carlo em escala.
-- **Fala sugerida:** "Teórico é a fórmula; p̂ é a frequência. Devem se aproximar. Isto é Bernoulli, não o modelo da orla."
+- **Objetivo:** A mesma ideia do 15, em escala.
+- **Fala sugerida:** "É o slide anterior, com N enorme. Teórico = a fórmula; p̂ = frequência. Devem se aproximar. Bernoulli i.i.d. — não o modelo da orla."
 - **Gancho:** "E com mais N, a incerteza cai."
 
 ### 17. ci
-- **Objetivo:** Evidenciar IC encolhendo.
-- **Fala sugerida:** "IC 95% é a faixa do método. p̂ aqui está fixo em 12%. Mais n estreita a barra, não prova mais."
+- **Objetivo:** Faixa de incerteza daquela frequência.
+- **Fala sugerida:** "A faixa de incerteza dessa frequência. p̂ aqui está fixo em 12%. Mais n estreita a barra — não prova mais."
 - **Gancho:** "Agora o bloco mais sensível: cães e Bayes."
 
 ## Cães e Bayes
 
 ### 18. dogs-ethics
-- **Objetivo:** Enquadramento responsável.
-- **Fala sugerida:** "Estamos modelando cenário de risco, não definindo essência de raça."
+- **Objetivo:** Enquadramento responsável. Olho no pack SVG + “cenário, não essência”.
+- **Fala sugerida:** "Silhuetas, não raça. Estamos modelando cenário de risco, não definindo essência."
 - **Gancho:** "Com isso claro, montamos a cadeia."
 
 ### 19. dogs-chain

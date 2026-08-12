@@ -13,7 +13,7 @@ import {
 import { Formula } from "@/components/deck/Formula";
 import { PrimaryButton, SliderControl } from "@/components/deck/Controls";
 import { DataLabel } from "@/components/deck/DataLabel";
-import { MediaBackdrop } from "@/components/deck/MediaBackdrop";
+import { DogMark, DogPack } from "@/components/deck/DogMark";
 import { SlideShell } from "@/components/deck/SlideShell";
 import { bayesBinary, chainProduct } from "@/lib/math";
 
@@ -30,13 +30,11 @@ export const FATAL_BY_BREED = [
 
 export function DogsEthicsSlide() {
   return (
-    <div className="relative h-full w-full">
-      <MediaBackdrop src="/media/dogs/silhouette.png" opacity={0.22} />
-      <SlideShell eyebrow="Cães & Bayes" title="Dados, não estigma">
-        <ul className="max-w-2xl space-y-4 text-lg text-cream/80">
-          <li>
-            Probabilidade de cenário, não essência de raça.
-          </li>
+    <SlideShell eyebrow="Cães & Bayes" title="Dados, não estigma" wide>
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,22rem)_1fr]">
+        <DogPack />
+        <ul className="max-w-xl space-y-5 text-lg text-cream/80">
+          <li>Probabilidade de cenário, não essência de raça.</li>
           <li>
             Todo número é rotulado:{" "}
             <DataLabel kind="observado" label="dado" />{" "}
@@ -48,8 +46,8 @@ export function DogsEthicsSlide() {
             <Formula tex={String.raw`P(\text{fatal}\mid\text{raça})`} />.
           </li>
         </ul>
-      </SlideShell>
-    </div>
+      </div>
+    </SlideShell>
   );
 }
 
@@ -77,6 +75,11 @@ export function DogsChainSlide() {
         {factors.map((f, i) => (
           <div key={f.label} className="flex items-center gap-3">
             <div className="border border-teal/30 bg-teal/10 px-4 py-3 text-center">
+              {f.label === "Encontrar cão" ? (
+                <p className="mb-1 flex justify-center text-teal">
+                  <DogMark pose="side" className="h-8 w-10" />
+                </p>
+              ) : null}
               <p className="text-xs text-cream/50">{f.label}</p>
               <p className="font-mono text-amber">{f.p}</p>
             </div>
@@ -100,11 +103,12 @@ export function DogsBayesSlide() {
         “Dado o fatal, de que grupo veio?” não é “dado o grupo, qual o risco?”. Bayes{" "}
         <span className="text-cream">inverte</span> a condicional.
       </p>
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
         <div className="rounded border border-amber/40 bg-amber/10 p-6">
           <p className="mb-3 text-xs tracking-[0.14em] text-text-subtle uppercase">o dado traz</p>
           <Formula display tex={String.raw`P(\text{raça}\mid\text{fatal})`} />
         </div>
+        <DogMark pose="sit" className="mx-auto h-20 w-24 text-cream/70" />
         <div className="rounded border border-teal/40 bg-teal/10 p-6">
           <p className="mb-3 text-xs tracking-[0.14em] text-text-subtle uppercase">o público entende</p>
           <Formula display tex={String.raw`P(\text{fatal}\mid\text{raça})`} />
@@ -226,7 +230,10 @@ export function DogsTakeawaySlide() {
         <span className="text-amber">não</span> é a mesma frase que “66% dos
         pitbulls são fatais”.
       </blockquote>
-      <p className="mt-8 text-text-subtle">Bayes evita esse erro de leitura.</p>
+      <p className="mt-8 flex items-center gap-3 text-text-subtle">
+        <DogMark pose="sit" className="h-10 w-12 text-amber/70" />
+        Bayes evita esse erro de leitura.
+      </p>
     </SlideShell>
   );
 }

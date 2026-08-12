@@ -41,11 +41,11 @@ export function MonteCarloExplainerSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Algoritmo" title="O que é Monte Carlo?" wide>
+    <SlideShell eyebrow="Algoritmo" title="Não dá para contar tudo? Sorteia." wide>
       <p className="mb-5 max-w-3xl text-text-subtle">
-        Quando contar tudo é difícil (ou 46 mil dados, ou uma conquista inteira), a gente{" "}
-        <span className="text-cream">sorteia muitas vezes</span> e olha a frequência. p̂ = acertos /
-        tentativas. Não é mágica: é a lei dos grandes números no projetor.
+        Monte Carlo = <span className="text-cream">repetir o acaso</span>. Cada célula é um
+        sorteio. A fração de âmbar se aproxima da chance verdadeira. O próximo slide é isto, com
+        N enorme.
       </p>
       <div className="grid gap-8 lg:grid-cols-[1fr_220px]">
         <div>
@@ -67,7 +67,7 @@ export function MonteCarloExplainerSlide() {
             ))}
           </div>
           <p className="mt-3 text-xs text-cream/40">
-            Âmbar = sucesso (reencontro, conquista…) · teal = fracasso · vazio = ainda não sorteado
+            Âmbar = sucesso · teal = não · vazio = ainda não sorteado
           </p>
         </div>
         <div className="space-y-4" onKeyDown={(e) => e.stopPropagation()}>
@@ -77,8 +77,11 @@ export function MonteCarloExplainerSlide() {
           <p className="font-mono text-4xl text-amber">
             {pHat != null ? `${(pHat * 100).toFixed(1)}%` : "—"}
           </p>
+          <p className="text-sm text-text-subtle">
+            p̂ = acertos / tentativas
+          </p>
           <p className="text-xs text-cream/45">
-            {done.length} / {CELLS} tentativas · {hits} acertos
+            {done.length} / {CELLS} · {hits} acertos
           </p>
           <div className="flex flex-wrap gap-2">
             <PrimaryButton onClick={() => batch(20)}>Sortear 20</PrimaryButton>
@@ -86,6 +89,9 @@ export function MonteCarloExplainerSlide() {
           </div>
         </div>
       </div>
+      <p className="mt-4 font-mono text-sm text-cream/45">
+        <Formula tex={String.raw`\hat p = \text{acertos}/\text{tentativas}`} />
+      </p>
     </SlideShell>
   );
 }

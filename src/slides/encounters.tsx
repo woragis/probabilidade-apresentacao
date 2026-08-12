@@ -369,16 +369,16 @@ export function BinomialSlide() {
   const hits = trial?.filter(Boolean).length;
 
   return (
-    <SlideShell eyebrow="Variável aleatória" title="Binomial: n tentativas iguais" wide>
+    <SlideShell eyebrow="Variável aleatória" title="n visitas, mesma chance" wide>
       <p className="mb-5 max-w-3xl text-text-subtle">
-        Cada visita é cara ou coroa com a mesma p. X = quantos acertos em n visitas. Não é
-        “contar o universo”: é um <span className="text-cream">processo que se repete</span>.
+        Você volta à orla <span className="text-cream">{n} vezes</span>. Cada ida: ou vê aquela
+        pessoa, ou não — mesma p. Binomial = <span className="text-cream">contar quantos “sim”</span>{" "}
+        nessas n idas.
       </p>
-      <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
+      <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
         <div className="space-y-4" onKeyDown={(e) => e.stopPropagation()}>
-          <Formula tex={String.raw`X\sim\mathrm{Bin}(n,p)\quad E[X]=np`} />
           <SliderControl
-            label="n"
+            label="n — quantas idas"
             value={n}
             min={5}
             max={40}
@@ -389,7 +389,7 @@ export function BinomialSlide() {
             hint={{ title: "n", body: HINTS.binomialN }}
           />
           <SliderControl
-            label="p"
+            label="p — chance numa ida"
             value={p}
             min={0.02}
             max={0.5}
@@ -401,33 +401,42 @@ export function BinomialSlide() {
             format={(v) => v.toFixed(2)}
             hint={{ title: "p", body: HINTS.binomialP }}
           />
-          <p className="font-mono text-2xl text-amber">
+          <p className="text-sm text-text-subtle">
+            Em média espera{" "}
             <Hint title="E[X]" body={HINTS.binomialMean}>
-              {mean.toFixed(2)}
-            </Hint>
+              <span className="font-mono text-amber">{mean.toFixed(1)}</span>
+            </Hint>{" "}
+            acertos.
           </p>
-          <PrimaryButton onClick={runTrial}>Uma realização</PrimaryButton>
+          <PrimaryButton onClick={runTrial}>Sortear n visitas</PrimaryButton>
           {hits != null ? (
             <p className="text-sm text-text-subtle">
-              nesta história: <span className="font-mono text-teal">{hits}</span> acertos
+              nesta história: <span className="font-mono text-teal">{hits}</span> sim
             </p>
           ) : null}
         </div>
         <div>
+          <p className="mb-2 text-xs tracking-[0.14em] text-cream/40 uppercase">
+            cada tile = uma visita · âmbar = viu
+          </p>
           {trial ? (
-            <div className="mb-4 flex flex-wrap gap-1">
+            <div className="mb-4 flex flex-wrap gap-1.5">
               {trial.map((hit, i) => (
                 <div
                   key={i}
-                  className={`h-3.5 w-3.5 rounded-sm ${hit ? "bg-amber" : "bg-white/15"}`}
-                  title={`visita ${i + 1}: ${hit ? "acerto" : "não"}`}
-                />
+                  className={`grid h-8 w-8 place-items-center rounded-md text-[10px] font-mono ${
+                    hit ? "bg-amber text-ink" : "bg-white/10 text-cream/35"
+                  }`}
+                  title={`visita ${i + 1}: ${hit ? "sim" : "não"}`}
+                >
+                  {i + 1}
+                </div>
               ))}
             </div>
           ) : (
-            <p className="mb-4 text-xs text-cream/40">Sorteie uma sequência de n visitas.</p>
+            <p className="mb-4 text-sm text-cream/40">Clique para ver uma história de n idas.</p>
           )}
-          <div className="h-52">
+          <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
                 <CartesianGrid stroke="rgba(255,255,255,0.06)" />
@@ -438,8 +447,14 @@ export function BinomialSlide() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+          <p className="mt-3 text-sm text-text-subtle">
+            A barra é a lei (quantos “sim” são comuns). Os tiles são <em>uma</em> história.
+          </p>
         </div>
       </div>
+      <p className="mt-4 font-mono text-sm text-cream/45">
+        <Formula tex={String.raw`X\sim\mathrm{Bin}(n,p)\quad E[X]=np`} />
+      </p>
     </SlideShell>
   );
 }
@@ -470,24 +485,24 @@ export function PoissonSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Processo" title="Poisson: eventos raros no tempo" wide>
+    <SlideShell eyebrow="Processo" title="Raro demais para contar visitas" wide>
       <p className="mb-5 max-w-3xl text-text-subtle">
-        Em vez de n visitas fixas, pense numa <span className="text-cream">taxa λ</span> ao longo
-        de uma janela. Os pontinhos são uma realização: onde o raro “caiu”. A curva é P(cair k
-        vezes).
+        Binomial = n tentativas. Poisson = uma <span className="text-cream">taxa no tempo</span>:
+        quantos, em média, nesta janela. λ é esse esperado — não um “número mágico”.
       </p>
       <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
         <div onKeyDown={(e) => e.stopPropagation()}>
+          <p className="mb-1 text-xs tracking-[0.14em] text-cream/40 uppercase">na orla (N certo)</p>
           <p className="mb-3 font-mono text-2xl text-amber">
             <Hint title="λ derivado" body={HINTS.poissonDerived}>
-              λ orla ≈ {derived.toFixed(3)}
+              λ ≈ {derived.toFixed(3)}
             </Hint>
           </p>
-          <p className="mb-4 text-xs text-text-subtle">
-            Ex.: N=80k, 20 visitas × 2h × 80 obs/h — raro de verdade.
+          <p className="mb-4 text-sm text-text-subtle">
+            Quase zero: o raro não explode. O slider abaixo é só para ver o desenho.
           </p>
           <SliderControl
-            label="λ"
+            label="λ — esperado na janela"
             value={lambda}
             min={0.5}
             max={12}
@@ -500,24 +515,33 @@ export function PoissonSlide() {
             hint={{ title: "λ", body: HINTS.poissonLambda }}
           />
           <div className="mt-4">
-            <PrimaryButton onClick={sprinkle}>Uma janela</PrimaryButton>
+            <PrimaryButton onClick={sprinkle}>Sortear uma janela</PrimaryButton>
           </div>
           {marks ? (
-            <p className="mt-3 font-mono text-sm text-teal">{marks.length} eventos nesta janela</p>
+            <p className="mt-3 font-mono text-sm text-teal">{marks.length} pontos nesta janela</p>
           ) : null}
         </div>
         <div>
-          <div className="relative mb-4 h-10 rounded-full bg-white/5">
-            <div className="absolute inset-y-0 left-3 right-3 border-t border-dashed border-white/15 top-1/2" />
+          <p className="mb-2 text-xs tracking-[0.14em] text-cream/40 uppercase">
+            uma janela de tempo · cada ponto = o raro caiu
+          </p>
+          <div className="relative mb-5 h-16 rounded-2xl border border-white/10 bg-white/[0.04]">
+            <span className="absolute top-1.5 left-3 text-[10px] tracking-wide text-cream/35 uppercase">
+              início
+            </span>
+            <span className="absolute top-1.5 right-3 text-[10px] tracking-wide text-cream/35 uppercase">
+              fim
+            </span>
+            <div className="absolute inset-x-4 top-1/2 border-t border-dashed border-white/20" />
             {marks?.map((t, i) => (
               <span
                 key={`${t}-${i}`}
-                className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber shadow-[0_0_10px_rgba(217,164,65,0.6)]"
+                className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber shadow-[0_0_12px_rgba(217,164,65,0.7)]"
                 style={{ left: `${8 + t * 84}%` }}
               />
             ))}
           </div>
-          <div className="h-52">
+          <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data}>
                 <CartesianGrid stroke="rgba(255,255,255,0.06)" />
@@ -530,6 +554,9 @@ export function PoissonSlide() {
           </div>
         </div>
       </div>
+      <p className="mt-4 font-mono text-sm text-cream/45">
+        <Formula tex={String.raw`P(K=k)=e^{-\lambda}\lambda^{k}/k!`} />
+      </p>
     </SlideShell>
   );
 }
@@ -548,8 +575,8 @@ export function EncounterMonteCarloSlide() {
   return (
     <SlideShell eyebrow="Monte Carlo" title="Teórico vs simulado">
       <p className="mb-6 max-w-2xl text-text-subtle">
-        Teórico = a fórmula. p̂ = frequência dos sorteios. Devem se aproximar. Isto é
-        Bernoulli i.i.d. — não o modelo completo da orla.
+        É o slide anterior, com N enorme. Teórico = a fórmula; p̂ = frequência. Devem se
+        aproximar. Bernoulli i.i.d. — não o modelo completo da orla.
       </p>
       <div className="grid gap-8 lg:grid-cols-[340px_1fr]">
         <div className="space-y-4" onKeyDown={(e) => e.stopPropagation()}>
@@ -618,9 +645,9 @@ export function ConfidenceIntervalSlide() {
   return (
     <SlideShell eyebrow="Inferência" title="Mais N, menos incerteza">
       <p className="mb-5 max-w-2xl text-text-subtle">
-        IC 95% = faixa onde o método acerta em cerca de 95% das amostras. Aqui p̂ está{" "}
-        <span className="text-cream">fixo em 12%</span>. Mais n estreita a barra — não
-        “prova mais”.
+        A faixa de incerteza daquela frequência. IC 95% = onde o método acerta ~95% das
+        vezes. Aqui p̂ está <span className="text-cream">fixo em 12%</span>. Mais n estreita a
+        barra — não “prova mais”.
       </p>
       <div className="max-w-2xl space-y-5" onKeyDown={(e) => e.stopPropagation()}>
         <SliderControl

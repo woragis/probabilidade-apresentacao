@@ -34,7 +34,7 @@ Assets under `public/media/`. Prefer calm loops; no frantic GIFs yet.
 
 | File | Source | Query | Notes |
 |------|--------|-------|-------|
-| `silhouette.png` | Wikimedia | dog silhouette | Ethics slide; neutral framing |
+| `silhouette.png` | Wikimedia | dog silhouette | Unused — ethics slide now uses SVG `DogMark` |
 
 ## Gaps / follow-up
 

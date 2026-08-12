@@ -117,21 +117,23 @@ Na vida real tem rotina — trabalho, academia — e isso **aumenta** reencontro
 
 ## 13. Binomial
 
-Não é só o gráfico: é um **processo**.  
-n visitas, mesma p. Clique “uma realização”: cada quadradinho é uma visita (âmbar = acerto).  
-A barra é a lei; os quadradinhos são uma história.
+História primeiro, fórmula no rodapé.
 
-**Gancho:** para eventos raros no tempo, Poisson.
+Você volta à orla **n vezes**. Cada ida: sim ou não, **mesma p**.  
+Binomial = contar quantos “sim”. Clique: cada tile é uma visita (âmbar = viu).  
+A barra é a lei; os tiles são **uma** história.
+
+**Gancho:** para eventos raros no tempo, paramos de contar visitas.
 
 ---
 
 ## 14. Poisson
 
-λ = taxa na janela.  
-Sorteie “uma janela”: os pontinhos são onde o raro caiu.  
-Na orla com N certo, λ derivado é pequenininho — por isso o reencontro não explode.
+Binomial = n tentativas. Poisson = **taxa no tempo**: quantos, em média, nesta janela.  
+λ é esse esperado. Sorteie uma janela: os pontos são onde o raro caiu.  
+Na orla com N certo, λ derivado é pequenininho — o raro não explode.
 
-**Gancho:** quando contar tudo é caro, a gente simula.
+**Gancho:** quando contar tudo é caro, a gente sorteia.
 
 ---
 
@@ -139,9 +141,10 @@ Na orla com N certo, λ derivado é pequenininho — por isso o reencontro não 
 
 Fala (≈ 30 s):
 
-“Cada célula é um sorteio. Âmbar acertou, teal não.  
-p̂ é a fração de âmbar. Isso é Monte Carlo: repetir o acaso até a frequência se aproximar de p.  
-Não substitui a fórmula — aproxima quando o universo é grande demais para enumerar.”
+“Não dá para contar tudo? Sorteia.  
+Cada célula é um sorteio. Âmbar acertou, teal não.  
+p̂ = acertos / tentativas. Isso é Monte Carlo: repetir o acaso até a frequência se aproximar de p.  
+O próximo slide é isto, com N enorme.”
 
 Clique “sortear 20” umas vezes e mostre p̂ oscilando em direção a 20%.
 
@@ -151,6 +154,7 @@ Clique “sortear 20” umas vezes e mostre p̂ oscilando em direção a 20%.
 
 ## 16. Monte Carlo (escala)
 
+É o slide anterior, com N enorme.  
 Teórico = a fórmula. p̂ = frequência dos sorteios. Devem se aproximar.  
 Isto é Bernoulli i.i.d. — não o modelo completo da orla.
 
@@ -160,7 +164,8 @@ Isto é Bernoulli i.i.d. — não o modelo completo da orla.
 
 ## 17. Intervalo de confiança
 
-IC 95% = faixa onde o método acerta em cerca de 95% das amostras.  
+A faixa de incerteza **dessa frequência**.  
+IC 95% = onde o método acerta ~95% das vezes.  
 Aqui p̂ está **fixo em 12%**. Mais n estreita a barra — não “prova mais”.
 
 **Gancho:** agora o bloco mais sensível — cães e Bayes.

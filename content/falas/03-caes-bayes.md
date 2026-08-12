@@ -2,6 +2,7 @@
 
 ## 18. Framing ético
 
+O olho cai no pack de silhuetas — **não** numa foto de raça.  
 Estamos modelando um **cenário de risco** com números e condicionais.  
 Não estamos definindo essência de raça, nem fazendo julgamento moral disfarçado de estatística.
 
