@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { AmbientParticles } from "@/components/deck/AmbientParticles";
+import { MediaBackdrop } from "@/components/deck/MediaBackdrop";
 import { SlideShell } from "@/components/deck/SlideShell";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
@@ -9,6 +10,7 @@ export function TitleSlide() {
   const reduced = usePrefersReducedMotion();
   return (
     <div className="relative h-full w-full overflow-hidden">
+      <MediaBackdrop src="/media/atmosphere/skyline.png" opacity={0.35} />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(45,212,191,0.12),transparent_50%),radial-gradient(ellipse_at_80%_70%,rgba(245,158,11,0.1),transparent_45%)]" />
       <AmbientParticles count={24} />
       <SlideShell>

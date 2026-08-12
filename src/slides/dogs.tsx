@@ -13,6 +13,7 @@ import {
 import { Formula } from "@/components/deck/Formula";
 import { PrimaryButton, SliderControl } from "@/components/deck/Controls";
 import { DataLabel } from "@/components/deck/DataLabel";
+import { MediaBackdrop } from "@/components/deck/MediaBackdrop";
 import { SlideShell } from "@/components/deck/SlideShell";
 import { bayesBinary, chainProduct } from "@/lib/math";
 
@@ -29,26 +30,32 @@ export const FATAL_BY_BREED = [
 
 export function DogsEthicsSlide() {
   return (
-    <SlideShell eyebrow="Cães & Bayes" title="Framing: cenário, não estigma">
-      <ul className="max-w-2xl space-y-4 text-lg text-cream/70">
-        <li>
-          Trabalhamos com{" "}
-          <strong className="font-medium text-cream">probabilidade de encontro/incidente sob condições</strong>
-          — não com a tese de “raça assassina”.
-        </li>
-        <li>
-          Todo número na tela leva rótulo:{" "}
-          <DataLabel kind="observado" label="dado" />{" "}
-          <DataLabel kind="derivado" label="calculado" />{" "}
-          <DataLabel kind="parâmetro do modelo" label="hipótese" />
-        </li>
-        <li>
-          Tabelas de fatalidade por raça medem{" "}
-          <Formula tex={String.raw`P(\text{raça}\mid\text{fatal})`} /> — o
-          inverso de <Formula tex={String.raw`P(\text{fatal}\mid\text{raça})`} />.
-        </li>
-      </ul>
-    </SlideShell>
+    <div className="relative h-full w-full">
+      <MediaBackdrop src="/media/dogs/silhouette.png" opacity={0.22} />
+      <SlideShell eyebrow="Cães & Bayes" title="Framing: cenário, não estigma">
+        <ul className="max-w-2xl space-y-4 text-lg text-cream/70">
+          <li>
+            Trabalhamos com{" "}
+            <strong className="font-medium text-cream">
+              probabilidade de encontro/incidente sob condições
+            </strong>
+            — não com a tese de “raça assassina”.
+          </li>
+          <li>
+            Todo número na tela leva rótulo:{" "}
+            <DataLabel kind="observado" label="dado" />{" "}
+            <DataLabel kind="derivado" label="calculado" />{" "}
+            <DataLabel kind="parâmetro do modelo" label="hipótese" />
+          </li>
+          <li>
+            Tabelas de fatalidade por raça medem{" "}
+            <Formula tex={String.raw`P(\text{raça}\mid\text{fatal})`} /> — o
+            inverso de{" "}
+            <Formula tex={String.raw`P(\text{fatal}\mid\text{raça})`} />.
+          </li>
+        </ul>
+      </SlideShell>
+    </div>
   );
 }
 

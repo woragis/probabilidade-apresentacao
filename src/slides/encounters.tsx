@@ -15,6 +15,7 @@ import {
 import { Formula } from "@/components/deck/Formula";
 import { PrimaryButton, SliderControl } from "@/components/deck/Controls";
 import { DataLabel } from "@/components/deck/DataLabel";
+import { MediaBackdrop } from "@/components/deck/MediaBackdrop";
 import { NumberTicker } from "@/components/deck/NumberTicker";
 import { SlideShell } from "@/components/deck/SlideShell";
 import {
@@ -32,17 +33,20 @@ import { useMonteCarloWorker } from "@/lib/useMonteCarloWorker";
 
 export function EncounterHookSlide() {
   return (
-    <SlideShell eyebrow="Encontros" title="Ver a mesma pessoa de novo">
-      <p className="max-w-2xl text-xl text-cream/70">
-        Você cruza alguém no centro. Qual a chance de cruzar{" "}
-        <em className="text-amber not-italic">aquela</em> pessoa outra vez —
-        na mesma orla, no mesmo horário, semanas depois?
-      </p>
-      <p className="mt-6 text-sm text-cream/45">
-        População da cidade informa contexto; o denominador do encontro é o{" "}
-        <strong className="font-medium text-cream/70">fluxo do lugar</strong>.
-      </p>
-    </SlideShell>
+    <div className="relative h-full w-full">
+      <MediaBackdrop src="/media/encounters/times-square.jpg" opacity={0.32} />
+      <SlideShell eyebrow="Encontros" title="Ver a mesma pessoa de novo">
+        <p className="max-w-2xl text-xl text-cream/70">
+          Você cruza alguém no centro. Qual a chance de cruzar{" "}
+          <em className="text-amber not-italic">aquela</em> pessoa outra vez —
+          na mesma orla, no mesmo horário, semanas depois?
+        </p>
+        <p className="mt-6 text-sm text-cream/45">
+          População da cidade informa contexto; o denominador do encontro é o{" "}
+          <strong className="font-medium text-cream/70">fluxo do lugar</strong>.
+        </p>
+      </SlideShell>
+    </div>
   );
 }
 

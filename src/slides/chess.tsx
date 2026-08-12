@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Formula } from "@/components/deck/Formula";
 import { SliderControl } from "@/components/deck/Controls";
+import { MediaBackdrop } from "@/components/deck/MediaBackdrop";
 import { NumberTicker } from "@/components/deck/NumberTicker";
 import { SlideShell } from "@/components/deck/SlideShell";
 import {
@@ -16,25 +17,28 @@ import {
 
 export function ChessHookSlide() {
   return (
-    <SlideShell eyebrow="Xadrez" title="A mesma partida outra vez?">
-      <p className="max-w-2xl text-xl text-cream/70">
-        Quantas sequências legais existem a partir da posição inicial? Qual a
-        chance de duas partidas “randômicas” coincidirem lance a lance?
-      </p>
-      <div className="mt-10 grid max-w-sm grid-cols-8 gap-0.5 opacity-80">
-        {Array.from({ length: 64 }).map((_, i) => {
-          const row = Math.floor(i / 8);
-          const col = i % 8;
-          const dark = (row + col) % 2 === 1;
-          return (
-            <div
-              key={i}
-              className={`aspect-square ${dark ? "bg-teal/40" : "bg-cream/15"}`}
-            />
-          );
-        })}
-      </div>
-    </SlideShell>
+    <div className="relative h-full w-full">
+      <MediaBackdrop src="/media/chess/pieces.jpg" opacity={0.3} />
+      <SlideShell eyebrow="Xadrez" title="A mesma partida outra vez?">
+        <p className="max-w-2xl text-xl text-cream/70">
+          Quantas sequências legais existem a partir da posição inicial? Qual a
+          chance de duas partidas “randômicas” coincidirem lance a lance?
+        </p>
+        <div className="mt-10 grid max-w-sm grid-cols-8 gap-0.5 opacity-80">
+          {Array.from({ length: 64 }).map((_, i) => {
+            const row = Math.floor(i / 8);
+            const col = i % 8;
+            const dark = (row + col) % 2 === 1;
+            return (
+              <div
+                key={i}
+                className={`aspect-square ${dark ? "bg-teal/40" : "bg-cream/15"}`}
+              />
+            );
+          })}
+        </div>
+      </SlideShell>
+    </div>
   );
 }
 

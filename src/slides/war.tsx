@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Formula } from "@/components/deck/Formula";
 import { PrimaryButton, SliderControl } from "@/components/deck/Controls";
+import { MediaBackdrop } from "@/components/deck/MediaBackdrop";
 import { NumberTicker } from "@/components/deck/NumberTicker";
 import { SlideShell } from "@/components/deck/SlideShell";
 import {
@@ -33,22 +34,25 @@ export function WarHookSlide() {
   }, [reduced]);
 
   return (
-    <SlideShell eyebrow="War" title="Dados, territórios, conquistas">
-      <p className="max-w-2xl text-xl text-cream/70">
-        No War (Risk), cada combate é um experimento aleatório encadeado — e o
-        mapa inteiro é um processo estocástico de estados.
-      </p>
-      <div className="mt-10 flex gap-3">
-        {faces.map((f, i) => (
-          <div
-            key={i}
-            className="grid h-16 w-16 place-items-center rounded-xl border border-amber/30 bg-ink-elevated font-display text-2xl text-amber"
-          >
-            {f}
-          </div>
-        ))}
-      </div>
-    </SlideShell>
+    <div className="relative h-full w-full">
+      <MediaBackdrop src="/media/war/map.png" opacity={0.28} />
+      <SlideShell eyebrow="War" title="Dados, territórios, conquistas">
+        <p className="max-w-2xl text-xl text-cream/70">
+          No War (Risk), cada combate é um experimento aleatório encadeado — e o
+          mapa inteiro é um processo estocástico de estados.
+        </p>
+        <div className="mt-10 flex gap-3">
+          {faces.map((f, i) => (
+            <div
+              key={i}
+              className="grid h-16 w-16 place-items-center rounded-xl border border-amber/30 bg-ink-elevated font-display text-2xl text-amber"
+            >
+              {f}
+            </div>
+          ))}
+        </div>
+      </SlideShell>
+    </div>
   );
 }
 
