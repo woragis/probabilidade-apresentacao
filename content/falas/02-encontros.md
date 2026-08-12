@@ -117,10 +117,12 @@ Na vida real tem rotina — trabalho, academia — e isso **aumenta** reencontro
 
 ## 13. Binomial
 
+**O que é:** probabilidade binomial = n tentativas iguais, cada uma só **sim ou não**, com a **mesma** chance p, independentes. A variável X é **quantos “sim”** saíram. Ex.: n idas à orla; X = quantas vezes você viu aquela pessoa.
+
 História primeiro, fórmula no rodapé.
 
 Você volta à orla **n vezes**. Cada ida: sim ou não, **mesma p**.  
-Binomial = contar quantos “sim”. Clique: cada tile é uma visita (âmbar = viu).  
+Clique: cada tile é uma visita (âmbar = viu).  
 A barra é a lei; os tiles são **uma** história.
 
 **Gancho:** para eventos raros no tempo, paramos de contar visitas.
@@ -129,8 +131,10 @@ A barra é a lei; os tiles são **uma** história.
 
 ## 14. Poisson
 
-Binomial = n tentativas. Poisson = **taxa no tempo**: quantos, em média, nesta janela.  
-λ é esse esperado. Sorteie uma janela: os pontos são onde o raro caiu.  
+**O que é:** Poisson (Siméon Denis Poisson) = modelo para **eventos raros numa janela de tempo**. Em vez de n tentativas, uma **taxa** λ: “quantos, em média, neste intervalo”. Os pontos no slide são onde o raro caiu.
+
+Binomial = n tentativas. Poisson = taxa no tempo.  
+λ é esse esperado. Sorteie uma janela.  
 Na orla com N certo, λ derivado é pequenininho — o raro não explode.
 
 **Gancho:** quando contar tudo é caro, a gente sorteia.
@@ -139,12 +143,13 @@ Na orla com N certo, λ derivado é pequenininho — o raro não explode.
 
 ## 15. O que é Monte Carlo (visual)
 
+**O que é:** Monte Carlo (nome do cassino) = **aproximar uma chance sorteando muitas vezes**, em vez de enumerar o universo. p̂ = acertos / tentativas. Não substitui a fórmula: é a lei dos grandes números no projetor.
+
 Fala (≈ 30 s):
 
 “Não dá para contar tudo? Sorteia.  
 Cada célula é um sorteio. Âmbar acertou, teal não.  
-p̂ = acertos / tentativas. Isso é Monte Carlo: repetir o acaso até a frequência se aproximar de p.  
-O próximo slide é isto, com N enorme.”
+p̂ = acertos / tentativas. O próximo slide é isto, com N enorme.”
 
 Clique “sortear 20” umas vezes e mostre p̂ oscilando em direção a 20%.
 

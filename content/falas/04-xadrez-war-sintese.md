@@ -24,9 +24,10 @@ Na abertura isso **subestima a árvore** — tem mais linhas legais do que 20ⁿ
 
 ### 26. Perft
 
+**O que é:** Perft = **PER**formance **T**est. No xadrez de computador, é a rotina que **conta quantas sequências legais** existem até profundidade n (plies), a partir de uma posição. Serve para testar o gerador de lances — inclui jogadas péssimas. Não é “partidas que humanos jogariam”, nem o número de Shannon (~10¹²⁰ jogos).
+
 Ply = meio-lance. Depth 1 = os 20 das brancas.  
-A tabela agora tem 20ⁿ ao lado: a partir de n = 3, razão &lt; 1.  
-Perft inclui lances péssimos. Não é o número de Shannon.
+A tabela tem 20ⁿ ao lado: a partir de n = 3, razão &lt; 1.
 
 **Gancho:** e a ramificação muda a cada estado.
 
