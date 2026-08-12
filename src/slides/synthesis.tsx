@@ -2,31 +2,35 @@
 
 import { SlideShell } from "@/components/deck/SlideShell";
 import { useDeckStore } from "@/lib/deck-store";
-import { SECTION_LABELS, type SlideSection } from "@/slides/types";
+import { SECTION_LABELS } from "@/slides/types";
 
 const LADDER = [
-  "Probabilidade clássica",
-  "Combinatória",
-  "Condicional + Bayes",
-  "Variáveis aleatórias",
-  "Binomial / Poisson",
-  "Monte Carlo",
-  "Intervalo de confiança",
-  "Cadeias de Markov",
+  { name: "Probabilidade clássica", world: "dado" },
+  { name: "Combinatória", world: "xadrez / War" },
+  { name: "Condicional + Bayes", world: "cães" },
+  { name: "Variáveis aleatórias", world: "orla" },
+  { name: "Binomial / Poisson", world: "visitas" },
+  { name: "Monte Carlo", world: "sorteio" },
+  { name: "Intervalo de confiança", world: "incerteza" },
+  { name: "Cadeias de Markov", world: "posição / tropas" },
 ];
 
 export function LadderSlide() {
   return (
     <SlideShell eyebrow="Síntese" title="Escada matemática">
+      <p className="mb-6 max-w-2xl text-text-subtle">
+        Subimos de fração → processo → simulação. Cada degrau apareceu num mundo.
+      </p>
       <ol className="space-y-3">
         {LADDER.map((item, i) => (
-          <li key={item} className="flex items-baseline gap-4">
+          <li key={item.name} className="flex items-baseline gap-4">
             <span className="font-mono text-sm text-teal">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="font-display text-xl text-cream md:text-2xl">
-              {item}
+              {item.name}
             </span>
+            <span className="text-sm text-cream/40">{item.world}</span>
           </li>
         ))}
       </ol>
@@ -40,6 +44,10 @@ export function ImprobableSlide() {
       <p className="font-mono text-5xl text-amber md:text-7xl">10⁻⁶</p>
       <p className="mt-6 max-w-2xl text-2xl text-cream/80">
         Em milhões de tentativas, o raro aparece.
+      </p>
+      <p className="mt-4 max-w-2xl text-text-subtle">
+        10⁻⁶ não é zero. E[X] = N p: orla, Perft, 10×5 — com N grande o esperado deixa
+        de ser desprezível.
       </p>
     </SlideShell>
   );
@@ -64,15 +72,16 @@ export function LimitsSlide() {
   );
 }
 
-const JUMPS: { section: SlideSection; index: number; label: string }[] = [
-  { section: "encontros", index: 11, label: SECTION_LABELS.encontros },
-  { section: "caes", index: 19, label: SECTION_LABELS.caes },
-  { section: "xadrez", index: 28, label: SECTION_LABELS.xadrez },
-  { section: "war", index: 33, label: SECTION_LABELS.war },
+const JUMPS: { id: string; label: string }[] = [
+  { id: "enc-sim", label: SECTION_LABELS.encontros },
+  { id: "dogs-ethics", label: SECTION_LABELS.caes },
+  { id: "markov-what", label: "Markov" },
+  { id: "chess-hook", label: SECTION_LABELS.xadrez },
+  { id: "war-hook", label: SECTION_LABELS.war },
 ];
 
 export function DemoQaSlide() {
-  const setIndex = useDeckStore((s) => s.setIndex);
+  const jumpToId = useDeckStore((s) => s.jumpToId);
 
   return (
     <SlideShell eyebrow="Q&A" title="Demo livre">
@@ -80,9 +89,9 @@ export function DemoQaSlide() {
       <div className="flex flex-wrap gap-3">
         {JUMPS.map((j) => (
           <button
-            key={j.section}
+            key={j.id}
             type="button"
-            onClick={() => setIndex(j.index)}
+            onClick={() => jumpToId(j.id)}
             onKeyDown={(e) => e.stopPropagation()}
             className="rounded border border-white/20 px-4 py-2 text-sm text-cream/80 transition hover:border-teal hover:text-teal"
           >
@@ -107,7 +116,10 @@ export function CreditsSlide() {
           Fatalidades caninas por raça: compilação DogsBite.org / CDC (EUA, ~15
           anos) — interpretada via Bayes.
         </li>
-        <li>War/Risk: regras clássicas de combate com dados.</li>
+        <li>
+          War (Grow): atacante e defensor até 3 dados; empate fica com a defesa.
+          Risk clássico é 3v2 — não é o modelo daqui.
+        </li>
         <li>Apresentação: Next.js · TypeScript · KaTeX · Recharts.</li>
       </ul>
       <p className="font-display mt-12 text-3xl text-amber">Obrigado.</p>

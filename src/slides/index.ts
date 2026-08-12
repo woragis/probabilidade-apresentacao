@@ -26,6 +26,10 @@ import {
   PoissonSlide,
 } from "./encounters";
 import {
+  MarkovExplainerSlide,
+  MonteCarloExplainerSlide,
+} from "./methods";
+import {
   BridgeSlide,
   ConditionalSlide,
   SingleDieSlide,
@@ -91,7 +95,7 @@ export const SLIDES: SlideEntry[] = [
   {
     id: "enc-sim",
     section: "encontros",
-    title: "Simulator encontros",
+    title: "Em quantos dias",
     Component: EncounterSimulatorSlide,
     captureSpace: true,
   },
@@ -100,13 +104,28 @@ export const SLIDES: SlideEntry[] = [
     section: "encontros",
     title: "Binomial",
     Component: BinomialSlide,
+    captureSpace: true,
   },
-  { id: "poisson", section: "encontros", title: "Poisson", Component: PoissonSlide },
+  {
+    id: "poisson",
+    section: "encontros",
+    title: "Poisson",
+    Component: PoissonSlide,
+    captureSpace: true,
+  },
+  {
+    id: "mc-what",
+    section: "encontros",
+    title: "O que é Monte Carlo",
+    Component: MonteCarloExplainerSlide,
+    captureSpace: true,
+  },
   {
     id: "enc-mc",
     section: "encontros",
     title: "Monte Carlo",
     Component: EncounterMonteCarloSlide,
+    captureSpace: true,
   },
   {
     id: "ci",
@@ -140,6 +159,13 @@ export const SLIDES: SlideEntry[] = [
     title: "Produto",
     Component: ChessProductSlide,
   },
+  {
+    id: "markov-what",
+    section: "xadrez",
+    title: "O que é Markov",
+    Component: MarkovExplainerSlide,
+    captureSpace: true,
+  },
   { id: "chess-markov", section: "xadrez", title: "Markov", Component: ChessMarkovSlide },
   {
     id: "chess-sim",
@@ -149,7 +175,7 @@ export const SLIDES: SlideEntry[] = [
   },
   { id: "war-hook", section: "war", title: "Hook War", Component: WarHookSlide },
   { id: "war-combat", section: "war", title: "Combate", Component: WarCombatSlide },
-  { id: "war-chain", section: "war", title: "Cadeia", Component: WarChainSlide },
+  { id: "war-chain", section: "war", title: "Cadeia", Component: WarChainSlide, captureSpace: true },
   {
     id: "war-parts",
     section: "war",
@@ -161,8 +187,15 @@ export const SLIDES: SlideEntry[] = [
     section: "war",
     title: "Simulator War",
     Component: WarSimulatorSlide,
+    captureSpace: true,
   },
-  { id: "war-markov", section: "war", title: "Markov War", Component: WarMarkovSlide },
+  {
+    id: "war-markov",
+    section: "war",
+    title: "Markov War",
+    Component: WarMarkovSlide,
+    captureSpace: true,
+  },
   { id: "ladder", section: "sintese", title: "Escada", Component: LadderSlide },
   {
     id: "improbable",

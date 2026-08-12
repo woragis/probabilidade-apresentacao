@@ -9,15 +9,16 @@ export type WarOutcome = {
 };
 
 /**
- * One War/Risk combat roll: attacker up to 3 dice, defender up to 2.
- * Pair highest vs highest, then second if both have ≥2 dice.
+ * One War combat roll (Grow): attacker and defender up to 3 dice.
+ * Pair highest vs highest, then next, then next.
+ * Ties go to the defender — the key unfairness vs a “fair” die.
  */
 export function resolveWarRoll(
   attackerDice: number[],
   defenderDice: number[],
 ): WarOutcome {
   const a = sortDesc(attackerDice).slice(0, 3);
-  const d = sortDesc(defenderDice).slice(0, 2);
+  const d = sortDesc(defenderDice).slice(0, 3);
   let attackerLosses = 0;
   let defenderLosses = 0;
   const pairs = Math.min(a.length, d.length);
@@ -36,14 +37,18 @@ export function rollDice(n: number): number[] {
   return Array.from({ length: n }, rollDie);
 }
 
-/** How many dice each side rolls given troop counts (classic Risk rules). */
+/**
+ * Dice each side rolls given troop counts (War / Grow).
+ * Attacker must leave 1 behind, so dice = min(3, troops − 1).
+ * Defender: one die per army, max 3 (Risk clássico é max 2).
+ */
 export function diceCounts(attackerTroops: number, defenderTroops: number): {
   attack: number;
   defend: number;
 } {
   return {
     attack: Math.min(3, Math.max(0, attackerTroops - 1)),
-    defend: Math.min(2, defenderTroops),
+    defend: Math.min(3, Math.max(0, defenderTroops)),
   };
 }
 
@@ -62,21 +67,25 @@ export function pAttackerWinsOneVsOne(): number {
 /** Enumerate all outcomes for a×d dice; return loss distribution. */
 export function enumerateCombat(attackDice: number, defendDice: number): {
   total: number;
-  attackerWinsBoth: number;
-  split: number;
-  defenderWinsBoth: number;
-  /** mean attacker losses */
+  pairs: number;
+  /** P(attacker takes 0 losses) i.e. sweeps the comparison */
+  pAttackerSweeps: number;
+  /** P(defender takes 0 losses) */
+  pDefenderSweeps: number;
   meanAttackerLosses: number;
   meanDefenderLosses: number;
+  /** Mass on each (attackerLosses, defenderLosses) pair */
+  byLosses: { attackerLosses: number; defenderLosses: number; count: number }[];
 } {
   const aFaces = Math.pow(6, attackDice);
   const dFaces = Math.pow(6, defendDice);
   const total = aFaces * dFaces;
-  let attackerWinsBoth = 0;
-  let split = 0;
-  let defenderWinsBoth = 0;
+  const pairs = Math.min(attackDice, defendDice);
+  const counts = new Map<string, { attackerLosses: number; defenderLosses: number; count: number }>();
   let sumA = 0;
   let sumD = 0;
+  let attackerSweeps = 0;
+  let defenderSweeps = 0;
 
   for (let ai = 0; ai < aFaces; ai++) {
     const aDice = facesToDice(ai, attackDice);
@@ -85,19 +94,27 @@ export function enumerateCombat(attackDice: number, defendDice: number): {
       const { attackerLosses, defenderLosses } = resolveWarRoll(aDice, dDice);
       sumA += attackerLosses;
       sumD += defenderLosses;
-      if (defenderLosses === 2 && attackerLosses === 0) attackerWinsBoth++;
-      else if (attackerLosses === 2 && defenderLosses === 0) defenderWinsBoth++;
-      else if (attackDice >= 2 && defendDice >= 2) split++;
+      if (attackerLosses === 0) attackerSweeps++;
+      if (defenderLosses === 0) defenderSweeps++;
+      const key = `${attackerLosses},${defenderLosses}`;
+      const prev = counts.get(key);
+      if (prev) prev.count += 1;
+      else counts.set(key, { attackerLosses, defenderLosses, count: 1 });
     }
   }
 
+  const byLosses = [...counts.values()].sort(
+    (x, y) => x.attackerLosses - y.attackerLosses || x.defenderLosses - y.defenderLosses,
+  );
+
   return {
     total,
-    attackerWinsBoth,
-    split,
-    defenderWinsBoth,
+    pairs,
+    pAttackerSweeps: attackerSweeps / total,
+    pDefenderSweeps: defenderSweeps / total,
     meanAttackerLosses: sumA / total,
     meanDefenderLosses: sumD / total,
+    byLosses,
   };
 }
 
@@ -142,9 +159,9 @@ export function twoDiceSumPmf(): Map<number, number> {
   return m;
 }
 
-/** Pedagogical: partitions of 42 territories into 6 equal piles of 7. */
+/** Pedagogical: 42 distinct territories into 6 labeled players, 7 each. */
 export function warEqualPartitionCount(): bigint {
-  // 42! / (7!)^6
+  // 42! / (7!)^6  — multinomial; players are distinguishable
   let num = BigInt(1);
   for (let i = 1; i <= 42; i++) num *= BigInt(i);
   let den = BigInt(1);

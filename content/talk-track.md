@@ -26,32 +26,32 @@ Formato por slide:
 
 ### 4. what-is-p
 - **Objetivo:** Fixar probabilidade como fração.
-- **Fala sugerida:** "Probabilidade aqui é parte favorável sobre universo possível. Essa ideia vai aparecer em todos os blocos."
+- **Fala sugerida:** "Ω é o universo, A é o que conta. A fração só vale se os resultados forem equiprováveis."
 - **Gancho:** "No dado, isso fica direto."
 
 ### 5. die
 - **Objetivo:** Transformar fórmula em intuição.
-- **Fala sugerida:** "Um face específica é 1 em 6. Repetindo rolagem, a frequência converge para essa ideia."
+- **Fala sugerida:** "Uma face entre seis iguais. Um clique não é frequência; muitos cliques que convergem."
 - **Gancho:** "Com dois dados, a geometria muda."
 
 ### 6. two-dice
 - **Objetivo:** Mostrar que combinações têm pesos diferentes.
-- **Fala sugerida:** "Sete aparece mais porque tem mais pares possíveis. Não é sorte: é contagem."
+- **Fala sugerida:** "7 tem 6 pares; 2 e 12 têm 1. Não é sorte: é contagem."
 - **Gancho:** "Agora duas condições juntas."
 
 ### 7. venn
-- **Objetivo:** Visualizar interseção.
-- **Fala sugerida:** "Interseção é o pedaço onde A e B acontecem ao mesmo tempo. Isso é o coração do resto da apresentação."
+- **Objetivo:** Visualizar interseção e não confundir com independência.
+- **Fala sugerida:** "O overlap é os dois ao mesmo tempo. O produto P(A)P(B) é independência, não a definição de interseção."
 - **Gancho:** "Quando condicionamos, o universo muda."
 
 ### 8. conditional
-- **Objetivo:** Mostrar sensibilidade de P(A|B).
-- **Fala sugerida:** "Mantendo P(A∩B), só de mudar P(B), o resultado final muda bastante."
+- **Objetivo:** Mostrar que o universo encolhe para B.
+- **Fala sugerida:** "Dado que choveu, o resto some. P(A|B) = interseção sobre P(B). O slider é parâmetro, não dado."
 - **Gancho:** "No mundo real, empilhar condicionais derruba a probabilidade."
 
 ### 9. bridge
 - **Objetivo:** Fechar base e entrar nos casos.
-- **Fala sugerida:** "Tudo daqui para frente é esse princípio: produto de condicionais."
+- **Fala sugerida:** "Cada 'e também' multiplica e o número despenca. Daqui: orla, cães, xadrez, War."
 - **Gancho:** "Vamos testar isso em reencontro de pessoas."
 
 ## Encontros
@@ -63,163 +63,173 @@ Formato por slide:
 
 ### 11. enc-model
 - **Objetivo:** Mostrar o modelo em 3 camadas.
-- **Fala sugerida:** "k observações por visita, amostradas de N efetivo; depois n visitas. Fluxo/hora é intensidade, não denominador."
+- **Fala sugerida:** "h e r dão k numa visita; N é o universo; n visitas independentes — hipótese. Fluxo/hora é intensidade, não denominador."
 - **Gancho:** "Agora mexemos nos parâmetros e vemos o número vivo."
 
 ### 12. enc-sim
-- **Objetivo:** Exibir painel pergunta->resposta.
-- **Fala sugerida:** "Compare orla (N grande, muita rotatividade) com faculdade (N menor, gente recorrente). À esquerda são hipóteses; no centro, P de reencontro."
-- **Gancho:** "Com esse p, vemos distribuição de repetições."
+- **Objetivo:** Responder “vi aquela pessoa — em quantos dias eu veria de novo?”
+- **Fala sugerida:** "Cada volta é um sorteio. A espera é geométrica: E[T]=1/p. Na orla, 3 idas/semana, o esperado são anos; na faculdade, bem menos. Sorteie uma história."
+- **Gancho:** "Com esse p, vemos a distribuição de repetições."
 
 ### 13. binomial
-- **Objetivo:** Mostrar forma da distribuição.
-- **Fala sugerida:** "Com n visitas e p por visita, a binomial mostra onde a massa de probabilidade concentra."
+- **Objetivo:** Mostrar binomial como processo, não só gráfico.
+- **Fala sugerida:** "n visitas, mesma p. Clique numa realização: cada quadradinho é uma visita. A barra é a lei; os quadradinhos são uma história."
 - **Gancho:** "Para eventos raros por unidade de tempo, Poisson simplifica."
 
 ### 14. poisson
-- **Objetivo:** Introduzir taxa lambda.
-- **Fala sugerida:** "Lambda resume taxa média por janela. Mudou lambda, muda toda a curva."
-- **Gancho:** "Vamos comparar teoria e simulação."
+- **Objetivo:** Poisson como pontos no tempo.
+- **Fala sugerida:** "λ é a taxa na janela. Sorteie uma janela: os pontinhos são onde o raro caiu. Na orla com N certo, λ é pequenininho."
+- **Gancho:** "Quando contar tudo é caro, a gente simula."
 
-### 15. enc-mc
-- **Objetivo:** Validar com Monte Carlo.
-- **Fala sugerida:** "A simulação aproxima o teórico. Aqui o foco é diferença pequena, não coincidência perfeita."
+### 15. mc-what
+- **Objetivo:** Explicar Monte Carlo visualmente.
+- **Fala sugerida:** "Cada célula é um sorteio. Âmbar acertou, teal não. p̂ é a fração. Isso é Monte Carlo: repetir o acaso até a frequência se aproximar de p."
+- **Gancho:** "Agora com N grande, números."
+
+### 16. enc-mc
+- **Objetivo:** Validar com Monte Carlo em escala.
+- **Fala sugerida:** "Teórico é a fórmula; p̂ é a frequência. Devem se aproximar. Isto é Bernoulli, não o modelo da orla."
 - **Gancho:** "E com mais N, a incerteza cai."
 
-### 16. ci
+### 17. ci
 - **Objetivo:** Evidenciar IC encolhendo.
-- **Fala sugerida:** "O intervalo estreita conforme n cresce. Essa é a noção prática de confiança."
+- **Fala sugerida:** "IC 95% é a faixa do método. p̂ aqui está fixo em 12%. Mais n estreita a barra, não prova mais."
 - **Gancho:** "Agora o bloco mais sensível: cães e Bayes."
 
 ## Cães e Bayes
 
-### 17. dogs-ethics
+### 18. dogs-ethics
 - **Objetivo:** Enquadramento responsável.
 - **Fala sugerida:** "Estamos modelando cenário de risco, não definindo essência de raça."
 - **Gancho:** "Com isso claro, montamos a cadeia."
 
-### 18. dogs-chain
+### 19. dogs-chain
 - **Objetivo:** Mostrar multiplicação de fatores.
-- **Fala sugerida:** "Cada fator sozinho pode parecer comum; juntos, o resultado muda de escala."
+- **Fala sugerida:** "Multiplicamos porque TODAS as condições precisam acontecer. S, C, R, I. Os números são hipóteses, não censo."
 - **Gancho:** "E o erro clássico aparece na leitura das condicionais."
 
-### 19. dogs-bayes
+### 20. dogs-bayes
 - **Objetivo:** Contrastar duas condicionais.
-- **Fala sugerida:** "Essas duas fórmulas parecem parecidas no texto, mas respondem perguntas opostas."
+- **Fala sugerida:** "Dado o fatal, de que grupo veio? não é dado o grupo, qual o risco? Bayes inverte a condicional."
 - **Gancho:** "Vamos quantificar com um cenário ajustável."
 
-### 20. dogs-sim
+### 21. dogs-sim
 - **Objetivo:** Tornar Bayes palpável.
-- **Fala sugerida:** "Ao mexer no prior e nas taxas condicionais, o posterior muda imediatamente."
+- **Fala sugerida:** "A é o grupo, B é o sinal. Prior = quão comum; P(B|A) = se A, o sinal; P(B|¬A) = alarme falso. O número grande é P(A|B)."
 - **Gancho:** "Agora olhamos o dado observado, sem confundir interpretação."
 
-### 21. dogs-chart
+### 22. dogs-chart
 - **Objetivo:** Ler gráfico corretamente.
 - **Fala sugerida:** "Esse gráfico é P(raça|fatal). Ele não responde risco individual por raça."
 - **Gancho:** "Fechando com a frase-chave."
 
-### 22. dogs-takeaway
+### 23. dogs-takeaway
 - **Objetivo:** Fixar inversão condicional.
 - **Fala sugerida:** "Mesmas palavras, sentidos diferentes. É isso que Bayes protege."
 - **Gancho:** "No xadrez, veremos outro erro intuitivo clássico."
 
 ## Xadrez
 
-### 23. chess-hook
-- **Objetivo:** Trazer o problema de repetição.
-- **Fala sugerida:** "Duas partidas idênticas lance a lance parecem possíveis, mas quão prováveis são?"
+### 24. chess-hook
+- **Objetivo:** Cravar a pergunta (linha específica, sorteio legal).
+- **Fala sugerida:** "Não é duas pessoas jogarem a Siciliana. É repetir lance a lance uma linha específica se cada lado sorteasse um lance legal."
 - **Gancho:** "Primeiro, a armadilha do 20ⁿ."
 
-### 24. chess-trap
-- **Objetivo:** Mostrar simplificação ruim.
-- **Fala sugerida:** "20ⁿ assume ramificação fixa. O tabuleiro real não funciona assim."
+### 25. chess-trap
+- **Objetivo:** Separar contagem e probabilidade no modelo ingênuo.
+- **Fala sugerida:** "20ⁿ assume ramificação fixa. Na abertura isso subestima a árvore e superestima P de um caminho. 1/20ⁿ é a chance ingênua."
 - **Gancho:** "Perft mostra a contagem real por profundidade."
 
-### 25. chess-perft
-- **Objetivo:** Expor escala real.
-- **Fala sugerida:** "Os números explodem rápido. Aqui já vemos por que repetição exata é tão rara."
-- **Gancho:** "E isso muda a cada estado."
+### 26. chess-perft
+- **Objetivo:** Expor escala real e a razão 20ⁿ/Perft < 1.
+- **Fala sugerida:** "Ply é meio-lance. Depth 1 são os 20 das brancas. A partir de n=3, Perft é maior que 20ⁿ. Inclui lances péssimos."
+- **Gancho:** "E a ramificação muda a cada estado."
 
-### 26. chess-state
-- **Objetivo:** Associar chance ao estado S_t.
-- **Fala sugerida:** "B(S_t) varia por posição. Probabilidade local muda lance a lance."
+### 27. chess-state
+- **Objetivo:** Traduzir B(S_t) como lances legais na posição.
+- **Fala sugerida:** "B é quantos lances legais tem agora. No uniforme, a chance local é 1/B. Este caminho é ilustrativo, não uma partida real."
 - **Gancho:** "A partida inteira vira um produto."
 
-### 27. chess-product
-- **Objetivo:** Fechar matemática de trajetória.
-- **Fala sugerida:** "Multiplicando escolhas locais, a chance total cai para ordens de magnitude muito pequenas."
-- **Gancho:** "Esse fluxo é naturalmente uma cadeia de estados."
+### 28. chess-product
+- **Objetivo:** Um caminho ≠ o xadrez; uniforme ≠ humano.
+- **Fala sugerida:** "Multiplicando 1/B, cai a chance DESTA trajetória. Humano não sorteia: teoria concentra massa em poucas linhas."
+- **Gancho:** "Antes de chamar de Markov, vamos ver o que isso é — com pessoas."
 
-### 28. chess-markov
-- **Objetivo:** Introduzir visão markoviana.
-- **Fala sugerida:** "Cada posição transiciona para próximas posições com probabilidades condicionais."
+### 29. markov-what
+- **Objetivo:** Definir cadeia de Markov com exemplo espacial.
+- **Fala sugerida:** "Amanhã só depende de hoje. Casa, orla, faculdade: cada seta é uma probabilidade. Clique amanhã e veja o token andar. Xadrez e War são a mesma máquina, estados diferentes."
+- **Gancho:** "No tabuleiro, o estado é a posição."
+
+### 30. chess-markov
+- **Objetivo:** Markov nas regras, com estado completo.
+- **Fala sugerida:** "O conjunto de lances legais depende do estado atual. Estado inclui roque e en passant, não só as peças. Jogador real ainda tem memória."
 - **Gancho:** "No simulador, comparamos modelo ingênuo e real."
 
-### 29. chess-sim
-- **Objetivo:** Contraste visual direto.
-- **Fala sugerida:** "Aqui o ponto é a razão entre 20ⁿ e Perft. Esse fator resume o erro de simplificação."
+### 31. chess-sim
+- **Objetivo:** Contraste 20ⁿ vs Perft e 1/20ⁿ vs 1/Perft.
+- **Fala sugerida:** "Olha as duas chances lado a lado. 1/20ⁿ é maior que 1/Perft: o modelo ingênuo superestima a probabilidade. E uniforme ainda não é humano."
 - **Gancho:** "No War, a mesma ideia aparece em batalhas."
 
 ## War
 
-### 30. war-hook
+### 32. war-hook
 - **Objetivo:** Definir pergunta operacional.
-- **Fala sugerida:** "Com essa configuração de tropas, qual chance de conquista?"
-- **Gancho:** "Antes da simulação, três números base."
+- **Fala sugerida:** "Com 10 contra 5, eu conquisto ESTE território? War: até 3 dados de cada lado. Não é o jogo inteiro."
+- **Gancho:** "Antes da simulação, a assimetria dos dados."
 
-### 31. war-combat
-- **Objetivo:** Mostrar métricas essenciais.
-- **Fala sugerida:** "Vitória 1v1 e perdas médias 3v2 já explicam muita coisa do comportamento do jogo."
+### 33. war-combat
+- **Objetivo:** Mostrar que empate não é 50% e que 3v3 ≠ três 1v1.
+- **Fala sugerida:** "1v1 é 15 em 36 porque empate fica com a defesa. 3v3 tem 46 mil resultados; o defensor perde um pouco menos, em média. Risk é 3v2 — aqui é War."
 - **Gancho:** "Agora vemos isso em sequência de turnos."
 
-### 32. war-chain
-- **Objetivo:** Tornar processo temporal visível.
-- **Fala sugerida:** "Cada rolagem atualiza estado e muda a próxima decisão."
+### 34. war-chain
+- **Objetivo:** Tornar o par (A, D) visível.
+- **Fala sugerida:** "Cada rolagem atualiza tropas. O atacante para em 1 — deixa alguém na origem. Olha quantos dados cada lado está rolando agora."
 - **Gancho:** "Além da batalha, o setup inicial já é gigante."
 
-### 33. war-parts
-- **Objetivo:** Mostrar escala combinatória inicial.
-- **Fala sugerida:** "Só a distribuição inicial de territórios já está na casa de 10³¹."
+### 35. war-parts
+- **Objetivo:** Combinatória do setup, número certo.
+- **Fala sugerida:** "42 territórios, 6 jogadores, 7 cada: 42! / (7!)⁶ ≈ 8,57×10²⁸. Às vezes citam 10³¹ — está errado. E isso não é a chance de conquistar um território."
 - **Gancho:** "Fechamos com Monte Carlo da conquista."
 
-### 34. war-sim
-- **Objetivo:** Responder pergunta com p̂.
-- **Fala sugerida:** "Escolho tropas, rodo N batalhas e leio probabilidade estimada com IC."
+### 36. war-sim
+- **Objetivo:** Responder o hook com p̂ e IC.
+- **Fala sugerida:** "Escolho tropas, rodo N batalhas do mesmo território, leio probabilidade estimada com intervalo. Defensor até 3 dados."
 - **Gancho:** "Esse mesmo processo cabe numa visão de estado."
 
-### 35. war-markov
-- **Objetivo:** Conectar com cadeia de estados.
-- **Fala sugerida:** "War também é evolução de estado: combate após combate."
+### 37. war-markov
+- **Objetivo:** Grade (A, D) com absorção visível.
+- **Fala sugerida:** "Cada célula é um estado. Verde conquistou, âmbar esgotou. Role uma transição: só anda para menos tropas. Conquistar é a chance de cair no verde."
 - **Gancho:** "Vamos resumir a escada matemática inteira."
 
 ## Síntese
 
-### 36. ladder
+### 38. ladder
 - **Objetivo:** Relembrar progressão.
-- **Fala sugerida:** "Partimos de contagem simples e chegamos em inferência e processos estocásticos."
+- **Fala sugerida:** "Subimos de fração para processo para simulação. Cada degrau teve um mundo: dado, orla, cães, xadrez."
 - **Gancho:** "Então, o improvável existe ou não?"
 
-### 37. improbable
+### 39. improbable
 - **Objetivo:** Fechar tese central.
-- **Fala sugerida:** "Improvável não é impossível. Com muitas tentativas, o raro aparece."
+- **Fala sugerida:** "10⁻⁶ não é zero. E[X]=Np: orla, Perft, 10×5 — com N grande o esperado deixa de ser desprezível."
 - **Gancho:** "Mas modelos têm limites."
 
-### 38. limits
+### 40. limits
 - **Objetivo:** Mostrar honestidade metodológica.
 - **Fala sugerida:** "Aqui estão três limites que impedem conclusões erradas."
 - **Gancho:** "Agora vamos para navegação livre."
 
-### 39. demo
+### 41. demo
 - **Objetivo:** Abrir discussão orientada.
 - **Fala sugerida:** "Podemos voltar para qualquer simulador e testar hipóteses da turma."
 - **Gancho:** "Encerrando com referências."
 
-### 40. credits
+### 42. credits
 - **Objetivo:** Registrar fontes e stack.
 - **Fala sugerida:** "Essas são as bases de dados e ferramentas usadas no projeto."
 - **Gancho:** "Fecho com a pergunta inicial."
 
-### 41. thanks
+### 43. thanks
 - **Objetivo:** Encerramento memorável.
 - **Fala sugerida:** "Obrigado. A pergunta permanece: quando algo parece impossível, qual foi a cadeia de probabilidades por trás?"
 - **Gancho:** "Q&A."

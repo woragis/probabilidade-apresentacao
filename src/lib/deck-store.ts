@@ -5,8 +5,11 @@ import { create } from "zustand";
 type DeckState = {
   index: number;
   total: number;
+  ids: string[];
   setTotal: (n: number) => void;
+  setIds: (ids: string[]) => void;
   setIndex: (i: number) => void;
+  jumpToId: (id: string) => void;
   next: () => void;
   prev: () => void;
   goHome: () => void;
@@ -16,11 +19,18 @@ type DeckState = {
 export const useDeckStore = create<DeckState>((set, get) => ({
   index: 0,
   total: 0,
+  ids: [],
   setTotal: (n) => set({ total: n }),
+  setIds: (ids) => set({ ids }),
   setIndex: (i) => {
     const { total } = get();
     if (total <= 0) return;
     set({ index: Math.max(0, Math.min(total - 1, i)) });
+  },
+  jumpToId: (id) => {
+    const { ids } = get();
+    const i = ids.indexOf(id);
+    if (i >= 0) get().setIndex(i);
   },
   next: () => {
     const { index, total } = get();

@@ -7,9 +7,19 @@ import {
   combinations,
   confidenceInterval95,
   enumerateCombat,
+  diceCounts,
+  resolveWarRoll,
+  warEqualPartitionCount,
   pAttackerWinsOneVsOne,
   perftSequences,
+  naiveUniformSequences,
+  naivePathProbability,
+  uniformOverLeavesProbability,
   pNoticeOnce,
+  expectedVisitsUntilFirst,
+  visitsUntilCdf,
+  calendarDaysFromVisits,
+  sampleGeometricTrials,
   twoDiceSumPmf,
 } from "./index";
 
@@ -55,6 +65,22 @@ describe("chess perft", () => {
     expect(perftSequences(2)).toBe(400);
     expect(perftSequences(3)).toBe(8902);
     expect(perftSequences(4)).toBe(197281);
+    expect(perftSequences(8)).toBe(84_998_978_956);
+  });
+
+  it("20^n underestimates the opening tree from depth 3", () => {
+    expect(naiveUniformSequences(1)).toBe(20);
+    expect(naiveUniformSequences(2)).toBe(400);
+    expect(naiveUniformSequences(3)).toBeLessThan(8902);
+    expect(naiveUniformSequences(5)).toBeLessThan(4_865_609);
+  });
+
+  it("1/20^n overestimates uniform-over-leaves probability", () => {
+    const depth = 5;
+    const naiveP = naivePathProbability(depth);
+    const leavesP = uniformOverLeavesProbability(depth)!;
+    expect(naiveP).toBeGreaterThan(leavesP);
+    expect(leavesP).toBeCloseTo(1 / 4_865_609, 12);
   });
 });
 
@@ -90,12 +116,49 @@ describe("encounters", () => {
     });
     expect(faculdade).toBeGreaterThan(orla);
   });
+
+  it("waiting time until first reencounter is geometric", () => {
+    expect(expectedVisitsUntilFirst(0.1)).toBeCloseTo(10, 10);
+    expect(visitsUntilCdf(0.1, 0.5)).toBe(7);
+    expect(calendarDaysFromVisits(10, 7)).toBeCloseTo(10, 10);
+    expect(calendarDaysFromVisits(10, 1)).toBeCloseTo(70, 10);
+    expect(sampleGeometricTrials(1)).toBe(1);
+    expect(sampleGeometricTrials(0, () => 0.5)).toBe(Number.POSITIVE_INFINITY);
+  });
 });
 
 describe("war enumerate", () => {
-  it("1v1 totals 36", () => {
+  it("1v1 totals 36 and attacker wins 15/36 (ties to defender)", () => {
     const e = enumerateCombat(1, 1);
     expect(e.total).toBe(36);
+    expect(pAttackerWinsOneVsOne()).toBeCloseTo(15 / 36, 10);
+    expect(e.pAttackerSweeps).toBeCloseTo(15 / 36, 10);
+  });
+
+  it("uses War dice: defender up to 3, attacker leaves 1 behind", () => {
+    expect(diceCounts(10, 5)).toEqual({ attack: 3, defend: 3 });
+    expect(diceCounts(2, 5)).toEqual({ attack: 1, defend: 3 });
+    expect(diceCounts(8, 2)).toEqual({ attack: 3, defend: 2 });
+  });
+
+  it("3v3 enumerates 6^6 outcomes", () => {
+    const e = enumerateCombat(3, 3);
+    expect(e.total).toBe(46_656);
+    expect(e.pairs).toBe(3);
+    expect(e.meanAttackerLosses).toBeGreaterThan(e.meanDefenderLosses);
+  });
+
+  it("tie goes to defender", () => {
+    expect(resolveWarRoll([4, 3, 2], [4, 3, 2])).toEqual({
+      attackerLosses: 3,
+      defenderLosses: 0,
+    });
+  });
+
+  it("equal 7-territory deal is ~8.57e28, not 1.03e31", () => {
+    const n = Number(warEqualPartitionCount());
+    expect(n).toBeGreaterThan(8e28);
+    expect(n).toBeLessThan(9e28);
   });
 });
 

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { Hint } from "@/components/deck/Hint";
 
 type Props = {
   label: string;
@@ -10,6 +11,7 @@ type Props = {
   step?: number;
   onChange: (v: number) => void;
   format?: (v: number) => string;
+  hint?: { title?: string; body: string; side?: "bottom" | "right" };
 };
 
 export function SliderControl({
@@ -20,11 +22,20 @@ export function SliderControl({
   step = 1,
   onChange,
   format = (v) => String(v),
+  hint,
 }: Props) {
   return (
     <label className="block space-y-2">
       <div className="flex items-baseline justify-between gap-3 text-sm">
-        <span className="text-cream/70">{label}</span>
+        <span className="text-cream/70">
+          {hint ? (
+            <Hint title={hint.title ?? label} body={hint.body} side={hint.side}>
+              {label}
+            </Hint>
+          ) : (
+            label
+          )}
+        </span>
         <span className="font-mono text-amber">{format(value)}</span>
       </div>
       <input

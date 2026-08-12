@@ -19,7 +19,9 @@ export { conditional, bayes, bayesBinary, chainProduct } from "./bayes";
 export {
   PERFT_INITIAL,
   naiveUniformSequences,
+  naivePathProbability,
   perftSequences,
+  uniformOverLeavesProbability,
   pathProbabilityFromBranching,
   log10InversePerft,
   SAMPLE_BRANCHING_PATH,
@@ -43,6 +45,10 @@ export {
   pNoticeOnce,
   pAtLeastOneReencounter,
   expectedReencounters,
+  expectedVisitsUntilFirst,
+  visitsUntilCdf,
+  calendarDaysFromVisits,
+  sampleGeometricTrials,
   poissonLambda,
 } from "./encounters";
 export type { CityKey, CityProfile, PlaceProfile } from "./encounters";

@@ -10,12 +10,27 @@ export const PERFT_INITIAL: Record<number, number> = {
   5: 4_865_609,
   6: 119_060_324,
   7: 3_195_901_860,
-  // depth 8+ exceeds safe Number for display; keep as approximate scientific
+  8: 84_998_978_956,
 };
 
 /** Naive uniform branching model: 20^n */
 export function naiveUniformSequences(depth: number): number {
   return Math.pow(20, depth);
+}
+
+/** P(one specific path) if every position had exactly 20 legal moves. */
+export function naivePathProbability(depth: number): number {
+  return 1 / Math.pow(20, Math.max(0, depth));
+}
+
+/**
+ * Pedagogical stand-in: uniform over Perft leaves.
+ * Not the same as ∏ 1/B(S_t) along a real path — only the same order of magnitude.
+ */
+export function uniformOverLeavesProbability(depth: number): number | null {
+  const n = perftSequences(depth);
+  if (n == null || n <= 0) return null;
+  return 1 / n;
 }
 
 /** Legal sequences to depth n from initial position (Perft). */

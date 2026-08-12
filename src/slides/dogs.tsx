@@ -64,6 +64,11 @@ export function DogsChainSlide() {
 
   return (
     <SlideShell eyebrow="Cadeia" title="Uma chance nasce de várias chances">
+      <p className="mb-5 max-w-2xl text-text-subtle">
+        Multiplicamos porque <span className="text-cream">todas</span> as condições
+        precisam acontecer. S = sair, C = encontrar cão, R = interação, I = incidente.
+        Os números abaixo são hipóteses, não censo.
+      </p>
       <Formula
         display
         tex={String.raw`P(I)=P(S)\,P(C\mid S)\,P(R\mid C,S)\,P(I\mid R,C,S)`}
@@ -91,6 +96,10 @@ export function DogsChainSlide() {
 export function DogsBayesSlide() {
   return (
     <SlideShell eyebrow="Assinatura" title="Mesmas palavras. Perguntas opostas.">
+      <p className="mb-6 max-w-2xl text-text-subtle">
+        “Dado o fatal, de que grupo veio?” não é “dado o grupo, qual o risco?”. Bayes{" "}
+        <span className="text-cream">inverte</span> a condicional.
+      </p>
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="rounded border border-amber/40 bg-amber/10 p-6">
           <p className="mb-3 text-xs tracking-[0.14em] text-text-subtle uppercase">o dado traz</p>
@@ -114,37 +123,57 @@ export function DogsSimulatorSlide() {
 
   return (
     <SlideShell eyebrow="Simulator" title="Qual posterior sai desse cenário?">
+      <p className="mb-5 max-w-2xl text-text-subtle">
+        A = o grupo (ex.: uma raça). B = o sinal (ex.: fatal). O número grande é{" "}
+        <span className="font-mono text-cream">P(A|B)</span> — a pergunta invertida.
+      </p>
       <div className="max-w-md space-y-4" onKeyDown={(e) => e.stopPropagation()}>
         <SliderControl
-          label="P(A) prior"
+          label="P(A) prior — quão comum o grupo"
           value={pA}
           min={0.01}
           max={0.5}
           step={0.01}
           onChange={setPA}
           format={(v) => v.toFixed(2)}
+          hint={{
+            title: "P(A) prior",
+            body: "Quão comum é o grupo A na população. Raro no prior → mesmo um sinal forte não explode o posterior.",
+          }}
         />
         <SliderControl
-          label="P(B|A)"
+          label="P(B|A) — se A, quão provável o sinal"
           value={sens}
           min={0.05}
           max={0.95}
           step={0.01}
           onChange={setSens}
           format={(v) => v.toFixed(2)}
+          hint={{
+            title: "P(B|A)",
+            body: "Se A é verdade, quão provável é o sinal B. Aqui: se é aquele grupo, quão frequentemente o incidente grave aparece.",
+          }}
         />
         <SliderControl
-          label="P(B|¬A)"
+          label="P(B|¬A) — alarme falso"
           value={falsePos}
           min={0.01}
           max={0.5}
           step={0.01}
           onChange={setFalsePos}
           format={(v) => v.toFixed(2)}
+          hint={{
+            title: "P(B|¬A)",
+            body: "Alarme falso: B acontece mesmo sem A. Quanto maior, mais o sinal se dilui e o posterior cai.",
+          }}
         />
       </div>
       <p className="mt-8 font-display text-5xl text-amber">
         P(A|B) ≈ {(posterior * 100).toFixed(1)}%
+      </p>
+      <p className="mt-3 max-w-md text-sm text-text-subtle">
+        66% no gráfico de fatalidades é P(raça|fatal), o dado. Este % é o posterior do
+        cenário — outra pergunta.
       </p>
       <PrimaryButton
         onClick={() => {

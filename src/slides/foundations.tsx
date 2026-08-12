@@ -9,6 +9,11 @@ import { twoDiceSumPmf } from "@/lib/math";
 export function WhatIsProbabilitySlide() {
   return (
     <SlideShell eyebrow="Fundamentos" title="Quanto do universo é favorável?">
+      <p className="mb-6 max-w-2xl text-text-subtle">
+        <span className="text-cream">Ω</span> = todos os resultados possíveis.{" "}
+        <span className="text-cream">A</span> = os que contam. A fração só vale se
+        os resultados forem <span className="text-cream">equiprováveis</span>.
+      </p>
       <div className="space-y-8">
         <Formula display tex={String.raw`P(A)=\dfrac{|A|}{|\Omega|}`} />
         <div className="grid max-w-3xl gap-4 md:grid-cols-2">
@@ -54,7 +59,10 @@ export function SingleDieSlide() {
         </button>
         <div className="space-y-6">
           <Formula display tex={String.raw`P(6)=\dfrac{1}{6}\approx 0{,}1667`} />
-          <p className="text-sm text-text-subtle">Clique: a intuição vira frequência.</p>
+          <p className="max-w-md text-sm text-text-subtle">
+            Uma face entre seis iguais. Um clique não é frequência — muitos cliques
+            que convergem.
+          </p>
           <PrimaryButton onClick={roll}>Rolar</PrimaryButton>
         </div>
       </div>
@@ -76,6 +84,10 @@ export function TwoDiceSlide() {
     <SlideShell eyebrow="Fundamentos" title="Por que 7 aparece tanto?" wide>
       <div className="grid gap-10 lg:grid-cols-[1fr_auto]">
         <div className="space-y-4">
+          <p className="max-w-md text-text-subtle">
+            7 tem <span className="text-cream">6 pares</span>; 2 e 12 têm 1. Não é
+            sorte: é contagem.
+          </p>
           <Formula display tex={String.raw`P(\text{soma}=7)=\dfrac{6}{36}`} />
           <p className="font-mono text-3xl text-amber">{(p7 * 100).toFixed(2)}%</p>
         </div>
@@ -148,8 +160,15 @@ export function VennSlide() {
               Destacar B
             </button>
           </div>
+          <p className="max-w-sm text-text-subtle">
+            O overlap é os dois ao mesmo tempo. O produto{" "}
+            <Formula tex={String.raw`P(A)P(B)`} /> vale só se A e B forem{" "}
+            <span className="text-cream">independentes</span> — não é a definição de
+            interseção.
+          </p>
           <p className="text-lg text-cream/80">
             <Formula tex={String.raw`P(A\cap B)=P(A)P(B)`} />
+            <span className="ml-2 text-sm text-cream/40">se independentes</span>
           </p>
         </div>
       </div>
@@ -164,6 +183,10 @@ export function ConditionalSlide() {
 
   return (
     <SlideShell eyebrow="Fundamentos" title="Quando B acontece, o universo muda">
+      <p className="mb-6 max-w-2xl text-text-subtle">
+        O universo <span className="text-cream">encolhe para B</span>. Exemplo: P(atrasar |
+        choveu) — já sabemos que choveu; o resto do Ω some.
+      </p>
       <Formula
         display
         tex={String.raw`P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}`}
@@ -171,7 +194,7 @@ export function ConditionalSlide() {
       <div className="mt-8 max-w-md space-y-5">
         <label className="block text-sm text-cream/70">
           P(B) = {pB.toFixed(2)}{" "}
-          <span className="text-text-subtle/70">(parâmetro)</span>
+          <span className="text-text-subtle/70">(parâmetro, não dado)</span>
           <input
             type="range"
             min={0.16}
@@ -198,7 +221,10 @@ export function BridgeSlide() {
       <p className="max-w-2xl text-2xl leading-relaxed text-cream/80 md:text-3xl">
         Evento raro = multiplicar condicionais.
       </p>
-      <p className="mt-8 text-text-subtle">Entramos no mundo real →</p>
+      <p className="mt-6 max-w-2xl text-text-subtle">
+        Cada “e também…” multiplica e o número despenca. Daqui para frente: orla, cães,
+        xadrez, War.
+      </p>
     </SlideShell>
   );
 }

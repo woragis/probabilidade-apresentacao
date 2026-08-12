@@ -14,6 +14,7 @@ export function DeckController() {
   const index = useDeckStore((s) => s.index);
   const setIndex = useDeckStore((s) => s.setIndex);
   const setTotal = useDeckStore((s) => s.setTotal);
+  const setIds = useDeckStore((s) => s.setIds);
   const next = useDeckStore((s) => s.next);
   const prev = useDeckStore((s) => s.prev);
   const goHome = useDeckStore((s) => s.goHome);
@@ -23,7 +24,8 @@ export function DeckController() {
 
   useEffect(() => {
     setTotal(SLIDES.length);
-  }, [setTotal]);
+    setIds(SLIDES.map((s) => s.id));
+  }, [setTotal, setIds]);
 
   useEffect(() => {
     if (synced.current) return;
@@ -44,6 +46,9 @@ export function DeckController() {
     window.history.replaceState(null, "", url.toString());
   }, [index]);
 
+  const slide = SLIDES[index]!;
+  const Slide = slide.Component;
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
@@ -60,8 +65,12 @@ export function DeckController() {
       switch (e.key) {
         case "ArrowRight":
         case "PageDown":
+          e.preventDefault();
+          next();
+          break;
         case " ":
         case "Spacebar":
+          if (slide.captureSpace) return;
           e.preventDefault();
           next();
           break;
@@ -84,10 +93,7 @@ export function DeckController() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [next, prev, goHome, goEnd]);
-
-  const slide = SLIDES[index]!;
-  const Slide = slide.Component;
+  }, [next, prev, goHome, goEnd, slide.captureSpace]);
 
   return (
     <div className="relative h-dvh w-dvw overflow-hidden bg-ink text-cream">

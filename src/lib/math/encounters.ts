@@ -192,6 +192,44 @@ export function expectedReencounters(pVisit: number, visits: number): number {
 }
 
 /**
+ * Geometric waiting time: trials until first success.
+ * E[T] = 1/p. Each visit to the place is one trial.
+ */
+export function expectedVisitsUntilFirst(pVisit: number): number {
+  if (pVisit <= 0) return Number.POSITIVE_INFINITY;
+  if (pVisit >= 1) return 1;
+  return 1 / pVisit;
+}
+
+/**
+ * Smallest n with P(T ≤ n) ≥ q for T ~ Geometric(p) (trials until first success).
+ * 50% → mediana; 90% → “quase certeza” no modelo.
+ */
+export function visitsUntilCdf(pVisit: number, q: number): number {
+  if (pVisit <= 0) return Number.POSITIVE_INFINITY;
+  if (pVisit >= 1 || q <= 0) return 1;
+  const clamped = Math.min(Math.max(q, 0), 1 - Number.EPSILON);
+  return Math.max(1, Math.ceil(Math.log(1 - clamped) / Math.log(1 - pVisit)));
+}
+
+/** Convert visit count to calendar days given how often you return. */
+export function calendarDaysFromVisits(visits: number, visitsPerWeek: number): number {
+  if (!Number.isFinite(visits) || visitsPerWeek <= 0) return Number.POSITIVE_INFINITY;
+  return visits * (7 / visitsPerWeek);
+}
+
+/** Inverse-transform sample of Geometric(p): number of visits until first notice. */
+export function sampleGeometricTrials(
+  pVisit: number,
+  rng: () => number = Math.random,
+): number {
+  if (pVisit <= 0) return Number.POSITIVE_INFINITY;
+  if (pVisit >= 1) return 1;
+  const u = Math.min(Math.max(rng(), Number.EPSILON), 1 - Number.EPSILON);
+  return Math.max(1, Math.ceil(Math.log(1 - u) / Math.log(1 - pVisit)));
+}
+
+/**
  * Poisson rate for rare notices across visits:
  * λ = visits × hours × observeRate / N
  * (approximation when k ≪ N per visit)
