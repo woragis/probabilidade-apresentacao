@@ -153,49 +153,51 @@ Formato por slide:
 ### 28. chess-product
 - **Objetivo:** Um caminho ≠ o xadrez; uniforme ≠ humano.
 - **Fala sugerida:** "Multiplicando 1/B, cai a chance DESTA trajetória. Humano não sorteia: teoria concentra massa em poucas linhas."
-- **Gancho:** "Antes de chamar de Markov, vamos ver o que isso é — com pessoas."
-
-### 29. markov-what
-- **Objetivo:** Definir cadeia de Markov com exemplo espacial.
-- **Fala sugerida:** "Amanhã só depende de hoje. Casa, orla, faculdade: cada seta é uma probabilidade. Clique amanhã e veja o token andar. Xadrez e War são a mesma máquina, estados diferentes."
-- **Gancho:** "No tabuleiro, o estado é a posição."
-
-### 30. chess-markov
-- **Objetivo:** Markov nas regras, com estado completo.
-- **Fala sugerida:** "O conjunto de lances legais depende do estado atual. Estado inclui roque e en passant, não só as peças. Jogador real ainda tem memória."
 - **Gancho:** "No simulador, comparamos modelo ingênuo e real."
 
-### 31. chess-sim
+### 29. chess-sim
 - **Objetivo:** Contraste 20ⁿ vs Perft e 1/20ⁿ vs 1/Perft.
 - **Fala sugerida:** "Olha as duas chances lado a lado. 1/20ⁿ é maior que 1/Perft: o modelo ingênuo superestima a probabilidade. E uniforme ainda não é humano."
 - **Gancho:** "No War, a mesma ideia aparece em batalhas."
 
 ## War
 
-### 32. war-hook
+### 30. war-hook
 - **Objetivo:** Definir pergunta operacional.
 - **Fala sugerida:** "Com 10 contra 5, eu conquisto ESTE território? War: até 3 dados de cada lado. Não é o jogo inteiro."
 - **Gancho:** "Antes da simulação, a assimetria dos dados."
 
-### 33. war-combat
+### 31. war-combat
 - **Objetivo:** Mostrar que empate não é 50% e que 3v3 ≠ três 1v1.
 - **Fala sugerida:** "1v1 é 15 em 36 porque empate fica com a defesa. 3v3 tem 46 mil resultados; o defensor perde um pouco menos, em média. Risk é 3v2 — aqui é War."
 - **Gancho:** "Agora vemos isso em sequência de turnos."
 
-### 34. war-chain
+### 32. war-chain
 - **Objetivo:** Tornar o par (A, D) visível.
 - **Fala sugerida:** "Cada rolagem atualiza tropas. O atacante para em 1 — deixa alguém na origem. Olha quantos dados cada lado está rolando agora."
 - **Gancho:** "Além da batalha, o setup inicial já é gigante."
 
-### 35. war-parts
+### 33. war-parts
 - **Objetivo:** Combinatória do setup, número certo.
 - **Fala sugerida:** "42 territórios, 6 jogadores, 7 cada: 42! / (7!)⁶ ≈ 8,57×10²⁸. Às vezes citam 10³¹ — está errado. E isso não é a chance de conquistar um território."
 - **Gancho:** "Fechamos com Monte Carlo da conquista."
 
-### 36. war-sim
+### 34. war-sim
 - **Objetivo:** Responder o hook com p̂ e IC.
 - **Fala sugerida:** "Escolho tropas, rodo N batalhas do mesmo território, leio probabilidade estimada com intervalo. Defensor até 3 dados."
-- **Gancho:** "Esse mesmo processo cabe numa visão de estado."
+- **Gancho:** "Agora o mesmo motor nos dois mundos: Markov."
+
+## Markov
+
+### 35. markov-what
+- **Objetivo:** Definir cadeia de Markov com exemplo espacial.
+- **Fala sugerida:** "Amanhã só depende de hoje. Casa, orla, faculdade: cada seta é uma probabilidade. Clique amanhã e veja o token andar. Xadrez e War são a mesma máquina, estados diferentes."
+- **Gancho:** "No tabuleiro, o estado é a posição."
+
+### 36. chess-markov
+- **Objetivo:** Markov nas regras, com estado completo.
+- **Fala sugerida:** "O conjunto de lances legais depende do estado atual. Estado inclui roque e en passant, não só as peças. Jogador real ainda tem memória."
+- **Gancho:** "No War, o estado é o par de tropas."
 
 ### 37. war-markov
 - **Objetivo:** Grade (A, D) com absorção visível.

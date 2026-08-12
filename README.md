@@ -27,7 +27,7 @@ Vercel no próprio repo (`output: "export"`). No dashboard, deixe **Output Direc
 
 Cliques ficam reservados a simulators e toggles.
 
-**43 slides** · seções: Abertura → Fundamentos → Encontros → Cães & Bayes → Xadrez → War → Síntese.
+**43 slides** · seções: Abertura → Fundamentos → Encontros → Cães & Bayes → Xadrez → War → Markov → Síntese.
 
 Mídia: ver [`content/media-manifest.md`](content/media-manifest.md).
 

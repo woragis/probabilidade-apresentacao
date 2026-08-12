@@ -160,14 +160,6 @@ export const SLIDES: SlideEntry[] = [
     Component: ChessProductSlide,
   },
   {
-    id: "markov-what",
-    section: "xadrez",
-    title: "O que é Markov",
-    Component: MarkovExplainerSlide,
-    captureSpace: true,
-  },
-  { id: "chess-markov", section: "xadrez", title: "Markov", Component: ChessMarkovSlide },
-  {
     id: "chess-sim",
     section: "xadrez",
     title: "Simulator xadrez",
@@ -190,8 +182,16 @@ export const SLIDES: SlideEntry[] = [
     captureSpace: true,
   },
   {
+    id: "markov-what",
+    section: "markov",
+    title: "O que é Markov",
+    Component: MarkovExplainerSlide,
+    captureSpace: true,
+  },
+  { id: "chess-markov", section: "markov", title: "Markov", Component: ChessMarkovSlide },
+  {
     id: "war-markov",
-    section: "war",
+    section: "markov",
     title: "Markov War",
     Component: WarMarkovSlide,
     captureSpace: true,

@@ -71,6 +71,7 @@ export function RoadmapSlide() {
     "Cães & Bayes",
     "Xadrez",
     "War",
+    "Markov",
     "Síntese",
   ];
   return (

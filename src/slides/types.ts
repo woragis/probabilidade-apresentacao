@@ -5,6 +5,7 @@ export type SlideSection =
   | "caes"
   | "xadrez"
   | "war"
+  | "markov"
   | "sintese";
 
 export const SECTION_LABELS: Record<SlideSection, string> = {
@@ -14,6 +15,7 @@ export const SECTION_LABELS: Record<SlideSection, string> = {
   caes: "Cães & Bayes",
   xadrez: "Xadrez",
   war: "War",
+  markov: "Markov",
   sintese: "Síntese",
 };
 
