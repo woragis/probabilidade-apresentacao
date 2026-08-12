@@ -59,16 +59,16 @@ Formato por slide:
 ### 10. enc-hook
 - **Objetivo:** Criar identificação imediata.
 - **Fala sugerida:** "Pergunta simples: qual chance de rever exatamente aquela pessoa?"
-- **Gancho:** "A resposta começa no fluxo local."
+- **Gancho:** "Cuidado: fluxo por hora não é o universo de pessoas."
 
 ### 11. enc-model
 - **Objetivo:** Mostrar o modelo em 3 camadas.
-- **Fala sugerida:** "Hora, visita e série de visitas. O modelo cresce em três passos curtos."
+- **Fala sugerida:** "k observações por visita, amostradas de N efetivo; depois n visitas. Fluxo/hora é intensidade, não denominador."
 - **Gancho:** "Agora mexemos nos parâmetros e vemos o número vivo."
 
 ### 12. enc-sim
 - **Objetivo:** Exibir painel pergunta->resposta.
-- **Fala sugerida:** "À esquerda ficam hipóteses. No centro, a resposta dominante: P de reencontro."
+- **Fala sugerida:** "Compare orla (N grande, muita rotatividade) com faculdade (N menor, gente recorrente). À esquerda são hipóteses; no centro, P de reencontro."
 - **Gancho:** "Com esse p, vemos distribuição de repetições."
 
 ### 13. binomial

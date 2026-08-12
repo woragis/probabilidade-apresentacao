@@ -39,12 +39,13 @@ export {
 
 export {
   CITIES,
+  observationsPerVisit,
   pNoticeOnce,
   pAtLeastOneReencounter,
   expectedReencounters,
   poissonLambda,
 } from "./encounters";
-export type { CityKey, CityProfile } from "./encounters";
+export type { CityKey, CityProfile, PlaceProfile } from "./encounters";
 
 export {
   confidenceInterval95,

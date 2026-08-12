@@ -23,6 +23,7 @@ import {
   binomialPmfSeries,
   CITIES,
   expectedReencounters,
+  observationsPerVisit,
   pAtLeastOneReencounter,
   pNoticeOnce,
   poissonLambda,
@@ -38,7 +39,8 @@ export function EncounterHookSlide() {
       <SlideShell eyebrow="Encontros" title="Vou ver essa pessoa de novo?">
         <p className="font-mono text-6xl text-amber md:text-8xl">?</p>
         <p className="mt-6 max-w-2xl text-lg text-text-subtle">
-          A resposta depende do fluxo local, não da população total.
+          O denominador é a população efetiva do lugar — não o fluxo por hora e
+          não a população da cidade.
         </p>
       </SlideShell>
     </div>
@@ -49,9 +51,14 @@ export function EncounterModelSlide() {
   return (
     <SlideShell eyebrow="Encontros" title="Modelo em 3 passos">
       <div className="space-y-6">
-        <Formula display tex={String.raw`p_{\text{hora}}\approx 1-\Bigl(1-\frac{1}{F}\Bigr)^{r}`} />
-        <Formula display tex={String.raw`p_{\text{visita}}=1-(1-p_{\text{hora}})^{h}`} />
+        <Formula display tex={String.raw`k = h\cdot r`} />
+        <Formula display tex={String.raw`p_{\text{visita}}=1-\Bigl(1-\frac{1}{N}\Bigr)^{k}`} />
         <Formula display tex={String.raw`P(X\ge 1)=1-(1-p_{\text{visita}})^{n}`} />
+        <p className="max-w-2xl text-sm text-text-subtle">
+          <span className="font-mono text-teal">N</span> = pessoas distintas que
+          circulam no lugar; <span className="font-mono text-teal">F</span> (fluxo/h)
+          mede intensidade, não o universo de amostragem.
+        </p>
       </div>
     </SlideShell>
   );
@@ -65,9 +72,19 @@ export function EncounterSimulatorSlide() {
   const [hours, setHours] = useState(2);
   const [visits, setVisits] = useState(20);
   const [observeRate, setObserveRate] = useState(80);
+  const [effectiveN, setEffectiveN] = useState(place.effectivePopulation);
 
+  const syncPlace = (nextCityKey: CityKey, nextPlaceId: string) => {
+    const nextCity = CITIES.find((c) => c.key === nextCityKey)!;
+    const nextPlace = nextCity.places.find((p) => p.id === nextPlaceId) ?? nextCity.places[0]!;
+    setCityKey(nextCityKey);
+    setPlaceId(nextPlace.id);
+    setEffectiveN(nextPlace.effectivePopulation);
+  };
+
+  const k = observationsPerVisit(hours, observeRate);
   const pVisit = pNoticeOnce({
-    flowPerHour: place.flowPerHour,
+    effectivePopulation: effectiveN,
     hours,
     observeRatePerHour: observeRate,
   });
@@ -84,10 +101,9 @@ export function EncounterSimulatorSlide() {
               className="mt-1 w-full rounded border border-white/15 bg-ink-elevated px-3 py-2 text-cream"
               value={cityKey}
               onChange={(e) => {
-                const k = e.target.value as CityKey;
-                setCityKey(k);
-                const c = CITIES.find((x) => x.key === k)!;
-                setPlaceId(c.places[0]!.id);
+                const nextKey = e.target.value as CityKey;
+                const nextCity = CITIES.find((c) => c.key === nextKey)!;
+                syncPlace(nextKey, nextCity.places[0]!.id);
               }}
             >
               {CITIES.map((c) => (
@@ -102,17 +118,29 @@ export function EncounterSimulatorSlide() {
             <select
               className="mt-1 w-full rounded border border-white/15 bg-ink-elevated px-3 py-2 text-cream"
               value={place.id}
-              onChange={(e) => setPlaceId(e.target.value)}
+              onChange={(e) => syncPlace(cityKey, e.target.value)}
             >
               {city.places.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.name} ({p.flowPerHour.toLocaleString("pt-BR")}/h)
+                  {p.name} (F={p.flowPerHour.toLocaleString("pt-BR")}/h)
                 </option>
               ))}
             </select>
           </label>
-          <DataLabel kind="observado" label={`pop. ${city.population.toLocaleString("pt-BR")}`} />
-          <DataLabel kind={place.flowLabel} label="fluxo local" />
+          <div className="flex flex-wrap gap-2">
+            <DataLabel kind="observado" label={`cidade ${city.population.toLocaleString("pt-BR")}`} />
+            <DataLabel kind={place.flowLabel} label={`fluxo ${place.flowPerHour.toLocaleString("pt-BR")}/h`} />
+            <DataLabel kind={place.populationLabel} label={`N efetivo`} />
+          </div>
+          <SliderControl
+            label="N efetivo"
+            value={effectiveN}
+            min={1_000}
+            max={2_000_000}
+            step={1_000}
+            onChange={setEffectiveN}
+            format={(v) => v.toLocaleString("pt-BR")}
+          />
           <SliderControl label="Horas" value={hours} min={0.5} max={8} step={0.5} onChange={setHours} />
           <SliderControl label="Visitas" value={visits} min={1} max={100} onChange={setVisits} />
           <SliderControl
@@ -131,7 +159,8 @@ export function EncounterSimulatorSlide() {
               <NumberTicker value={pAgain * 100} digits={2} suffix="%" />
             </p>
             <p className="mt-4 text-sm text-text-subtle">
-              p visita: <span className="font-mono text-teal">{pVisit.toExponential(2)}</span>
+              k={k.toLocaleString("pt-BR")} · p visita:{" "}
+              <span className="font-mono text-teal">{pVisit.toExponential(2)}</span>
             </p>
           </div>
         </div>
@@ -141,7 +170,8 @@ export function EncounterSimulatorSlide() {
             <NumberTicker value={expected} digits={3} />
           </p>
           <p className="text-sm text-text-subtle">
-            Quanto maior o fluxo local, menor a chance de repetir a mesma pessoa.
+            Fluxo alto com muita rotatividade aumenta N. N maior → p menor. Faculdade
+            (N menor) reencontra mais fácil que a orla aberta.
           </p>
         </div>
       </div>
@@ -183,13 +213,21 @@ export function BinomialSlide() {
 export function PoissonSlide() {
   const [lambda, setLambda] = useState(3);
   const data = useMemo(() => poissonPmfSeries(lambda, 18).map((prob, k) => ({ k, prob })), [lambda]);
-  const derived = poissonLambda({ flowPerHour: 2500, hours: 2, observeRatePerHour: 80 });
+  const derived = poissonLambda({
+    effectivePopulation: 80_000,
+    hours: 2,
+    observeRatePerHour: 80,
+    visits: 20,
+  });
 
   return (
     <SlideShell eyebrow="Fluxo raro" title="Quando o evento é raro">
       <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
         <div onKeyDown={(e) => e.stopPropagation()}>
           <p className="mb-3 font-mono text-2xl text-amber">λ ≈ {derived.toFixed(3)}</p>
+          <p className="mb-4 text-xs text-text-subtle">
+            Ex.: orla JP, N=80k, 20 visitas × 2h × 80 obs/h
+          </p>
           <SliderControl label="λ" value={lambda} min={0.5} max={12} step={0.5} onChange={setLambda} format={(v) => v.toFixed(1)} />
         </div>
         <div className="h-56">

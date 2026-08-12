@@ -50,6 +50,10 @@ export function LimitsSlide() {
     <SlideShell eyebrow="Limites" title="O que o modelo não é">
       <ul className="max-w-2xl space-y-4 text-lg text-cream/80">
         <li>Parâmetro editável ≠ medição empírica.</li>
+        <li>
+          Fluxo/hora ≠ população efetiva: 1.200/h na orla não são as mesmas 1.200
+          pessoas toda hora.
+        </li>
         <li>População da cidade ≠ denominador do encontro no calçadão.</li>
         <li>
           <span className="text-amber">P(raça | fatal)</span> ≠{" "}

@@ -60,11 +60,35 @@ describe("chess perft", () => {
 
 describe("encounters", () => {
   it("notice probability grows with hours", () => {
-    const a = pNoticeOnce({ flowPerHour: 1000, hours: 1, observeRatePerHour: 50 });
-    const b = pNoticeOnce({ flowPerHour: 1000, hours: 3, observeRatePerHour: 50 });
+    const a = pNoticeOnce({ effectivePopulation: 80_000, hours: 1, observeRatePerHour: 50 });
+    const b = pNoticeOnce({ effectivePopulation: 80_000, hours: 3, observeRatePerHour: 50 });
     expect(b).toBeGreaterThan(a);
     expect(a).toBeGreaterThan(0);
     expect(b).toBeLessThan(1);
+  });
+
+  it("uses effective population, not hourly flow, as denominator", () => {
+    // Orla-like: F=1200/h but N≃80k distinct people over the visit horizon.
+    // Sampling from F would wildly overstate p (closed-pool fallacy).
+    const fromN = pNoticeOnce({
+      effectivePopulation: 80_000,
+      hours: 2,
+      observeRatePerHour: 80,
+    });
+    const closedPoolFallacy = 1 - Math.pow(1 - 1 / 1_200, 80 * 2);
+    expect(fromN).toBeLessThan(0.01);
+    expect(closedPoolFallacy).toBeGreaterThan(0.1);
+    expect(fromN).toBeLessThan(closedPoolFallacy / 10);
+  });
+
+  it("smaller effective N (faculdade) raises reencounter odds", () => {
+    const orla = pNoticeOnce({ effectivePopulation: 80_000, hours: 2, observeRatePerHour: 80 });
+    const faculdade = pNoticeOnce({
+      effectivePopulation: 10_000,
+      hours: 2,
+      observeRatePerHour: 80,
+    });
+    expect(faculdade).toBeGreaterThan(orla);
   });
 });
 
