@@ -31,7 +31,7 @@ Falas no celular: [`/roteiro`](https://probabilidade.woragis.me/roteiro).
 
 Botões, sliders e links no meio do slide continuam clicáveis.
 
-**42 slides** · seções: Abertura → Fundamentos → Encontros → Cães & Bayes → Xadrez → War → Markov → Síntese.
+**41 slides** · seções: Abertura → Fundamentos → Encontros → Cães & Bayes → Xadrez → War → Markov → Síntese.
 
 Mídia: ver [`content/media-manifest.md`](content/media-manifest.md).
 

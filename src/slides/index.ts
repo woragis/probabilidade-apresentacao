@@ -1,7 +1,6 @@
 import type { ComponentType } from "react";
 import {
   ChessHookSlide,
-  ChessMarkovSlide,
   ChessPerftSlide,
   ChessProductSlide,
   ChessSimulatorSlide,
@@ -178,7 +177,6 @@ export const SLIDES: SlideEntry[] = [
     Component: WarSimulatorSlide,
     captureSpace: true,
   },
-  { id: "chess-markov", section: "markov", title: "Markov", Component: ChessMarkovSlide },
   {
     id: "war-markov",
     section: "markov",

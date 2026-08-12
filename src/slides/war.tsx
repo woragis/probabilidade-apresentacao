@@ -471,8 +471,9 @@ export function WarMarkovSlide() {
   return (
     <SlideShell eyebrow="Markov" title="No War, o estado é o par (A, D)" wide>
       <p className="mb-5 max-w-3xl text-text-subtle">
-        Cada célula é um estado. Verde: conquistou (D = 0). Âmbar: ataque esgotado (A = 1).
-        Uma rolagem só anda para um vizinho com menos tropas — memória do caminho não importa.
+        No xadrez o agora é a posição; aqui é o par de tropas. Cada célula é um estado.
+        Verde: conquistou (D = 0). Âmbar: ataque esgotado (A = 1). Uma rolagem só anda para
+        um vizinho com menos tropas — o caminho até aqui não importa.
       </p>
       <div className="grid gap-8 lg:grid-cols-[1fr_240px]">
         <div className="overflow-x-auto">

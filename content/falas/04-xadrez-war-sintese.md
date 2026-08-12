@@ -1,4 +1,4 @@
-# Xadrez, War, Markov e síntese (slides 24–42)
+# Xadrez, War, Markov e síntese (slides 24–41)
 
 ## Xadrez
 
@@ -128,23 +128,15 @@ O computador **já prevê**: p exato da cadeia (A, D).
 Enumerar um 3v3 são microssegundos — no xadrez a árvore inteira não cabe.  
 Monte Carlo confere (p̂ + IC).
 
-**Gancho:** agora o estado no xadrez e no War — só o agora conta.
+**Gancho:** a grade: cada célula é um estado (A, D).
 
 ---
 
 ## Markov
 
-### 35. Markov no xadrez
+### 35. Markov War — a grade
 
-S_t = posição (peças + roque + en passant).  
-Lances legais saem só daqui. Jogador pode ter memória; as **regras** não.
-
-**Gancho:** no War, o estado é o par de tropas.
-
----
-
-### 36. Markov War — a grade
-
+No xadrez o agora é a posição; aqui é o par de tropas.  
 Cada célula é um estado (A, D).  
 Verde: D = 0 (conquistou). Âmbar: A = 1 (esgotou).  
 Role uma transição: só anda para menos tropas.  
@@ -156,17 +148,17 @@ Conquistar = probabilidade de absorção no verde.
 
 ## Síntese
 
-### 37. Escada
+### 36. Escada
 
 Subimos de fração → processo → simulação.  
 Cada degrau teve um mundo: dado, orla, cães, xadrez.
 
-### 38. Improvável ≠ impossível
+### 37. Improvável ≠ impossível
 
 10⁻⁶ não é zero.  
 E[X] = N p: orla, Perft, 10×5 — com N grande o esperado deixa de ser desprezível.
 
-### 39. Limites — falar com honestidade
+### 38. Limites — falar com honestidade
 
 Três (agora quatro) limites que impedem conclusão errada:
 
@@ -177,16 +169,16 @@ Três (agora quatro) limites que impedem conclusão errada:
 
 Se sobrar 15 segundos, repita o item 2 — é o que salvou o bloco de encontros de parecer milagre.
 
-### 40. Demo livre
+### 39. Demo livre
 
 Podemos voltar para qualquer simulador e testar hipótese da turma.  
 Sugestão se perguntarem de encontros: “e se o N for metade?” — mexe no slider ao vivo.
 
-### 41. Créditos
+### 40. Créditos
 
 Fontes, parâmetros de modelo e stack — sem fingir que todo número é censo.
 
-### 42. Obrigado
+### 41. Obrigado
 
 Obrigado.  
 A pergunta permanece: quando algo parece impossível, **qual foi a cadeia de probabilidades** — e **qual era o denominador** — por trás?

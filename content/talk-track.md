@@ -185,48 +185,43 @@ Formato por slide:
 ### 34. war-sim
 - **Objetivo:** Previsão exata do computador vs Monte Carlo; contraste com o xadrez.
 - **Fala sugerida:** "Aqui a batalha cabe na máquina: p exato já aparece. Enumerar um 3v3 são microssegundos. Monte Carlo confere. No xadrez a árvore inteira não cabe."
-- **Gancho:** "Agora o estado no xadrez e no War — só o agora conta."
+- **Gancho:** "A grade: cada célula é um estado (A, D)."
 
 ## Markov
 
-### 35. chess-markov
-- **Objetivo:** Markov nas regras, com estado completo.
-- **Fala sugerida:** "O próximo lance legal só depende da posição agora — peças, roque, en passant. O jogador pode ter memória; as regras não."
-- **Gancho:** "No War, o estado é o par de tropas."
-
-### 36. war-markov
-- **Objetivo:** Grade (A, D) com absorção visível.
-- **Fala sugerida:** "Cada célula é um estado. Verde conquistou, âmbar esgotou. Role uma transição: só anda para menos tropas. Conquistar é a chance de cair no verde."
+### 35. war-markov
+- **Objetivo:** Grade (A, D) com absorção visível. Uma linha: no xadrez o agora é a posição.
+- **Fala sugerida:** "No xadrez o agora é a posição; aqui é o par de tropas. Verde conquistou, âmbar esgotou. Role: só anda para menos tropas. O caminho até aqui não importa."
 - **Gancho:** "Vamos resumir a escada matemática inteira."
 
 ## Síntese
 
-### 37. ladder
+### 36. ladder
 - **Objetivo:** Relembrar progressão.
 - **Fala sugerida:** "Subimos de fração para processo para simulação. Cada degrau teve um mundo: dado, orla, cães, xadrez."
 - **Gancho:** "Então, o improvável existe ou não?"
 
-### 38. improbable
+### 37. improbable
 - **Objetivo:** Fechar tese central.
 - **Fala sugerida:** "10⁻⁶ não é zero. E[X]=Np: orla, Perft, 10×5 — com N grande o esperado deixa de ser desprezível."
 - **Gancho:** "Mas modelos têm limites."
 
-### 39. limits
+### 38. limits
 - **Objetivo:** Mostrar honestidade metodológica.
 - **Fala sugerida:** "Aqui estão três limites que impedem conclusões erradas."
 - **Gancho:** "Agora vamos para navegação livre."
 
-### 40. demo
+### 39. demo
 - **Objetivo:** Abrir discussão orientada.
 - **Fala sugerida:** "Podemos voltar para qualquer simulador e testar hipóteses da turma."
 - **Gancho:** "Encerrando com referências."
 
-### 41. credits
+### 40. credits
 - **Objetivo:** Registrar fontes e stack.
 - **Fala sugerida:** "Essas são as bases de dados e ferramentas usadas no projeto."
 - **Gancho:** "Fecho com a pergunta inicial."
 
-### 42. thanks
+### 41. thanks
 - **Objetivo:** Encerramento memorável.
 - **Fala sugerida:** "Obrigado. A pergunta permanece: quando algo parece impossível, qual foi a cadeia de probabilidades por trás?"
 - **Gancho:** "Q&A."

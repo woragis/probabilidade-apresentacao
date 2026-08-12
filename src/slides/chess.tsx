@@ -39,8 +39,6 @@ const HINTS = {
     "B(S_t): lances legais na posição S_t. Abertura ~20; meio-jogo costuma subir (30+); finais caem. Este caminho é ilustrativo, não uma partida real gravada.",
   produto:
     "P desta trajetória se, em cada posição, o lance fosse sorteado uniforme entre os legais. É UM caminho, não “a probabilidade do xadrez”. Humano não sorteia: teoria de aberturas concentra massa em poucas linhas.",
-  markov:
-    "Nas regras, o conjunto de lances legais depende só do estado atual — não da história completa. Estado ≠ só as peças: roque, en passant, regra dos 50 lances também entram. Jogador real ainda escolhe com memória e teoria; o tabuleiro, não.",
   relogio:
     "Se um computador olhasse 10⁹ posições por segundo (teto otimista, melhor que um laptop). Perft nesta profundidade ainda cabe no relógio. A árvore de partidas inteiras (~10¹²⁰, Shannon) não: por isso o motor busca, não conta tudo.",
 } as const;
@@ -246,42 +244,6 @@ export function ChessProductSlide() {
         Ordem de magnitude: ~10<sup>−{log10.toFixed(1)}</sup> · {SAMPLE_BRANCHING_PATH.length}{" "}
         plies ilustrativos
       </p>
-    </SlideShell>
-  );
-}
-
-export function ChessMarkovSlide() {
-  return (
-    <SlideShell eyebrow="Markov" title="No xadrez, o estado é a posição">
-      <p className="mb-6 max-w-2xl text-text-subtle">
-        O próximo lance legal só depende da <span className="text-cream">posição agora</span>{" "}
-        (peças + roque + en passant). O jogador pode ter memória; as{" "}
-        <span className="text-cream">regras</span> não.
-      </p>
-      <div className="flex flex-wrap items-center gap-3 text-cream/80">
-        {["S₀ abertura", "S₁", "S₂ meio", "…"].map((s, i) => (
-          <div key={s} className="flex items-center gap-3">
-            <div className="rounded-full border border-teal/40 px-4 py-2 font-mono text-sm text-teal">
-              {s}
-            </div>
-            {i < 3 ? <span className="text-cream/30">→</span> : null}
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 flex flex-wrap items-start gap-6">
-        <div className="rounded-full border-2 border-amber px-5 py-4 font-mono text-amber">S_t</div>
-        <div className="space-y-2 pt-1 text-sm text-text-subtle">
-          <p>
-            → S′ com P = 1/B(S_t) no modelo uniforme
-          </p>
-          <p className="text-cream/45">B ramos legais · produto ao longo do caminho = P(linha)</p>
-        </div>
-      </div>
-      <Formula
-        display
-        className="mt-8 block"
-        tex={String.raw`P(S_{t+1}=j\mid S_t=i)=p_{ij}`}
-      />
     </SlideShell>
   );
 }
