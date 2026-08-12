@@ -11,9 +11,12 @@ import {
   diceCounts,
   enumerateCombat,
   pAttackerWinsOneVsOne,
+  pConquestExact,
   resolveWarRoll,
   rollDice,
   warEqualPartitionCount,
+  secondsToEnumerate,
+  formatDurationPt,
 } from "@/lib/math";
 import { useMonteCarloWorker } from "@/lib/useMonteCarloWorker";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
@@ -39,6 +42,10 @@ const HINTS = {
     "Numa batalha por UM território, o estado útil é o par (A, D) de tropas. Absorventes: D = 0 (conquistou) ou A = 1 (ataque esgotado). Cada rolagem é uma transição.",
   dados:
     "Quantos dados cada lado está rolando agora, pelas regras: A deixa 1 atrás; D até 3.",
+  relogioWar:
+    "Uma rolagem 3v3 tem 46.656 resultados. A 10⁹/s o computador enumera isto em microssegundos e depois fecha a cadeia (A, D) com a probabilidade exata. No xadrez a árvore inteira não cabe; aqui a batalha de um território cabe.",
+  pExato:
+    "Probabilidade exata de o defensor chegar a 0 antes de o atacante ficar com 1. Não é simulação: é a cadeia (A, D) resolvida. O Monte Carlo ao lado deve chegar perto.",
 } as const;
 
 export function WarHookSlide() {
@@ -62,9 +69,18 @@ export function WarHookSlide() {
       <MediaBackdrop src="/media/war/map.png" opacity={0.28} />
       <SlideShell eyebrow="War" title="Com 10 × 5, eu conquisto?">
         <p className="mt-2 max-w-2xl text-lg text-text-subtle">
-          Um território, regras do War: até 3 dados de cada lado, empate com a
-          defesa. Não é o jogo inteiro — é essa batalha.
+          10 exércitos no seu território, 5 no do vizinho. Você ataca{" "}
+          <span className="text-cream">este</span> território — não o mapa inteiro.
         </p>
+        <ul className="mt-6 max-w-xl space-y-2 text-cream/80">
+          <li>
+            <span className="text-teal">Ganha</span> se o defensor chegar a 0.
+          </li>
+          <li>
+            <span className="text-amber">Para (não conquistou)</span> se você ficar com 1 —
+            tem que deixar alguém na origem.
+          </li>
+        </ul>
         <div className="mt-10 flex gap-3">
           {faces.map((f, i) => (
             <div
@@ -85,10 +101,39 @@ export function WarCombatSlide() {
   const c33 = enumerateCombat(3, 3);
 
   return (
-    <SlideShell eyebrow="Combate" title="Empate não é 50%" wide>
-      <p className="mb-6 max-w-2xl text-text-subtle">
-        A armadilha: dados “justos” não tornam o combate justo. O defensor leva o
-        empate. E 3v3 não é três vezes 1v1 — os dados são ordenados.
+    <SlideShell eyebrow="Combate" title="Como se joga esta batalha" wide>
+      <ol className="mb-4 max-w-3xl space-y-1.5 text-sm text-text-subtle">
+        <li>
+          1. Cada lado rola até 3 dados. Atacante deixa 1 na origem, então com 10 tropas
+          rola 3; defensor com 5 também rola 3.
+        </li>
+        <li>
+          2. Ordena do maior para o menor e compara par a par.{" "}
+          <span className="text-cream">Maior estrito</span> ganha;{" "}
+          <span className="text-amber">empate fica com a defesa</span>.
+        </li>
+        <li>
+          3. Cada par: o perdedor perde 1 exército. Depois rola de novo até alguém
+          parar — D = 0 (conquistou) ou A = 1 (ataque esgotado).
+        </li>
+      </ol>
+      <div className="mb-5 grid max-w-lg grid-cols-[1fr_auto_1fr] items-center gap-3 font-mono text-sm">
+        <div className="rounded border border-teal/30 bg-teal/10 p-3 text-center">
+          <p className="mb-2 text-[10px] tracking-wide text-cream/40 uppercase">atacante</p>
+          <p className="text-2xl text-teal">6 · 4 · 2</p>
+        </div>
+        <p className="text-cream/40">vs</p>
+        <div className="rounded border border-amber/30 bg-amber/10 p-3 text-center">
+          <p className="mb-2 text-[10px] tracking-wide text-cream/40 uppercase">defensor</p>
+          <p className="text-2xl text-amber">5 · 4 · 1</p>
+        </div>
+        <p className="col-span-3 text-center text-xs text-text-subtle">
+          6&gt;5 → D −1 · 4=4 → A −1 · 2&gt;1 → D −1 · nesta rolagem: A perde 1, D perde 2
+        </p>
+      </div>
+      <p className="mb-4 max-w-2xl text-sm text-text-subtle">
+        A armadilha: dados “justos” não tornam o combate justo. E 3v3 não é três vezes
+        1v1 — os dados são ordenados.
       </p>
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="rounded border border-white/10 bg-white/[0.03] p-5">
@@ -138,7 +183,10 @@ export function WarChainSlide() {
   const [d, setD] = useState(4);
   const [log, setLog] = useState<{ id: number; line: string }[]>([]);
   const [logId, setLogId] = useState(0);
+  const [last, setLast] = useState<{ aDice: number[]; dDice: number[] } | null>(null);
   const dice = diceCounts(a, d);
+  const conquered = d === 0;
+  const exhausted = a <= 1 && d > 0;
 
   const step = () => {
     if (a <= 1 || d <= 0) return;
@@ -146,6 +194,7 @@ export function WarChainSlide() {
     const aDice = rollDice(attack);
     const dDice = rollDice(defend);
     const o = resolveWarRoll(aDice, dDice);
+    setLast({ aDice, dDice });
     setA((x) => x - o.attackerLosses);
     setD((x) => x - o.defenderLosses);
     const line = `A[${aDice.join(",")}] vs D[${dDice.join(",")}] → −A${o.attackerLosses} −D${o.defenderLosses}`;
@@ -155,10 +204,11 @@ export function WarChainSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Cadeia" title="Uma decisão por rolagem">
-      <p className="mb-6 max-w-2xl text-text-subtle">
-        Cada rolagem atualiza o par (A, D). O atacante para em 1 tropa — tem que
-        deixar alguém na origem.
+    <SlideShell eyebrow="Cadeia" title="Rola, compara, tira exército">
+      <p className="mb-5 max-w-2xl text-text-subtle">
+        Começa 8 contra 4. Cada clique é uma rolagem.{" "}
+        <span className="text-teal">D = 0: conquistou.</span>{" "}
+        <span className="text-amber">A = 1: parou, o território continua do defensor.</span>
       </p>
       <div className="flex gap-10 text-center">
         <div>
@@ -188,14 +238,22 @@ export function WarChainSlide() {
           </p>
         </div>
       </div>
+      {last ? (
+        <p className="mt-4 font-mono text-sm text-cream/70">
+          última: A [{last.aDice.join(" · ")}] vs D [{last.dDice.join(" · ")}]
+        </p>
+      ) : null}
       <div className="mt-6 flex gap-3">
-        <PrimaryButton onClick={step}>Resolver combate</PrimaryButton>
+        <PrimaryButton onClick={step} disabled={conquered || exhausted}>
+          Rolar dados
+        </PrimaryButton>
         <PrimaryButton
           onClick={() => {
             setA(8);
             setD(4);
             setLog([]);
             setLogId(0);
+            setLast(null);
           }}
         >
           Reset
@@ -206,8 +264,14 @@ export function WarChainSlide() {
           <li key={entry.id}>{entry.line}</li>
         ))}
       </ul>
-      {d === 0 ? <p className="mt-4 text-teal">Território conquistado.</p> : null}
-      {a <= 1 && d > 0 ? <p className="mt-4 text-amber">Ataque esgotado.</p> : null}
+      {conquered ? (
+        <p className="mt-4 text-teal">Conquistou: o defensor chegou a 0.</p>
+      ) : null}
+      {exhausted ? (
+        <p className="mt-4 text-amber">
+          Ataque esgotado: ficou 1 na origem. O defensor ficou com o território.
+        </p>
+      ) : null}
     </SlideShell>
   );
 }
@@ -245,6 +309,10 @@ export function WarSimulatorSlide() {
     ci95: { low: number; high: number };
   } | null>(null);
 
+  const pExact = pConquestExact(att, def);
+  const rollOutcomes = 6 ** (diceCounts(att, def).attack + diceCounts(att, def).defend);
+  const enumSeconds = secondsToEnumerate(rollOutcomes);
+
   const simulate = async () => {
     const r = await run({
       type: "warConquest",
@@ -256,10 +324,10 @@ export function WarSimulatorSlide() {
   };
 
   return (
-    <SlideShell eyebrow="Monte Carlo" title="Responder com simulação" wide>
-      <p className="mb-6 max-w-2xl text-text-subtle">
-        A pergunta do hook, agora com N batalhas i.i.d. do mesmo 10×5 (ou o que
-        você escolher). War: defensor até 3 dados.
+    <SlideShell eyebrow="Monte Carlo" title="O computador já sabe. A simulação confere." wide>
+      <p className="mb-6 max-w-3xl text-text-subtle">
+        Ao contrário do xadrez, esta batalha cabe na máquina: ela enumera as rolagens e
+        fecha a cadeia (A, D). Monte Carlo é o mesmo palpite, à força bruta.
       </p>
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-4" onKeyDown={(e) => e.stopPropagation()}>
@@ -293,25 +361,42 @@ export function WarSimulatorSlide() {
             {running ? "Simulando…" : "Simular conquistas"}
           </PrimaryButton>
         </div>
-        <div className="grid place-items-center rounded border border-white/10 bg-white/[0.03] p-6">
-          {result ? (
-            <>
-              <p className="text-xs text-text-subtle">
-                <Hint title="p̂ conquista" body={HINTS.pHat}>
-                  p̂ conquista
-                </Hint>
-              </p>
-              <p className="font-mono text-6xl text-amber">
-                <NumberTicker value={result.pHat * 100} digits={2} suffix="%" />
-              </p>
-              <p className="mt-4 text-sm text-text-subtle">
-                IC 95%: [{(result.ci95.low * 100).toFixed(2)}%,{" "}
-                {(result.ci95.high * 100).toFixed(2)}%]
-              </p>
-            </>
-          ) : (
-            <p className="text-text-subtle">Rode a simulação.</p>
-          )}
+        <div className="space-y-4">
+          <div className="rounded border border-teal/30 bg-teal/10 p-5">
+            <p className="text-xs text-text-subtle uppercase">
+              <Hint title="p exato" body={HINTS.pExato}>
+                previsão do computador
+              </Hint>
+            </p>
+            <p className="font-mono text-5xl text-teal">{(pExact * 100).toFixed(1)}%</p>
+            <p className="mt-2 text-xs text-cream/45">
+              <Hint title="relógio" body={HINTS.relogioWar}>
+                enumerar esta rolagem
+              </Hint>
+              {": "}
+              {formatDurationPt(enumSeconds)}
+            </p>
+          </div>
+          <div className="rounded border border-white/10 bg-white/[0.03] p-5">
+            {result ? (
+              <>
+                <p className="text-xs text-text-subtle">
+                  <Hint title="p̂ conquista" body={HINTS.pHat}>
+                    p̂ Monte Carlo
+                  </Hint>
+                </p>
+                <p className="font-mono text-4xl text-amber">
+                  <NumberTicker value={result.pHat * 100} digits={2} suffix="%" />
+                </p>
+                <p className="mt-3 text-sm text-text-subtle">
+                  IC 95%: [{(result.ci95.low * 100).toFixed(2)}%,{" "}
+                  {(result.ci95.high * 100).toFixed(2)}%]
+                </p>
+              </>
+            ) : (
+              <p className="text-text-subtle">Rode a simulação para ver p̂ ao lado do exato.</p>
+            )}
+          </div>
         </div>
       </div>
     </SlideShell>

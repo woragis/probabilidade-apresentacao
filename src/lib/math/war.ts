@@ -128,6 +128,45 @@ function facesToDice(index: number, n: number): number[] {
   return dice;
 }
 
+const combatCache = new Map<string, ReturnType<typeof enumerateCombat>>();
+
+function combatCached(attackDice: number, defendDice: number) {
+  const key = `${attackDice}x${defendDice}`;
+  const hit = combatCache.get(key);
+  if (hit) return hit;
+  const e = enumerateCombat(attackDice, defendDice);
+  combatCache.set(key, e);
+  return e;
+}
+
+/**
+ * Exact P(conquer this territory) by walking the (A, D) chain.
+ * Absorbing: D = 0 win, A ≤ 1 and D > 0 fail (must leave 1 on origin).
+ */
+export function pConquestExact(attackerTroops: number, defenderTroops: number): number {
+  const memo = new Map<string, number>();
+  const rec = (a: number, d: number): number => {
+    if (d <= 0) return 1;
+    if (a <= 1) return 0;
+    const k = `${a},${d}`;
+    const cached = memo.get(k);
+    if (cached != null) return cached;
+    const { attack, defend } = diceCounts(a, d);
+    if (attack === 0) {
+      memo.set(k, 0);
+      return 0;
+    }
+    const e = combatCached(attack, defend);
+    let s = 0;
+    for (const row of e.byLosses) {
+      s += (row.count / e.total) * rec(a - row.attackerLosses, d - row.defenderLosses);
+    }
+    memo.set(k, s);
+    return s;
+  };
+  return rec(attackerTroops, defenderTroops);
+}
+
 /**
  * Simulate battles until attacker has 1 troop left or defender is wiped.
  * Returns true if territory conquered.

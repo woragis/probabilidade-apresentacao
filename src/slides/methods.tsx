@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { Formula } from "@/components/deck/Formula";
 import { PrimaryButton } from "@/components/deck/Controls";
-import { Hint } from "@/components/deck/Hint";
 import { SlideShell } from "@/components/deck/SlideShell";
 
 const COLS = 20;
@@ -149,14 +148,11 @@ export function MarkovExplainerSlide() {
   >;
 
   return (
-    <SlideShell eyebrow="Algoritmo" title="O que é uma cadeia de Markov?" wide>
+    <SlideShell eyebrow="Markov" title="O amanhã só precisa de hoje" wide>
       <p className="mb-5 max-w-3xl text-text-subtle">
-        O futuro só precisa do <span className="text-cream">agora</span> — não da lista inteira do
-        passado. Amanhã esta pessoa está em casa, na orla ou na faculdade conforme{" "}
-        <Hint title="P(amanhã | hoje)" body="Cada seta é P(ir para B | estar em A). A soma que sai de um estado é 1. Isso é a matriz de transição.">
-          P(amanhã | hoje)
-        </Hint>
-        . Mesma ideia no xadrez (posição) e no War (tropas).
+        Não precisa da lista da semana. Onde você está <span className="text-cream">agora</span>{" "}
+        já diz as chances de amanhã. Clique “Amanhã”: só as setas que saem do círculo âmbar
+        importam. A trilha é memória para nós — a máquina ignora.
       </p>
       <div className="grid gap-8 lg:grid-cols-[1fr_240px]">
         <svg viewBox="0 0 320 210" className="h-56 w-full max-w-lg">
@@ -181,6 +177,7 @@ export function MarkovExplainerSlide() {
                     fill="#d9a441"
                     fontSize="11"
                     fontFamily="ui-monospace, monospace"
+                    opacity={active ? 1 : 0}
                   >
                     {e.p.toFixed(2)}
                   </text>
@@ -214,6 +211,7 @@ export function MarkovExplainerSlide() {
                   fill="#b7c0cf"
                   fontSize="11"
                   fontFamily="ui-monospace, monospace"
+                  opacity={active ? 1 : 0}
                 >
                   {e.p.toFixed(2)}
                 </text>
@@ -252,7 +250,7 @@ export function MarkovExplainerSlide() {
           })}
         </svg>
         <div className="space-y-4" onKeyDown={(e) => e.stopPropagation()}>
-          <p className="text-sm text-text-subtle">Hoje:</p>
+          <p className="text-sm text-text-subtle">Hoje você está em</p>
           <p className="font-display text-3xl text-amber">
             {PLACES.find((p) => p.id === here)?.label}
           </p>
@@ -260,16 +258,14 @@ export function MarkovExplainerSlide() {
           <p className="font-mono text-[11px] leading-relaxed text-cream/40">
             {trail.map((s) => PLACES.find((p) => p.id === s)?.label?.[0]).join(" → ")}
           </p>
-          <p className="text-xs text-cream/45">
-            Xadrez: S = posição. War: S = (A, D). Encontros: rotina no espaço.
+          <p className="text-sm text-text-subtle">
+            Depois: xadrez = a posição agora. War = as tropas agora. Mesma máquina.
           </p>
         </div>
       </div>
-      <Formula
-        display
-        className="mt-4 block"
-        tex={String.raw`P(S_{t+1}\mid S_t,S_{t-1},\ldots)=P(S_{t+1}\mid S_t)`}
-      />
+      <p className="mt-4 font-mono text-sm text-cream/45">
+        <Formula tex={String.raw`P(\text{amanhã}\mid\text{hoje, ontem},\ldots)=P(\text{amanhã}\mid\text{hoje})`} />
+      </p>
     </SlideShell>
   );
 }

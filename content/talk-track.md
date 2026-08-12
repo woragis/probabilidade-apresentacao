@@ -156,25 +156,25 @@ Formato por slide:
 - **Gancho:** "No simulador, comparamos modelo ingênuo e real."
 
 ### 29. chess-sim
-- **Objetivo:** Contraste 20ⁿ vs Perft e 1/20ⁿ vs 1/Perft.
-- **Fala sugerida:** "Olha as duas chances lado a lado. 1/20ⁿ é maior que 1/Perft: o modelo ingênuo superestima a probabilidade. E uniforme ainda não é humano."
-- **Gancho:** "No War, a mesma ideia aparece em batalhas."
+- **Objetivo:** Contraste 20ⁿ vs Perft, e o relógio: Perft cabe, Shannon não.
+- **Fala sugerida:** "Olha as duas chances. Depois o relógio: contar esta profundidade a 10⁹/s ainda dá. Contar todas as partidas (~10¹²⁰) são idades do universo. Por isso o computador busca, não enumera."
+- **Gancho:** "No War, a mesma ideia aparece em batalhas — e lá a máquina consegue prever."
 
 ## War
 
 ### 30. war-hook
-- **Objetivo:** Definir pergunta operacional.
-- **Fala sugerida:** "Com 10 contra 5, eu conquisto ESTE território? War: até 3 dados de cada lado. Não é o jogo inteiro."
-- **Gancho:** "Antes da simulação, a assimetria dos dados."
+- **Objetivo:** Definir a batalha e quando ganha/para.
+- **Fala sugerida:** "10 no seu território, 5 no do vizinho. Ganha se o defensor chegar a 0. Para — não conquistou — se você ficar com 1, porque deixa alguém na origem. Não é o mapa inteiro."
+- **Gancho:** "Antes da simulação, como se compara os dados."
 
 ### 31. war-combat
-- **Objetivo:** Mostrar que empate não é 50% e que 3v3 ≠ três 1v1.
-- **Fala sugerida:** "1v1 é 15 em 36 porque empate fica com a defesa. 3v3 tem 46 mil resultados; o defensor perde um pouco menos, em média. Risk é 3v2 — aqui é War."
+- **Objetivo:** Regras visíveis: ordena, compara, empate com a defesa; 1v1 ≠ 50%.
+- **Fala sugerida:** "Rola até 3, ordena, compara par a par. Maior estrito ganha; empate fica com a defesa. Exemplo: 6-4-2 vs 5-4-1, A perde 1 e D perde 2. Por isso 1v1 é 15 em 36, não 50%."
 - **Gancho:** "Agora vemos isso em sequência de turnos."
 
 ### 32. war-chain
-- **Objetivo:** Tornar o par (A, D) visível.
-- **Fala sugerida:** "Cada rolagem atualiza tropas. O atacante para em 1 — deixa alguém na origem. Olha quantos dados cada lado está rolando agora."
+- **Objetivo:** Uma rolagem de cada vez até D=0 ou A=1.
+- **Fala sugerida:** "Clique rolar. D=0 conquistou. A=1 parou — o território continua do defensor."
 - **Gancho:** "Além da batalha, o setup inicial já é gigante."
 
 ### 33. war-parts
@@ -183,15 +183,15 @@ Formato por slide:
 - **Gancho:** "Fechamos com Monte Carlo da conquista."
 
 ### 34. war-sim
-- **Objetivo:** Responder o hook com p̂ e IC.
-- **Fala sugerida:** "Escolho tropas, rodo N batalhas do mesmo território, leio probabilidade estimada com intervalo. Defensor até 3 dados."
+- **Objetivo:** Previsão exata do computador vs Monte Carlo; contraste com o xadrez.
+- **Fala sugerida:** "Aqui a batalha cabe na máquina: p exato já aparece. Enumerar um 3v3 são microssegundos. Monte Carlo confere. No xadrez a árvore inteira não cabe."
 - **Gancho:** "Agora o mesmo motor nos dois mundos: Markov."
 
 ## Markov
 
 ### 35. markov-what
-- **Objetivo:** Definir cadeia de Markov com exemplo espacial.
-- **Fala sugerida:** "Amanhã só depende de hoje. Casa, orla, faculdade: cada seta é uma probabilidade. Clique amanhã e veja o token andar. Xadrez e War são a mesma máquina, estados diferentes."
+- **Objetivo:** História primeiro: amanhã só precisa de hoje. Setas só do estado atual.
+- **Fala sugerida:** "Não precisa da lista da semana. Clique Amanhã: só as setas que saem do círculo âmbar importam. A trilha é memória para nós; a máquina ignora. Depois: xadrez = posição agora; War = tropas agora."
 - **Gancho:** "No tabuleiro, o estado é a posição."
 
 ### 36. chess-markov

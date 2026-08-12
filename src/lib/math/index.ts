@@ -34,6 +34,7 @@ export {
   diceCounts,
   pAttackerWinsOneVsOne,
   enumerateCombat,
+  pConquestExact,
   simulateConquest,
   twoDiceSumPmf,
   warEqualPartitionCount,
@@ -59,3 +60,10 @@ export {
   runBernoulliTrials,
 } from "./montecarlo";
 export type { MonteCarloResult } from "./montecarlo";
+
+export {
+  COMPUTE_NODES_PER_SEC,
+  SHANNON_GAME_TREE,
+  secondsToEnumerate,
+  formatDurationPt,
+} from "./compute-scale";

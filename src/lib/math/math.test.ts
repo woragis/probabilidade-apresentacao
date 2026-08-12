@@ -11,6 +11,7 @@ import {
   resolveWarRoll,
   warEqualPartitionCount,
   pAttackerWinsOneVsOne,
+  pConquestExact,
   perftSequences,
   naiveUniformSequences,
   naivePathProbability,
@@ -21,6 +22,9 @@ import {
   calendarDaysFromVisits,
   sampleGeometricTrials,
   twoDiceSumPmf,
+  secondsToEnumerate,
+  formatDurationPt,
+  SHANNON_GAME_TREE,
 } from "./index";
 
 describe("combinatorics", () => {
@@ -155,6 +159,12 @@ describe("war enumerate", () => {
     });
   });
 
+  it("exact conquest: 2 vs 1 is a single 1v1 (15/36)", () => {
+    expect(pConquestExact(2, 1)).toBeCloseTo(15 / 36, 10);
+    expect(pConquestExact(1, 5)).toBe(0);
+    expect(pConquestExact(8, 0)).toBe(1);
+  });
+
   it("equal 7-territory deal is ~8.57e28, not 1.03e31", () => {
     const n = Number(warEqualPartitionCount());
     expect(n).toBeGreaterThan(8e28);
@@ -167,5 +177,14 @@ describe("CI", () => {
     const a = confidenceInterval95(0.5, 100);
     const b = confidenceInterval95(0.5, 10000);
     expect(b.high - b.low).toBeLessThan(a.high - a.low);
+  });
+});
+
+describe("compute scale", () => {
+  it("formats Perft-sized counts as seconds and Shannon as universe ages", () => {
+    expect(secondsToEnumerate(1_000_000_000)).toBe(1);
+    expect(formatDurationPt(0.000047)).toMatch(/µs/);
+    const shannonSec = secondsToEnumerate(SHANNON_GAME_TREE);
+    expect(formatDurationPt(shannonSec)).toMatch(/universo/);
   });
 });

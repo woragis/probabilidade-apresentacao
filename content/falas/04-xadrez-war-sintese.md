@@ -54,17 +54,17 @@ Humano não sorteia: teoria de aberturas concentra massa.
 
 ### 29. Simulador xadrez
 
-Mostre lado a lado:
+Mostre lado a lado 20ⁿ vs Perft, depois o **relógio**:
 
-- 20ⁿ vs Perft (contagem)  
-- 1/20ⁿ vs 1/Perft (chance)
+- contar Perft(n) a 10⁹ posições/s ainda cabe  
+- contar todas as partidas (~10¹²⁰, Shannon) são **idades do universo**
 
 Fala curta:
 
-“1/20ⁿ é maior que 1/Perft: o modelo ingênuo superestima a chance.  
-E uniforme ainda não é humano — uma Siciliana é bem mais comum que 1/Perft, mas repetir uma partida inteira continua minúsculo.”
+“Por isso o computador não conta a árvore inteira — ele busca (Stockfish).  
+1/20ⁿ superestima a chance. E uniforme ainda não é humano.”
 
-**Gancho:** no War, a mesma ideia aparece em batalhas.
+**Gancho:** no War, a mesma ideia — e lá a máquina consegue prever.
 
 ---
 
@@ -72,20 +72,23 @@ E uniforme ainda não é humano — uma Siciliana é bem mais comum que 1/Perft,
 
 ### 30. Hook
 
-Com 10 × 5, eu conquisto **este** território?  
-War: até 3 dados de cada lado. Não é o jogo inteiro.
+10 exércitos no seu território, 5 no do vizinho.  
+**Ganha** se o defensor chegar a 0.  
+**Para (não conquistou)** se você ficar com 1 — deixa alguém na origem.  
+Não é o mapa inteiro.
 
-**Gancho:** a assimetria dos dados.
+**Gancho:** como se compara os dados.
 
 ---
 
-### 31. Combate — empate não é 50%
+### 31. Combate — como se joga
 
-Fala (≈ 35 s):
+Fala (≈ 40 s):
 
-“Dados justos não tornam o combate justo. Um contra um: 15 em 36, porque empate fica com a defesa — não é 50%.  
-E 3 contra 3 não é três vezes 1v1: os dados são ordenados, universo 46.656. O defensor perde um pouco menos, em média.  
-Risk clássico é 3v2. Aqui é War.”
+“Rola até 3 dados. Ordena do maior para o menor. Compara par a par.  
+Maior estrito ganha; empate fica com a defesa.  
+Exemplo no slide: 6-4-2 contra 5-4-1 → A perde 1, D perde 2.  
+Por isso 1v1 é 15 em 36, não 50%. 3v3 não é três vezes 1v1.”
 
 **Gancho:** agora em sequência de turnos.
 
@@ -93,9 +96,8 @@ Risk clássico é 3v2. Aqui é War.”
 
 ### 32. Cadeia
 
-Cada rolagem atualiza o par (A, D).  
-Atacante para em 1 tropa (deixa a origem).  
-O slide mostra quantos dados cada lado está rolando agora.
+Começa 8 contra 4. Cada clique é uma rolagem.  
+D = 0: conquistou. A = 1: parou — o território continua do defensor.
 
 **Gancho:** além da batalha, o setup já é gigante.
 
@@ -116,8 +118,9 @@ Isso é combinatória do **setup**, não P(conquistar um território).
 
 ### 34. Simulador War
 
-A pergunta do hook, com N batalhas i.i.d.  
-p̂ + IC 95%. Defensor até 3 dados.
+O computador **já prevê**: p exato da cadeia (A, D).  
+Enumerar um 3v3 são microssegundos — no xadrez a árvore inteira não cabe.  
+Monte Carlo confere (p̂ + IC).
 
 **Gancho:** agora o mesmo motor nos dois mundos — Markov.
 
@@ -127,14 +130,13 @@ p̂ + IC 95%. Defensor até 3 dados.
 
 ### 35. O que é Markov (visual)
 
-Fala (≈ 40 s):
+Fala (≈ 35 s):
 
-“Cadeia de Markov: o amanhã só precisa do hoje.  
-Três lugares: casa, orla, faculdade. Cada seta é P(ir para B | estar em A).  
-Clique amanhã. O token anda. A história completa não entra na próxima decisão — só o estado atual.
+“Não precisa da lista da semana. Onde você está **hoje** já diz as chances de amanhã.  
+Clique Amanhã. Só as setas que saem do círculo âmbar importam.  
+A trilha é memória para nós; a máquina ignora.
 
-Isso é o mesmo motor do xadrez (posição) e do War (tropas).  
-E liga de volta aos encontros: rotina no espaço, não só contagem de pessoas.”
+Depois: xadrez = a posição agora. War = as tropas agora. Mesma máquina.”
 
 **Gancho:** no tabuleiro, o estado é a posição.
 

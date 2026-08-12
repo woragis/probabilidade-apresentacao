@@ -16,6 +16,9 @@ import {
   perftSequences,
   SAMPLE_BRANCHING_PATH,
   uniformOverLeavesProbability,
+  secondsToEnumerate,
+  formatDurationPt,
+  SHANNON_GAME_TREE,
 } from "@/lib/math";
 
 const HINTS = {
@@ -38,6 +41,8 @@ const HINTS = {
     "P desta trajetória se, em cada posição, o lance fosse sorteado uniforme entre os legais. É UM caminho, não “a probabilidade do xadrez”. Humano não sorteia: teoria de aberturas concentra massa em poucas linhas.",
   markov:
     "Nas regras, o conjunto de lances legais depende só do estado atual — não da história completa. Estado ≠ só as peças: roque, en passant, regra dos 50 lances também entram. Jogador real ainda escolhe com memória e teoria; o tabuleiro, não.",
+  relogio:
+    "Se um computador olhasse 10⁹ posições por segundo (teto otimista, melhor que um laptop). Perft nesta profundidade ainda cabe no relógio. A árvore de partidas inteiras (~10¹²⁰, Shannon) não: por isso o motor busca, não conta tudo.",
 } as const;
 
 function fmtProb(p: number): string {
@@ -294,8 +299,16 @@ export function ChessSimulatorSlide() {
     return naive / perft;
   }, [naive, perft]);
 
+  const perftSeconds = perft != null ? secondsToEnumerate(perft) : null;
+  const shannonSeconds = secondsToEnumerate(SHANNON_GAME_TREE);
+
   return (
     <SlideShell eyebrow="Simulator" title="Ingênuo vs real" wide>
+      <p className="mb-5 max-w-3xl text-text-subtle">
+        Contar as sequências legais nesta profundidade ainda cabe num computador. Contar{" "}
+        <span className="text-cream">todas as partidas</span> não — por isso o motor busca, não
+        enumera.
+      </p>
       <div className="max-w-md" onKeyDown={(e) => e.stopPropagation()}>
         <SliderControl
           label="Profundidade"
@@ -364,6 +377,26 @@ export function ChessSimulatorSlide() {
         Siciliana bem mais comum que 1/Perft — e ainda assim repetir uma partida
         inteira lance a lance continua minúsculo.
       </p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div className="rounded border border-teal/30 bg-teal/10 p-4">
+          <p className="text-xs tracking-[0.14em] text-cream/40 uppercase">
+            <Hint title="relógio" body={HINTS.relogio}>
+              contar Perft(n) a 10⁹/s
+            </Hint>
+          </p>
+          <p className="mt-2 font-mono text-2xl text-teal">
+            {perftSeconds != null ? formatDurationPt(perftSeconds) : "—"}
+          </p>
+        </div>
+        <div className="rounded border border-amber/30 bg-amber/10 p-4">
+          <p className="text-xs tracking-[0.14em] text-cream/40 uppercase">
+            todas as partidas (~10¹²⁰)
+          </p>
+          <p className="mt-2 font-mono text-2xl text-amber">
+            {formatDurationPt(shannonSeconds)}
+          </p>
+        </div>
+      </div>
     </SlideShell>
   );
 }
