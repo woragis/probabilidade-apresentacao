@@ -11,6 +11,10 @@ npm run dev
 
 Abra [http://localhost:3000](http://localhost:3000).
 
+## Deploy
+
+Vercel no próprio repo (`output: "export"`). No dashboard, deixe **Output Directory vazio** — o preset Next.js já serve `/`.
+
 ## Controles (projetor)
 
 | Tecla | Ação |
