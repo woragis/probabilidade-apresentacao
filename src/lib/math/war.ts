@@ -8,6 +8,26 @@ export type WarOutcome = {
   defenderLosses: number;
 };
 
+export type WarPair = {
+  attacker: number;
+  defender: number;
+  winner: "A" | "D";
+};
+
+export function warPairComparisons(
+  attackerDice: number[],
+  defenderDice: number[],
+): WarPair[] {
+  const a = sortDesc(attackerDice).slice(0, 3);
+  const d = sortDesc(defenderDice).slice(0, 3);
+  const pairs = Math.min(a.length, d.length);
+  return Array.from({ length: pairs }, (_, i) => ({
+    attacker: a[i]!,
+    defender: d[i]!,
+    winner: a[i]! > d[i]! ? "A" : "D",
+  }));
+}
+
 /**
  * One War combat roll (Grow): attacker and defender up to 3 dice.
  * Pair highest vs highest, then next, then next.
@@ -17,13 +37,11 @@ export function resolveWarRoll(
   attackerDice: number[],
   defenderDice: number[],
 ): WarOutcome {
-  const a = sortDesc(attackerDice).slice(0, 3);
-  const d = sortDesc(defenderDice).slice(0, 3);
+  const pairs = warPairComparisons(attackerDice, defenderDice);
   let attackerLosses = 0;
   let defenderLosses = 0;
-  const pairs = Math.min(a.length, d.length);
-  for (let i = 0; i < pairs; i++) {
-    if (a[i]! > d[i]!) defenderLosses += 1;
+  for (const p of pairs) {
+    if (p.winner === "A") defenderLosses += 1;
     else attackerLosses += 1;
   }
   return { attackerLosses, defenderLosses };

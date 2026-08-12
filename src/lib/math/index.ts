@@ -29,6 +29,7 @@ export {
 
 export {
   resolveWarRoll,
+  warPairComparisons,
   rollDie,
   rollDice,
   diceCounts,

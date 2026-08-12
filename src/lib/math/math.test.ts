@@ -9,6 +9,7 @@ import {
   enumerateCombat,
   diceCounts,
   resolveWarRoll,
+  warPairComparisons,
   warEqualPartitionCount,
   pAttackerWinsOneVsOne,
   pConquestExact,
@@ -157,6 +158,15 @@ describe("war enumerate", () => {
       attackerLosses: 3,
       defenderLosses: 0,
     });
+  });
+
+  it("pairs highest vs highest and labels the winner", () => {
+    const pairs = warPairComparisons([2, 6, 4], [1, 5, 4]);
+    expect(pairs).toEqual([
+      { attacker: 6, defender: 5, winner: "A" },
+      { attacker: 4, defender: 4, winner: "D" },
+      { attacker: 2, defender: 1, winner: "A" },
+    ]);
   });
 
   it("exact conquest: 2 vs 1 is a single 1v1 (15/36)", () => {

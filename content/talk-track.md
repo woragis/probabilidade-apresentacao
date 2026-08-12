@@ -174,7 +174,7 @@ Formato por slide:
 
 ### 32. war-chain
 - **Objetivo:** Uma rolagem de cada vez até D=0 ou A=1.
-- **Fala sugerida:** "Clique rolar. D=0 conquistou. A=1 parou — o território continua do defensor."
+- **Fala sugerida:** "Clique rolar. O painel compara A1×D1, A2×D2, A3×D3 — quem ganhou cada linha e quem levou a rolagem. D=0 conquistou. A=1 parou."
 - **Gancho:** "Além da batalha, o setup inicial já é gigante."
 
 ### 33. war-parts

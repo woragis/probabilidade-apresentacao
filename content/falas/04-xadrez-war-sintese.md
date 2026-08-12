@@ -102,6 +102,7 @@ Por isso 1v1 é 15 em 36, não 50%. 3v3 não é três vezes 1v1.”
 ### 32. Cadeia
 
 Começa 8 contra 4. Cada clique é uma rolagem.  
+O painel mostra **A1×D1, A2×D2, A3×D3** (já ordenados, maior primeiro): quem ganhou cada linha, e quem levou a rolagem.  
 D = 0: conquistou. A = 1: parou — o território continua do defensor.
 
 **Gancho:** além da batalha, o setup já é gigante.

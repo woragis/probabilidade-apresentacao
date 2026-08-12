@@ -14,6 +14,7 @@ import {
   pConquestExact,
   resolveWarRoll,
   rollDice,
+  warPairComparisons,
   warEqualPartitionCount,
   secondsToEnumerate,
   formatDurationPt,
@@ -187,6 +188,16 @@ export function WarChainSlide() {
   const dice = diceCounts(a, d);
   const conquered = d === 0;
   const exhausted = a <= 1 && d > 0;
+  const pairs = last ? warPairComparisons(last.aDice, last.dDice) : [];
+  const lastOutcome = last ? resolveWarRoll(last.aDice, last.dDice) : null;
+  const roundWinner =
+    lastOutcome == null
+      ? null
+      : lastOutcome.attackerLosses < lastOutcome.defenderLosses
+        ? "A"
+        : lastOutcome.defenderLosses < lastOutcome.attackerLosses
+          ? "D"
+          : "empate";
 
   const step = () => {
     if (a <= 1 || d <= 0) return;
@@ -210,6 +221,8 @@ export function WarChainSlide() {
         <span className="text-teal">D = 0: conquistou.</span>{" "}
         <span className="text-amber">A = 1: parou, o território continua do defensor.</span>
       </p>
+      <div className="grid items-start gap-8 lg:grid-cols-[1fr_minmax(0,22rem)]">
+      <div>
       <div className="flex gap-10 text-center">
         <div>
           <p className="text-xs text-cream/40">
@@ -238,11 +251,6 @@ export function WarChainSlide() {
           </p>
         </div>
       </div>
-      {last ? (
-        <p className="mt-4 font-mono text-sm text-cream/70">
-          última: A [{last.aDice.join(" · ")}] vs D [{last.dDice.join(" · ")}]
-        </p>
-      ) : null}
       <div className="mt-6 flex gap-3">
         <PrimaryButton onClick={step} disabled={conquered || exhausted}>
           Rolar dados
@@ -272,6 +280,47 @@ export function WarChainSlide() {
           Ataque esgotado: ficou 1 na origem. O defensor ficou com o território.
         </p>
       ) : null}
+      </div>
+      <div className="rounded border border-white/10 bg-white/[0.03] p-4">
+        <p className="mb-3 text-xs tracking-[0.14em] text-cream/40 uppercase">
+          dados ordenados · maior primeiro
+        </p>
+        {pairs.length ? (
+          <div className="space-y-2 font-mono text-sm">
+            {pairs.map((p, i) => (
+              <div
+                key={i}
+                className="grid grid-cols-[2.5rem_2rem_1.25rem_2rem_2.5rem_1fr] items-center gap-1"
+              >
+                <span className="text-teal">A{i + 1}</span>
+                <span className="text-center text-lg text-teal">{p.attacker}</span>
+                <span className="text-center text-cream/35">×</span>
+                <span className="text-center text-lg text-amber">{p.defender}</span>
+                <span className="text-amber">D{i + 1}</span>
+                <span className={p.winner === "A" ? "text-teal" : "text-amber"}>
+                  {p.winner === "A" ? "atacante" : p.attacker === p.defender ? "defesa (empate)" : "defesa"}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-cream/40">Clique para ver A1×D1, A2×D2, A3×D3.</p>
+        )}
+        {lastOutcome && roundWinner ? (
+          <p className="mt-4 text-sm text-text-subtle">
+            rolagem: A −{lastOutcome.attackerLosses} · D −{lastOutcome.defenderLosses}
+            {" → "}
+            <span className={roundWinner === "D" ? "text-amber" : "text-teal"}>
+              {roundWinner === "A"
+                ? "atacante levou esta rolagem"
+                : roundWinner === "D"
+                  ? "defesa levou esta rolagem"
+                  : "empate nesta rolagem"}
+            </span>
+          </p>
+        ) : null}
+      </div>
+      </div>
     </SlideShell>
   );
 }
