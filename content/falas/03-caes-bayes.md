@@ -2,7 +2,8 @@
 
 ## 18. Framing ético
 
-O olho cai no pack de silhuetas — **não** numa foto de raça.  
+O olho cai na **cena de rua** — pessoa e cão no parque, de costas — **não** num retrato de raça.  
+A marca SVG no canto (e nos slides seguintes) é abstração; a foto é cenário.  
 Estamos modelando um **cenário de risco** com números e condicionais.  
 Não estamos definindo essência de raça, nem fazendo julgamento moral disfarçado de estatística.
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import {
   Bar,
   BarChart,
@@ -13,7 +14,7 @@ import {
 import { Formula } from "@/components/deck/Formula";
 import { PrimaryButton, SliderControl } from "@/components/deck/Controls";
 import { DataLabel } from "@/components/deck/DataLabel";
-import { DogMark, DogPack } from "@/components/deck/DogMark";
+import { DogMark } from "@/components/deck/DogMark";
 import { SlideShell } from "@/components/deck/SlideShell";
 import { bayesBinary, chainProduct } from "@/lib/math";
 
@@ -31,8 +32,23 @@ export const FATAL_BY_BREED = [
 export function DogsEthicsSlide() {
   return (
     <SlideShell eyebrow="Cães & Bayes" title="Dados, não estigma" wide>
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,22rem)_1fr]">
-        <DogPack />
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,28rem)_1fr]">
+        <figure className="w-full">
+          <div className="relative aspect-[8/5] overflow-hidden rounded-lg border border-teal/30">
+            <Image
+              src="/media/dogs/street.jpg"
+              alt="Pessoa de costas passeando um cão no parque"
+              fill
+              className="object-cover"
+              sizes="28rem"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/35" />
+            <DogMark pose="sit" className="absolute right-3 bottom-3 h-12 w-14 text-amber/85" />
+          </div>
+          <figcaption className="mt-2 text-[10px] tracking-wide text-cream/35">
+            Anne Worner · CC BY-SA 2.0
+          </figcaption>
+        </figure>
         <ul className="max-w-xl space-y-5 text-lg text-cream/80">
           <li>Probabilidade de cenário, não essência de raça.</li>
           <li>

@@ -34,7 +34,8 @@ Assets under `public/media/`. Prefer calm loops; no frantic GIFs yet.
 
 | File | Source | Query | Notes |
 |------|--------|-------|-------|
-| `silhouette.png` | Wikimedia | dog silhouette | Unused — ethics slide now uses SVG `DogMark` |
+| `street.jpg` | Flickr / Openverse (Anne Worner, CC BY-SA 2.0) | walking dog street leash | Ethics slide: park walk from behind, not a breed portrait |
+| `silhouette.png` | Wikimedia | dog silhouette | Unused |
 
 ## Gaps / follow-up
 

@@ -99,8 +99,8 @@ Formato por slide:
 ## Cães e Bayes
 
 ### 18. dogs-ethics
-- **Objetivo:** Enquadramento responsável. Olho no pack SVG + “cenário, não essência”.
-- **Fala sugerida:** "Silhuetas, não raça. Estamos modelando cenário de risco, não definindo essência."
+- **Objetivo:** Enquadramento responsável. Olho na cena de rua, não num retrato de raça.
+- **Fala sugerida:** "Cena de encontro — pessoa e cão no parque, de costas. Não é retrato de raça. Estamos modelando cenário de risco, não essência. A marca SVG segue nos próximos slides."
 - **Gancho:** "Com isso claro, montamos a cadeia."
 
 ### 19. dogs-chain
