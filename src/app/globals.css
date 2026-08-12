@@ -34,14 +34,141 @@
 
 html,
 body {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
   background: var(--ink);
   color: var(--cream);
 }
 
 body {
   font-family: var(--font-body), "Inter", "Segoe UI", sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.falas {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.falas h1 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  color: var(--cream);
+}
+
+.falas h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.25rem;
+  margin: 1.75rem 0 0.75rem;
+  color: var(--amber);
+}
+
+.falas h3 {
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin: 0 0 0.65rem;
+  color: var(--teal-bright);
+}
+
+.falas p {
+  margin: 0 0 0.85rem;
+  color: var(--cream);
+}
+
+.falas .gancho {
+  color: var(--amber);
+}
+
+.falas ul,
+.falas ol {
+  margin: 0 0 0.85rem;
+  padding-left: 1.2rem;
+}
+
+.falas li {
+  margin-bottom: 0.35rem;
+}
+
+.falas blockquote {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid var(--teal);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.falas blockquote p {
+  margin: 0;
+}
+
+.falas blockquote p + p {
+  margin-top: 0.5rem;
+}
+
+.falas hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.25rem 0;
+}
+
+.falas code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.88em;
+  color: var(--teal-bright);
+}
+
+.falas a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.falas strong {
+  color: var(--cream);
+  font-weight: 650;
+}
+
+.falas .slide-card {
+  margin: 0 0 1rem;
+  padding: 1rem 1rem 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  background: var(--ink-elevated);
+}
+
+.falas .table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.falas table {
+  width: 100%;
+  min-width: 28rem;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.falas th,
+.falas td {
+  text-align: left;
+  padding: 0.45rem 0.55rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  vertical-align: top;
+}
+
+.falas th {
+  color: var(--text-subtle);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .font-display {

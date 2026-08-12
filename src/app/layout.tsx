@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full overflow-hidden bg-ink text-cream">{children}</body>
+      <body className="min-h-full bg-ink text-cream">{children}</body>
     </html>
   );
 }

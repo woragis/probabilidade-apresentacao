@@ -15,6 +15,8 @@ Abra [http://localhost:3000](http://localhost:3000).
 
 Vercel no próprio repo (`output: "export"`). No dashboard, deixe **Output Directory vazio** — o preset Next.js já serve `/`.
 
+Falas no celular: [`/roteiro`](https://probabilidade.woragis.me/roteiro).
+
 ## Controles (projetor)
 
 | Tecla | Ação |
