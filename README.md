@@ -23,6 +23,10 @@ Abra [http://localhost:3000](http://localhost:3000).
 
 Cliques ficam reservados a simulators e toggles.
 
+**41 slides** · seções: Abertura → Fundamentos → Encontros → Cães & Bayes → Xadrez → War → Síntese.
+
+Mídia: ver [`content/media-manifest.md`](content/media-manifest.md).
+
 ## Scripts
 
 ```bash
